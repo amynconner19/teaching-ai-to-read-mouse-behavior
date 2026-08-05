@@ -65,7 +65,6 @@ The current workflow requires manual transitions between several software tools.
 | SimBA integration | Automate feature extraction and classifier execution | SimBA, behavioral analysis |
 | Behavioral classification | Build baseline models for inactive states | Machine learning, time series, statistics |
 | Visualization | Standardize plots, summaries, and quality-control reports | pandas, matplotlib |
-| Documentation | Improve onboarding, examples, and troubleshooting | Technical writing, GitHub |
 | Validation | Define test cases, expected outputs, and metrics | Testing, statistics, neuroscience |
 
 Participants do not need experience in every area.
