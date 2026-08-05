@@ -1,78 +1,48 @@
 # Current BIOMAP Workflow
 
-Current BIOMAP analysis requires multiple independent software packages and
-numerous manual steps.
+## Overview
 
-## Step 1
-Acquire behavioral video
+The current BIOMAP workflow combines multiple software packages and custom analysis scripts to quantify pain-related behavior from behavioral videos.
 
-↓
+While the workflow is functional, it requires numerous manual steps, transitions between independent software packages, and repeated user interaction.
 
-## Step 2
-Open DeepLabCut
+The goal of this document is to describe the current workflow and identify opportunities for automation.
 
-↓
+---
 
-Create/load project
+# Current Workflow
 
-↓
-
-Extract frames
-
-↓
-
-Label body parts
-
-↓
-
-Train network
-
-↓
-
-Analyze video
-
-↓
-
-Export tracking CSV
-
-↓
-
-## Step 3
-Open SimBA
-
-↓
-
-Create/load project
-
-↓
-
-Import video
-
-↓
-
-Import DLC CSV
-
-↓
-
-Extract features
-
-↓
-
-(Optional) Train classifier
-
-↓
-
-Run classifier
-
-↓
-
-Export machine results
-
-↓
-
-## Step 4
-Generate figures
-
-↓
-
-Perform statistics
+```text
+Behavioral Video
+        │
+        ▼
+DeepLabCut
+    • Create/Open Project
+    • Import Videos
+    • Extract Frames
+    • Label Frames
+    • Train Network
+    • Analyze Videos
+    • Export Tracking CSV
+        │
+        ▼
+Tracking CSV
+        │
+        ▼
+SimBA
+    • Create/Open Project
+    • Import Videos
+    • Import Tracking Data
+    • Extract Features
+    • Train Behavioral Classifiers (optional)
+    • Run Machine Models
+    • Export Behavioral Predictions
+        │
+        ▼
+BIOMAP Analysis Scripts
+    • Calculate Pain Metrics
+    • Generate Figures
+    • Perform Statistical Analysis
+        │
+        ▼
+Final Results
