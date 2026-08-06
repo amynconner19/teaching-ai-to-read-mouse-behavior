@@ -1,18 +1,158 @@
-# Teaching AI to Read Mouse Behavior
+# BIOMAP
+### Teaching AI to Read Mouse Behavior
 
-> **BrainHack Project:** Transform the current manual BIOMAP workflow into an open-source, automated, end-to-end behavioral analysis pipeline that processes batches of mouse behavioral videos from raw video to publication-ready results.
+> **BrainHack Project:** Transform the current BIOMAP workflow into an open-source, automated, end-to-end behavioral analysis pipeline that processes batches of mouse behavioral videos—from raw videos to publication-ready figures and analysis-ready data.
 
 ---
 
-# TL;DR
+# Overview
 
-The **Behavioral Inventory of Mouse Affective Pain (BIOMAP)** is a machine learning–based behavioral assay developed in the Wood Lab that combines computer vision, pose estimation, behavioral classification, and custom analyses to quantify pain-related behavior in freely moving mice.
+The **Behavioral Inventory of Mouse Affective Pain (BIOMAP)** is a machine learning–based behavioral assay developed in the Wood Lab that quantifies pain-related behavior in freely moving mice using computer vision, pose estimation, behavioral classification, and custom behavioral analyses.
 
-The current BIOMAP workflow spans multiple software packages—including **DeepLabCut**, **SimBA**, and custom analysis scripts—and requires substantial manual interaction.
+The current BIOMAP workflow combines:
 
-The goal of this BrainHack project is to begin transforming that workflow into a reproducible, automated, open-source pipeline capable of processing batches of behavioral videos with minimal user intervention.
+- Multiple trained DeepLabCut models
+- SimBA behavioral classification
+- Custom Python analysis scripts
+- Manual calculations
+- Manual figure generation
+- Manual statistical analyses
 
-Along the way, participants will also explore improved behavioral classification methods for distinguishing pain-related immobility from sleep, rest, and other inactive behavioral states.
+While the workflow has successfully supported published research, many downstream analysis steps still require substantial user interaction.
+
+The goal of this BrainHack project is to begin transforming this workflow into a reproducible, automated, and open-source software pipeline.
+
+---
+
+# Long-Term Vision
+
+Ultimately, a researcher should be able to analyze an entire experiment using a single command.
+
+```bash
+biomap analyze data/raw_videos/
+```
+
+The software would automatically:
+
+- Validate input videos and metadata
+- Run all required DeepLabCut models
+- Generate pose-estimation outputs
+- Run SimBA behavioral analyses
+- Calculate BIOMAP behavioral metrics
+- Normalize measurements to baseline
+- Calculate composite pain scores
+- Generate publication-quality figures
+- Export analysis-ready datasets
+- Produce quality-control reports
+
+allowing researchers to focus on scientific interpretation rather than manual data processing.
+
+---
+
+# Why This Matters
+
+Behavioral phenotyping often requires researchers to manually move between multiple software packages, repeatedly import and export intermediate files, perform manual calculations, and generate figures using several independent tools.
+
+Automating the BIOMAP workflow will:
+
+- Improve reproducibility
+- Reduce manual processing time
+- Standardize analyses across laboratories
+- Simplify onboarding for new users
+- Improve transparency
+- Enable larger behavioral datasets
+- Facilitate collaborative software development
+
+Although BIOMAP was originally developed to study sound-evoked pain, the resulting software could support research in:
+
+- Pain
+- Neuroscience
+- Neurodegeneration
+- Movement disorders
+- Drug discovery
+- Automated behavioral phenotyping
+
+---
+
+# Current Workflow
+
+Today's workflow consists of several independent analysis stages.
+
+```text
+Batch of Behavioral Videos
+            │
+            ▼
+Run trained DeepLabCut models
+            │
+            ▼
+Tracking CSV files
+            │
+            ├────────────────────────────┐
+            │                            │
+            ▼                            ▼
+BIOMAP Analysis Script              SimBA
+            │                            │
+            ▼                            ▼
+Facial & Body Metrics          Complex Behaviors
+            │                            │
+            └──────────────┬─────────────┘
+                           ▼
+                  Manual Calculations
+                           ▼
+                  Manual Figure Generation
+                           ▼
+                  Manual Statistics (Prism)
+```
+
+For a detailed description of the current workflow:
+
+- [Current Workflow](docs/CURRENT_WORKFLOW.md)
+
+---
+
+# BrainHack Objectives
+
+## Objective 1
+
+### Build an Automated End-to-End BIOMAP Pipeline
+
+Automate the existing workflow so that batches of behavioral videos can be processed with minimal user interaction.
+
+Desired capabilities include:
+
+- Running multiple trained DeepLabCut models automatically
+- Executing the existing BIOMAP analysis scripts
+- Running SimBA automatically
+- Organizing intermediate files
+- Calculating baseline-normalized behavioral metrics
+- Automatically calculating composite scores
+- Generating standardized figures
+- Exporting analysis-ready tables
+
+---
+
+## Objective 2
+
+### Improve Behavioral-State Classification
+
+Current BIOMAP analyses quantify facial grimace, body position, and complex behaviors.
+
+BrainHack participants may also explore methods for improving classification of inactive behavioral states, including:
+
+- Pain-related immobility
+- Sleep
+- Rest
+- Quiet wakefulness
+
+Potential approaches include:
+
+- Pose-estimation features
+- Temporal information
+- Machine learning
+- Rule-based classification
+- Additional behavioral features
+
+A fully validated classifier is **not expected** during the BrainHack weekend.
 
 ---
 
@@ -22,107 +162,28 @@ Along the way, participants will also explore improved behavioral classification
 
 - [BIOMAP bioRxiv Preprint](paper/BIOMAP_Biorxiv.pdf)
 
-## Workflow Documentation
+## Documentation
 
-- [Current BIOMAP Workflow](docs/CURRENT_WORKFLOW.md)
-- [Desired BIOMAP Workflow](docs/DESIRED_WORKFLOW.md)
+- [Current Workflow](docs/CURRENT_WORKFLOW.md)
+- [Desired Workflow](docs/DESIRED_WORKFLOW.md)
+- [Pipeline Components](docs/PIPELINE_COMPONENTS.md)
+- [Video Structure](docs/VIDEO_STRUCTURE.md)
 
 ## Software
 
 - [Software Overview](docs/software/README.md)
 - [Install DeepLabCut](docs/software/INSTALL_DEEPLABCUT.md)
+- [Run DeepLabCut](docs/software/RUN_DEEPLABCUT.md)
 - [Install SimBA](docs/software/INSTALL_SIMBA.md)
+- [Run SimBA](docs/software/RUN_SIMBA.md)
 
 ## Data
 
 - [Raw Video Directory](data/raw/README.md)
 
----
+## Analysis
 
-# Why this Matters
-
-Current behavioral analysis pipelines often require researchers to manually transition between multiple software packages, repeatedly export and import intermediate files, and perform numerous GUI-based operations.
-
-By transforming BIOMAP into an automated, reproducible workflow, we hope to:
-
-- Reduce manual data processing
-- Improve reproducibility across researchers and laboratories
-- Standardize behavioral analyses
-- Simplify onboarding for new users
-- Enable larger-scale behavioral studies
-- Accelerate scientific discovery
-
-Although BIOMAP was originally developed to quantify sound-evoked pain, the resulting software could support research in pain, behavior, neurodegeneration, movement disorders, drug discovery, and other fields that rely on automated behavioral phenotyping.
-
----
-
-# BrainHack Objectives
-
-## Objective 1: Build an Automated End-to-End BIOMAP Pipeline
-
-Develop an open, reproducible workflow capable of processing an entire batch of behavioral videos with minimal user interaction.
-
-The long-term vision is a single command such as
-
-```bash
-biomap analyze data/raw_videos/
-```
-
-that automatically:
-
-- Validates input videos and metadata
-- Runs DeepLabCut pose estimation
-- Performs tracking quality-control checks
-- Runs SimBA feature extraction and behavioral classification
-- Calculates BIOMAP behavioral features and pain-related metrics
-- Generates standardized figures and reports
-- Produces reproducible output files
-
-BrainHack participants will contribute individual components toward this larger pipeline.
-
----
-
-## Objective 2: Improve Behavioral-State Classification
-
-Current BIOMAP analysis assumes reduced movement may indicate pain. However, mice may also be:
-
-- Sleeping
-- Resting
-- Quietly awake
-- Engaging in other low-movement behaviors
-
-Participants will explore approaches for distinguishing these behavioral states using:
-
-- Pose-estimation data
-- Postural features
-- Velocity and acceleration
-- Temporal information
-- Facial features
-- Machine-learning methods
-- Rule-based approaches
-
-The goal is to establish useful baseline methods, identify promising features, and define future directions for behavioral-state classification.
-
-A fully validated classifier is **not expected** during the BrainHack weekend.
-
----
-
-# Current BIOMAP Workflow
-
-BIOMAP currently combines:
-
-- **DeepLabCut** for markerless pose estimation
-- **SimBA** for behavioral feature extraction and supervised behavioral classification
-- **Custom BIOMAP analysis scripts** for feature extraction, pain metrics, visualization, and statistical analysis
-
-The current workflow requires repeated manual interaction and transitions between multiple independent software packages.
-
-One major goal of this BrainHack project is to automate these transitions and reduce the workflow to a single reproducible pipeline.
-
-For additional details, see:
-
-- [Current BIOMAP Workflow](docs/CURRENT_WORKFLOW.md)
-- [Desired BIOMAP Workflow](docs/DESIRED_WORKFLOW.md)
+- [BIOMAP Analysis](docs/analysis/README.md)
 
 ---
 
@@ -132,15 +193,18 @@ Participants are encouraged to contribute wherever their interests and expertise
 
 | Track | Example Tasks | Helpful Skills |
 |---------|---------------|----------------|
-| **Pipeline Engineering** | Connect DeepLabCut, SimBA, and BIOMAP into a unified workflow | Python, software engineering |
-| **DeepLabCut Integration** | Automate pose estimation and tracking workflows | DeepLabCut, computer vision |
-| **SimBA Integration** | Automate feature extraction and behavioral classification | SimBA, behavioral analysis |
-| **Behavioral Classification** | Improve classification of pain-related immobility versus other inactive states | Machine learning, statistics, time-series analysis |
-| **Visualization & Reporting** | Generate publication-quality figures and standardized reports | pandas, matplotlib, Plotly |
-| **Validation & Quality Control** | Build testing, quality-control tools, and reproducibility checks | Statistics, software testing |
-| **Documentation & User Experience** | Improve installation guides, tutorials, workflow diagrams, onboarding materials, and troubleshooting | Technical writing, GitHub, Markdown |
+| Pipeline Engineering | Connect existing software into a unified workflow | Python, software engineering |
+| DeepLabCut Integration | Automate execution of trained DeepLabCut models | DeepLabCut, computer vision |
+| SimBA Integration | Automate behavioral classification | SimBA, behavioral analysis |
+| BIOMAP Analysis | Automate composite score calculations and baseline normalization | Python, data analysis |
+| Figure Generation | Create publication-quality figures | matplotlib, Plotly |
+| Quality Control | Build validation and QC reports | Statistics, software testing |
+| Documentation | Improve onboarding, tutorials, diagrams, and troubleshooting | GitHub, Markdown |
+| Experimental Design | Automate metadata handling, sound epochs, and baseline calculations | Neuroscience, data science |
 
-Participants **do not need experience in every area.** We welcome contributors from neuroscience, computer science, data science, engineering, and related disciplines.
+Participants **do not need experience in every area.**
+
+We welcome contributors from neuroscience, computer science, engineering, data science, machine learning, software engineering, and scientific visualization.
 
 ---
 
@@ -148,65 +212,43 @@ Participants **do not need experience in every area.** We welcome contributors f
 
 The goal is **not** to complete the entire pipeline in one weekend.
 
-Instead, we hope to make meaningful progress by producing:
+Instead, we hope to make meaningful progress by:
 
-- New automation tools
-- Pipeline components
-- Improved behavioral classification methods
-- Standardized workflows
-- Documentation and onboarding materials
-- Quality-control tools
-- Data visualization improvements
-- Clearly defined future development priorities
+- Automating portions of the existing workflow
+- Connecting existing software packages
+- Improving reproducibility
+- Reducing manual calculations
+- Automating figure generation
+- Improving documentation
+- Building quality-control tools
+- Identifying future development priorities
 
 Every contribution—whether code, documentation, testing, visualization, or scientific insight—helps move BIOMAP toward a fully automated behavioral analysis platform.
 
 ---
 
-# Long-Term Vision
-
-Ultimately, BIOMAP should allow researchers to analyze an entire behavioral experiment with a single command:
-
-```bash
-biomap analyze data/raw_videos/
-```
-
-The software would then automatically:
-
-- Validate input videos
-- Run DeepLabCut pose estimation
-- Perform tracking quality control
-- Run SimBA behavioral classification
-- Calculate BIOMAP behavioral features
-- Compute pain-related metrics
-- Generate standardized figures
-- Perform statistical analyses
-- Create publication-ready reports
-- Save all outputs in a reproducible directory structure
-
-allowing researchers to focus on **scientific interpretation rather than manual data processing**.
-
----
-
 # Getting Started
 
-1. Read the [BIOMAP bioRxiv Preprint](paper/BIOMAP_Biorxiv.pdf).
-2. Read the [Current BIOMAP Workflow](docs/CURRENT_WORKFLOW.md).
-3. Read the [Desired BIOMAP Workflow](docs/DESIRED_WORKFLOW.md).
-4. Install the required software:
+If you're new to the project, we recommend the following order:
+
+1. 📖 Read the [BIOMAP bioRxiv Preprint](paper/BIOMAP_Biorxiv.pdf) to understand the scientific motivation.
+2. 🔬 Review the [Current Workflow](docs/CURRENT_WORKFLOW.md) to learn how BIOMAP is analyzed today.
+3. 🚀 Explore the [Desired Workflow](docs/DESIRED_WORKFLOW.md) to see the long-term vision for the project.
+4. 🗺️ Browse the [Pipeline Components](docs/PIPELINE_COMPONENTS.md) to identify areas for contribution.
+5. 🎥 Review the [Experimental Video Structure](docs/VIDEO_STRUCTURE.md) to understand the behavioral assay.
+6. 💻 Install the required software:
    - [Software Overview](docs/software/README.md)
    - [Install DeepLabCut](docs/software/INSTALL_DEEPLABCUT.md)
+   - [Run DeepLabCut](docs/software/RUN_DEEPLABCUT.md)
    - [Install SimBA](docs/software/INSTALL_SIMBA.md)
-5. Review the [Raw Video Directory](data/raw/README.md) to understand the expected input data structure.
-6. Browse the GitHub Issues and choose a task that matches your interests.
-7. Create a branch, make your changes, and submit a pull request.
-
-We welcome contributors with backgrounds in neuroscience, computer science, software engineering, machine learning, data science, visualization, and technical writing.
+   - [Run SimBA](docs/software/RUN_SIMBA.md)
+7. 📝 Browse the repository's **Issues** tab and choose a task that matches your interests.
+8. 🎉 Start hacking!
 
 ---
 
-# Acknowledgment
+# Acknowledgments
 
-BrainHack is designed to foster **open, collaborative scientific software development**. Contributions will be tracked through GitHub issues, pull requests, commit history, and project discussions.
+BrainHack promotes collaborative, open-source scientific software development.
 
-Meaningful contributions will be acknowledged appropriately in future software releases, presentations, preprints, and publications in accordance with standard scientific authorship and contribution practices.
+Meaningful contributions will be acknowledged appropriately in future software releases, conference presentations, preprints, and publications in accordance with standard scientific authorship and contribution practices.
