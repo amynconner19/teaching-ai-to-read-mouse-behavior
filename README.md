@@ -211,11 +211,11 @@ Every contribution—whether code, documentation, testing, visualization, or sci
 
 If you're new to the project:
 
-1. 📖 Read the [BIOMAP bioRxiv Preprint](paper/BIOMAP_Biorxiv.pdf)
-2. 🔬 Review the [Current Workflow](docs/CURRENT_WORKFLOW.md)
-3. 🚀 Explore the [Desired Workflow](docs/DESIRED_WORKFLOW.md)
-4. 💻 Install the required software using the [Software Overview](docs/software/README.md)
-5. 📝 Browse the repository's **Issues** tab
+1. Read the [BIOMAP bioRxiv Preprint](paper/BIOMAP_Biorxiv.pdf)
+2. Review the [Current Workflow](docs/CURRENT_WORKFLOW.md)
+3. Explore the [Desired Workflow](docs/DESIRED_WORKFLOW.md)
+4. Install the required software using the [Software Overview](docs/software/README.md)
+5. Browse the repository's **Issues** tab
 6. 🎉 Start hacking!
 
 ---
