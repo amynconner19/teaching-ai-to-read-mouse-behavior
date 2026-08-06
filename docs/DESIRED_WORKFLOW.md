@@ -22,56 +22,41 @@ Once started, the pipeline should automatically complete the remaining analysis 
 
 # Desired Pipeline
 
-```text
-                     Batch of Behavioral Videos
-                                │
-                                ▼
-                 Validate Inputs & Metadata
-                                │
-                                ▼
-              Run trained DeepLabCut models
-        (Primary facial/body model + paw model)
-                                │
-                                ▼
-                 Generate tracking CSV files
-                                │
-                ┌───────────────┴───────────────┐
-                │                               │
-                ▼                               ▼
-      BIOMAP Analysis Pipeline             SimBA
-                │                    Behavioral Classification
-                ▼                               │
- Calculate individual facial &                 ▼
- body-position measurements         Complex behavioral metrics
-                │               (Grooming, Rearing, Pausing,
-                │                 Respiration, etc.)
-                ▼
- Calculate percent change from
- baseline for each sound level
-                │
-                ▼
- Apply automated post-processing
- • Nose-tip crossing correction
-                │
-                ▼
- Calculate composite scores
- • Facial Grimace
- • Body Position
-                │
-                └───────────────┬───────────────┐
-                                ▼
-             Generate standardized figures
-                                │
-                                ▼
-            Export analysis-ready datasets
-                                │
-                                ▼
-                Quality-control reports
-                                │
-                                ▼
-                      Final Results
-```
+From the researcher's perspective, the entire workflow should be reduced to one input, one command, and one standardized set of outputs.
 
+```text
+┌──────────────────────────────────────────────┐
+│ INPUT                                        │
+│                                              │
+│ • Batch of behavioral videos                 │
+│ • Video metadata and randomized sound order  │
+│ • Experimental epoch definitions             │
+└──────────────────────┬───────────────────────┘
+                       │
+                       ▼
+        ┌────────────────────────────────┐
+        │                                │
+        │  biomap analyze raw_videos/    │
+        │                                │
+        │  Automated BIOMAP Pipeline     │
+        │                                │
+        └────────────────┬───────────────┘
+                         │
+                         ▼
+┌──────────────────────────────────────────────┐
+│ OUTPUT                                       │
+│                                              │
+│ • Individual facial-grimace measurements     │
+│ • Individual body-position measurements      │
+│ • Complex-behavior measurements              │
+│ • Facial Grimace composite scores            │
+│ • Body Position composite scores              │
+│ • Publication-quality figures                │
+│ • Analysis-ready datasets                    │
+│ • Quality-control reports                    │
+└──────────────────────────────────────────────┘
+
+```
 ---
 
 # Desired Outputs
