@@ -1,6 +1,6 @@
 # DeepLabCut Installation
 
-Follow the official installation instructions below.
+Install DeepLabCut by following the official documentation below.
 
 ## Official Documentation
 
@@ -13,9 +13,8 @@ Follow the official installation instructions below.
 
 ## BIOMAP Notes
 
-After installing DeepLabCut, BrainHack participants should:
+BrainHack participants are **not expected** to train new DeepLabCut models or create new DeepLabCut projects.
 
-- Verify that DeepLabCut launches successfully.
-- Confirm that a BIOMAP project can be opened.
-- Export pose-estimation results in the format expected by the BIOMAP pipeline.
-- Proceed to the SimBA installation guide.
+Instead, this project focuses on automating the execution of **existing trained DeepLabCut models** as part of the BIOMAP analysis pipeline.
+
+After installing DeepLabCut, participants should proceed to the SimBA installation guide.
