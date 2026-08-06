@@ -6,8 +6,8 @@ The BIOMAP pipeline currently relies on several software packages.
 
 | Software | Purpose |
 |-----------|----------|
-| DeepLabCut | Pose estimation |
-| SimBA | Behavioral classification |
+| DeepLabCut | Estimate mouse body-part positions from behavioral videos|
+| SimBA | Classify complex behaviors from DeepLabCut tracking data |
 
 ## Installation Guides
 
