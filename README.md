@@ -16,7 +16,7 @@
 
 # Overview
 
-The **Behavioral Inventory of Mouse Affective Pain (BIOMAP)** is a machine learning–based behavioral assay developed in the Wood Lab that quantifies pain-related behavior in freely moving mice using computer vision, pose estimation, behavioral classification, and custom analysis.
+The **Behavioral Inventory of Mouse Affective Pain (BIOMAP)** is a machine learning–based behavioral assay developed in the [HARMONIC Laboratory](https://www.harmoniclabvumc.com/) at Vanderbilt University Medical Center that quantifies pain-related behavior in freely moving mice using computer vision, pose estimation, behavioral classification, and custom analysis.
 
 BIOMAP currently combines **DeepLabCut**, **SimBA**, and custom Python scripts, but many downstream analyses, including data processing, figure generation, and statistical preparation, still require manual effort.
 
