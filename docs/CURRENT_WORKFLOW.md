@@ -13,20 +13,23 @@ The purpose of this document is to describe the current workflow and identify op
 # Current Workflow
 
 ```text
-                     Batch of Behavioral Videos
-                                │
-                                ▼
-              Run trained DeepLabCut models
-      (Primary facial/body model + Paw tracking model)
-                                │
-                                ▼
-                 Generate tracking CSV files
+                    Batch of Behavioral Videos
                                 │
                 ┌───────────────┴───────────────┐
                 │                               │
                 ▼                               ▼
+   Run trained DeepLabCut model       Run trained DeepLabCut model
+      for facial/body tracking             for paw tracking
+                │                               │
+                ▼                               ▼
+   Facial/body tracking CSV              Paw tracking CSV
+                │                               │
+                │                               │
+                │              ┌────────────────┘
+                │              │
+                ▼              ▼
       BIOMAP Analysis Script                SimBA
-     ("Sound Assay Analysis")        Behavioral Classification
+     ("Sound Assay Analysis")      Behavioral Classification
                 │                               │
                 ▼                               ▼
  Calculate individual facial &         Calculate complex
@@ -35,25 +38,30 @@ The purpose of this document is to describe the current workflow and identify op
                 │                  Pausing, Respiration)
                 ▼
  Calculate percent change from
- baseline for each sound level
+ baseline for each sound-level
+ condition
                 │
                 ▼
  Manual post-processing
- • Nose-tip crossing correction
+ • Convert cumulative nose-tip
+   crossings to epoch-specific counts
+ • Normalize the 10-minute baseline
+   to a 2-minute equivalent
                 │
                 ▼
  Manual composite score calculation
  • Facial Grimace Score
  • Body Position Score
                 │
-                ▼               
-      Manual Figure Generation 
-                │
-                ▼
-    Manual Statistical Analysis
-                │
-                ▼
-             Final Results
+                └───────────────┬───────────────┐
+                                ▼
+                    Manual Figure Generation
+                                │
+                                ▼
+                    Manual Statistical Analysis
+                                │
+                                ▼
+                           Final Results
 ```
 
 ---
