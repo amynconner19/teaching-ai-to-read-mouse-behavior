@@ -2,7 +2,7 @@
 
 ## Overview
 
-This directory contains the Python scripts that calculate BIOMAP behavioral measurements from DeepLabCut tracking data and generate the outputs used for downstream analysis.
+This directory contains the Python script that calculates BIOMAP behavioral measurements from DeepLabCut tracking data and generate the outputs used for downstream analysis.
 
 The current workflow is implemented as a standalone analysis script. During BrainHack, the goal is to refactor this workflow into a modular, automated component of the end-to-end BIOMAP pipeline.
 
