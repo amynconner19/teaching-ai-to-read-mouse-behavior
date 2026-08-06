@@ -1,5 +1,5 @@
-# BIOMAP
-### Teaching AI to Read Mouse Behavior
+# Teaching AI to Read Mouse Behavior
+### TL;DR
 
 > **BrainHack Project:** Transform the current BIOMAP workflow into an open-source, automated, end-to-end behavioral analysis pipeline that processes batches of mouse behavioral videos—from raw videos to publication-ready figures and analysis-ready data.
 
