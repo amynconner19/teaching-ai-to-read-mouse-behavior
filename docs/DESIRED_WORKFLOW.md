@@ -4,9 +4,7 @@
 
 The long-term goal of the BIOMAP project is to transform the current manual behavioral analysis workflow into a reproducible, automated, and open-source software pipeline.
 
-Rather than requiring users to manually transition between multiple software packages, BIOMAP should provide a single command that performs the complete behavioral analysis workflow from raw video to publication-ready results.
-
-The pipeline should be modular, reproducible, well documented, and accessible to researchers with minimal programming experience.
+Rather than requiring users to manually transition between multiple software packages and perform downstream analyses by hand, BIOMAP should provide a single command that executes the complete behavioral analysis workflow, from raw behavioral videos to publication-ready figures and analysis-ready datasets.
 
 ---
 
@@ -14,19 +12,8 @@ The pipeline should be modular, reproducible, well documented, and accessible to
 
 A researcher should be able to analyze an entire experiment with a single command.
 
-For example:
-
 ```bash
 biomap analyze data/raw_videos/
-```
-
-or
-
-```bash
-biomap analyze \
-    --input data/raw_videos/ \
-    --metadata data/video_manifest.csv \
-    --output results/
 ```
 
 Once started, the pipeline should automatically complete the remaining analysis without requiring user interaction.
@@ -36,36 +23,53 @@ Once started, the pipeline should automatically complete the remaining analysis 
 # Desired Pipeline
 
 ```text
-                Batch of Behavioral Videos
-                           │
-                           ▼
+                     Batch of Behavioral Videos
+                                │
+                                ▼
                  Validate Inputs & Metadata
-                           │
-                           ▼
-                 DeepLabCut Pose Estimation
-                           │
-                           ▼
-               Pose Tracking Quality Control
-                           │
-                           ▼
-              SimBA Feature Extraction &
-              Behavioral Classification
-                           │
-                           ▼
-               BIOMAP Feature Extraction
-                 & Pain Metric Calculation
-                           │
-                           ▼
-                  Statistical Summaries
-                           │
-                           ▼
-               Publication-Quality Figures
-                           │
-                           ▼
-                 Standardized Output Files
-                           │
-                           ▼
-                    Final Analysis Report
+                                │
+                                ▼
+              Run trained DeepLabCut models
+        (Primary facial/body model + paw model)
+                                │
+                                ▼
+                 Generate tracking CSV files
+                                │
+                ┌───────────────┴───────────────┐
+                │                               │
+                ▼                               ▼
+      BIOMAP Analysis Pipeline             SimBA
+                │                    Behavioral Classification
+                ▼                               │
+ Calculate individual facial &                 ▼
+ body-position measurements         Complex behavioral metrics
+                │               (Grooming, Rearing, Pausing,
+                │                 Respiration, etc.)
+                ▼
+ Calculate percent change from
+ baseline for each sound level
+                │
+                ▼
+ Apply automated post-processing
+ • Nose-tip crossing correction
+                │
+                ▼
+ Calculate composite scores
+ • Facial Grimace
+ • Body Position
+                │
+                └───────────────┬───────────────┐
+                                ▼
+             Generate standardized figures
+                                │
+                                ▼
+            Export analysis-ready datasets
+                                │
+                                ▼
+                Quality-control reports
+                                │
+                                ▼
+                      Final Results
 ```
 
 ---
@@ -77,39 +81,23 @@ Following successful analysis, the pipeline should automatically generate a stan
 ```text
 results/
 
-├── processing_log.txt
-├── batch_summary.csv
-├── biomap_metrics.csv
-├── behavior_predictions.csv
+├── facial_metrics.csv
+├── body_position_metrics.csv
+├── complex_behavior_metrics.csv
+├── facial_grimace_composite_scores.csv
+├── body_position_composite_scores.csv
 │
 ├── figures/
-│   ├── pain_metrics.pdf
-│   ├── behavioral_summary.pdf
-│   └── quality_control.pdf
+│   ├── facial_metrics.pdf
+│   ├── body_position_metrics.pdf
+│   ├── complex_behavior.pdf
+│   ├── facial_grimace_composite_scores.pdf
+│   └── body_position_composire_scores.pdf
 │
-├── reports/
-│   └── summary_report.html
-│
-├── statistics/
-│
-└── intermediate/
+└──  reports/
+    └── summary_report.html
+
 ```
-
----
-
-# Long-Term Goals
-
-The completed BIOMAP pipeline should:
-
-- Analyze an entire batch of behavioral videos with a single command.
-- Eliminate unnecessary manual interaction between software packages.
-- Automatically coordinate DeepLabCut, SimBA, and BIOMAP analyses.
-- Standardize analysis across researchers and laboratories.
-- Improve reproducibility and transparency.
-- Generate publication-ready outputs.
-- Provide detailed logs for quality assurance and troubleshooting.
-- Be modular so new behavioral classifiers and analysis modules can be added easily.
-
 ---
 
 # BrainHack Objectives
@@ -118,15 +106,15 @@ BrainHack participants are **not expected to complete the entire pipeline during
 
 Instead, the goal is to make meaningful progress toward this long-term vision by:
 
-- Automating individual components of the workflow.
-- Connecting existing software packages.
-- Improving behavioral classification.
-- Standardizing data flow between analysis steps.
-- Reducing manual user interaction.
+- Automating execution of the trained DeepLabCut models.
+- Connecting existing software packages into a unified workflow.
+- Automating baseline normalization.
+- Automating manual post-processing steps.
+- Automating composite score calculation.
+- Automating figure generation.
+- Standardizing metadata handling.
 - Improving documentation and reproducibility.
 - Identifying future development priorities.
-
-Every improvement—whether it is a new automation script, documentation, quality-control tool, visualization, or machine-learning model—helps move BIOMAP toward a fully automated behavioral analysis platform.
 
 ---
 
@@ -138,41 +126,4 @@ The BIOMAP pipeline should be:
 - Reproducible
 - Modular
 - Open source
-- Well documented
-- Extensible
 - User friendly
-- Cross-platform whenever possible
-
----
-
-# Success Criteria
-
-Ultimately, the desired BIOMAP workflow should allow a researcher to analyze an entire behavioral experiment with a single command:
-
-```bash
-biomap analyze data/raw_videos/
-```
-
-The software should then:
-
-✓ Validate the input data
-
-✓ Run DeepLabCut pose estimation
-
-✓ Perform tracking quality-control
-
-✓ Run SimBA behavioral classification
-
-✓ Calculate BIOMAP behavioral features
-
-✓ Compute pain-related metrics
-
-✓ Generate standardized figures
-
-✓ Perform statistical analyses
-
-✓ Create a complete analysis report
-
-✓ Save all outputs in a reproducible directory structure
-
-allowing researchers to focus on scientific interpretation rather than manual data processing.
