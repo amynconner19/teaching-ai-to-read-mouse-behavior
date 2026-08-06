@@ -28,7 +28,7 @@ Additional manual steps are currently required to:
 
 ## Current Script
 
-- [`BIOMAP_SoundAssay_Analysis6.1.py`]([scripts/BIOMAP_SoundAssay_Analysis6.1.py](https://github.com/amynconner19/teaching-ai-to-read-mouse-behavior/blob/main/scripts/BIOMAP_SoundAssay_Analysis6.1.py))
+- `BIOMAP_SoundAssay_Analysis6.1.py`
 
 This script represents the current laboratory workflow and serves as the starting point for BrainHack development.
 
