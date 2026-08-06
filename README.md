@@ -10,14 +10,6 @@
 
 > **BrainHack Project:** Build an open-source, end-to-end BIOMAP pipeline that transforms batches of mouse behavioral videos into publication-ready figures and analysis-ready datasets.
 
-## BIOMAP Workflow
-
-<p align="center">
-  <img src="images/biomap_workflow.png"
-       alt="BIOMAP workflow"
-       width="800">
-</p>
-
 ---
 
 # Overview
@@ -27,6 +19,14 @@ The **Behavioral Inventory of Mouse Affective Pain (BIOMAP)** is a machine learn
 BIOMAP currently combines **DeepLabCut**, **SimBA**, and custom Python scripts, but many downstream analyses, including data processing, figure generation, and statistical preparation, still require manual effort.
 
 This BrainHack project aims to build a reproducible, open-source pipeline that automates the entire workflow, allowing researchers to process batches of behavioral videos with minimal user interaction.
+
+## BIOMAP Workflow
+
+<p align="center">
+  <img src="images/biomap_workflow.png"
+       alt="BIOMAP workflow"
+       width="800">
+</p>
 
 ---
 
