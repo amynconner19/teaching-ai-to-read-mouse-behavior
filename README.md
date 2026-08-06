@@ -34,16 +34,15 @@ biomap analyze data/raw_videos/
 
 The software would automatically:
 
-- Validate input videos and metadata
-- Run all required DeepLabCut models
-- Generate pose-estimation outputs
+- Load a batch of behavioral videos
+- Run all required trained DeepLabCut models
+- Generate tracking data (CSV/H5 files)
 - Run SimBA behavioral analyses
-- Calculate BIOMAP behavioral metrics
-- Normalize measurements to baseline
-- Calculate composite pain scores
-- Generate publication-quality figures
-- Export analysis-ready datasets
-- Produce quality-control reports
+- Calculate baseline-normalized behavioral measurements (percent change from baseline) for each sound-level condition
+- Apply automated post-processing (e.g., nose-tip crossing correction)
+- Calculate Facial Grimace and Body Position composite scores
+- Generate publication-quality figures for facial, body-position, and complex behavioral metrics
+- Export statistical analysis-ready datasets
 
 allowing researchers to focus on scientific interpretation rather than manual data processing.
 
