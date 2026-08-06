@@ -213,6 +213,4 @@ If you're new to the project:
 
 # Acknowledgments
 
-BrainHack promotes collaborative, open-source scientific software development.
-
 Contributors will be acknowledged appropriately in future software releases, conference presentations, preprints, and publications in accordance with standard scientific contribution and authorship practices.
