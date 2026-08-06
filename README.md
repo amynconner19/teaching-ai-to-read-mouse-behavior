@@ -1,4 +1,5 @@
 # Teaching AI to Read Mouse Behavior
+**Vanderbilt BrainHack 2026 Project** 🧠
 
 ## TL;DR
 
