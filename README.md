@@ -4,8 +4,6 @@
 
 > **BrainHack Project:** Build an open-source, end-to-end BIOMAP pipeline that transforms batches of mouse behavioral videos into publication-ready figures and analysis-ready datasets.
 
----
-
 ## BIOMAP Workflow
 
 <p align="center">
