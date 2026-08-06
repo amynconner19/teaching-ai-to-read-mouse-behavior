@@ -1,5 +1,10 @@
 # Teaching AI to Read Mouse Behavior
 **Vanderbilt BrainHack 2026 Project** 🧠
+<p align="center">
+  <img src="images/BrainHack_BIOMAP.png"
+       alt="BIOMAP workflow"
+       width="1000">
+</p>
 
 ## TL;DR
 
@@ -10,7 +15,7 @@
 <p align="center">
   <img src="images/biomap_workflow.png"
        alt="BIOMAP workflow"
-       width="1000">
+       width="800">
 </p>
 
 ---
