@@ -1,5 +1,5 @@
-# Teaching AI to Read Mouse Behavior
-**Vanderbilt BrainHack 2026 Project** 🧠
+# Teaching AI to Read Mouse Behavior 🧠
+**Vanderbilt BrainHack 2026 Project** 
 <p align="center">
   <img src="images/BrainHack_BIOMAP.png"
        alt="BIOMAP workflow"
@@ -8,7 +8,7 @@
 
 ## TL;DR
 
-> **BrainHack Project:** Build an open-source, end-to-end BIOMAP pipeline that transforms batches of mouse behavioral videos into publication-ready figures and analysis-ready datasets.
+> **BrainHack Project:** Build an open-source pipeline that transforms batches of mouse behavioral videos into standardized behavioral metrics, publication-ready figures, and analysis-ready datasets.
 
 ---
 
@@ -16,7 +16,7 @@
 
 The **Behavioral Inventory of Mouse Affective Pain (BIOMAP)** is a machine learning–based behavioral assay developed in the [HARMONIC Laboratory](https://www.harmoniclabvumc.com/) at Vanderbilt University Medical Center that quantifies pain-related behavior in freely moving mice using computer vision, pose estimation, behavioral classification, and custom analysis.
 
-BIOMAP currently combines **DeepLabCut**, **SimBA**, and custom Python scripts, but many downstream analyses, including data processing, figure generation, and statistical preparation, still require manual effort.
+BIOMAP currently combines **DeepLabCut**, **SimBA**, and custom Python scripts. While pose estimation and behavioral classification are automated, many downstream analyses—including data processing, composite score calculation, figure generation, and statistical preparation—still require manual effort.
 
 This BrainHack project aims to build a reproducible, open-source pipeline that automates the entire workflow, allowing researchers to process batches of behavioral videos with minimal user interaction.
 
@@ -70,7 +70,7 @@ Facial & Body Metrics          Complex Behaviors
             │                            │
             └──────────────┬─────────────┘
                            ▼
-                  Manual Calculations
+                  Manual Post-Processing
                            ▼
                   Manual Figure Generation
                            ▼
@@ -93,7 +93,7 @@ biomap analyze data/raw_videos/
 
 The pipeline would automatically:
 
-- Process batches of behavioral videos
+- Load batches of behavioral videos
 - Run trained DeepLabCut models
 - Perform behavioral classification with SimBA
 - Calculate normalized behavioral metrics and composite scores
@@ -125,7 +125,7 @@ Potential tasks include:
 
 ## Objective 2 — Behavioral-State Classification
 
-Explore methods for improving classification of inactive behavioral states, including:
+Develop methods to distinguish:
 
 - Pain-related immobility
 - Sleep
@@ -165,13 +165,13 @@ A fully validated classifier is **not expected** during the BrainHack weekend.
 - [Install SimBA](docs/software/INSTALL_SIMBA.md)
 - [Run SimBA](docs/software/RUN_SIMBA.md)
 
-## Data
-
-- [Raw Video Directory](data/raw/README.md)
-
 ## Analysis
 
 - [BIOMAP Analysis](docs/analysis/README.md)
+
+## Data
+
+- [Raw Video Directory](data/raw/README.md)
 
 ---
 
@@ -206,9 +206,7 @@ Instead, we hope to:
 - Integrate existing software components
 - Improve reproducibility and documentation
 - Reduce manual analysis and figure generation
-- Build tools that support future development
-
-Every contribution—whether code, documentation, testing, visualization, or scientific insight—helps move BIOMAP toward a fully automated behavioral analysis platform.
+- Build reusable tools that support future development
 
 ---
 
