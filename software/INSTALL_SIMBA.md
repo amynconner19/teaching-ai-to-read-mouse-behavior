@@ -1,26 +1,19 @@
-# Installing SimBA
+# SimBA Installation
 
-Official GitHub repository:
+Install SimBA by following the official documentation below.
 
-https://github.com/sgoldenlab/simba
-
-## Overview
-
-SimBA (Simple Behavioral Analysis) is used within the BIOMAP workflow for behavioral feature extraction and supervised behavioral classification.
-
-Please follow the official installation instructions provided by the SimBA developers.
-
-Official repository:
+## Official Repository
 
 https://github.com/sgoldenlab/simba
 
-## After installation
+Please follow the installation instructions provided by the SimBA developers.
 
-Verify that you can:
+---
 
-- Launch SimBA
-- Open a project
-- Import DeepLabCut tracking data
-- Export behavioral classifications
+## BIOMAP Notes
 
-These capabilities are required for the BIOMAP workflow.
+BrainHack participants are **not expected** to create new SimBA projects or train new behavioral classifiers.
+
+Instead, this project focuses on automating the execution of the **existing BIOMAP SimBA project and trained classifiers** within the analysis pipeline.
+
+After installing SimBA, participants can continue exploring the BIOMAP documentation and pipeline components.
