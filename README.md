@@ -60,7 +60,7 @@ Facial & Body Metrics          Complex Behaviors
                            ▼
                   Manual Figure Generation
                            ▼
-                  Manual Statistics (Prism)
+                  Manual Statistics
 ```
 
 For additional details, see:
