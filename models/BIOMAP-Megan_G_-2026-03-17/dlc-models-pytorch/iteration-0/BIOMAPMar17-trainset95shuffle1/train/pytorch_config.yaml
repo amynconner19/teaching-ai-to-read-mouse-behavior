@@ -1,0 +1,279 @@
+data:
+  bbox_margin: 20
+  colormode: RGB
+  inference:
+    normalize_images: true
+  train:
+    affine:
+      p: 0.5
+      rotation: 30
+      scaling:
+      - 0.5
+      - 1.25
+      translation: 0
+    crop_sampling:
+      width: 448
+      height: 448
+      max_shift: 0.1
+      method: hybrid
+    gaussian_noise: 12.75
+    motion_blur: true
+    normalize_images: true
+device: cuda
+inference:
+  multithreading:
+    enabled: true
+    queue_length: 4
+    timeout: 30.0
+  compile:
+    enabled: false
+    backend: inductor
+  autocast:
+    enabled: false
+metadata:
+  project_path: C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17
+  pose_config_path: 
+    C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\dlc-models-pytorch\iteration-0\BIOMAPMar17-trainset95shuffle1\train\pytorch_config.yaml
+  bodyparts:
+  - nosetip
+  - nosebot
+  - mouth
+  - innereye
+  - outereye
+  - eyeup
+  - eyedown
+  - earcanal
+  - eartip
+  - earcenter
+  - earmed
+  - earlat
+  - neck
+  - chest
+  - pawL
+  - pawR
+  unique_bodyparts: []
+  individuals:
+  - animal
+  with_identity:
+method: bu
+model:
+  backbone:
+    type: DLCRNet
+    model_name: resnet50
+    pretrained: false
+    output_stride: 32
+  backbone_output_channels: 2304
+  pose_model:
+    stride: 8
+  heads:
+    bodypart:
+      type: DLCRNetHead
+      predictor:
+        type: PartAffinityFieldPredictor
+        num_animals: 1
+        num_multibodyparts: 16
+        num_uniquebodyparts: 0
+        nms_radius: 5
+        sigma: 1.0
+        locref_stdev: 7.2801
+        min_affinity: 0.05
+        graph: &id001
+        - - 0
+          - 12
+        - - 0
+          - 6
+        - - 0
+          - 11
+        - - 0
+          - 14
+        - - 0
+          - 10
+        - - 0
+          - 15
+        - - 7
+          - 12
+        - - 5
+          - 12
+        - - 10
+          - 12
+        - - 1
+          - 12
+        - - 4
+          - 12
+        - - 6
+          - 10
+        - - 6
+          - 7
+        - - 5
+          - 6
+        - - 6
+          - 9
+        - - 1
+          - 6
+        - - 4
+          - 11
+        - - 11
+          - 14
+        - - 9
+          - 11
+        - - 3
+          - 11
+        - - 5
+          - 9
+        - - 3
+          - 5
+        - - 5
+          - 7
+        - - 4
+          - 5
+        - - 5
+          - 8
+        - - 1
+          - 5
+        - - 9
+          - 14
+        - - 2
+          - 9
+        - - 9
+          - 13
+        - - 1
+          - 9
+        - - 8
+          - 10
+        - - 10
+          - 15
+        - - 7
+          - 10
+        - - 4
+          - 10
+        - - 4
+          - 14
+        - - 4
+          - 13
+        - - 1
+          - 4
+        - - 4
+          - 7
+        - - 4
+          - 15
+        - - 2
+          - 4
+        - - 1
+          - 14
+        - - 8
+          - 14
+        - - 7
+          - 14
+        - - 2
+          - 7
+        - - 2
+          - 3
+        - - 1
+          - 3
+        - - 1
+          - 15
+        - - 8
+          - 15
+        edges_to_keep:
+        - 13
+        - 23
+        - 30
+        - 32
+        - 21
+        - 22
+        - 15
+        - 16
+        - 18
+        - 7
+        - 1
+        - 39
+        - 38
+        - 34
+        - 35
+      target_generator:
+        type: SequentialGenerator
+        generators:
+        - type: HeatmapPlateauGenerator
+          num_heatmaps: 16
+          pos_dist_thresh: 17
+          heatmap_mode: KEYPOINT
+          generate_locref: true
+          locref_std: 7.2801
+        - type: PartAffinityFieldGenerator
+          graph: *id001
+          width: 20
+      criterion:
+        heatmap:
+          type: WeightedBCECriterion
+          weight: 1.0
+        locref:
+          type: WeightedHuberCriterion
+          weight: 0.05
+        paf:
+          type: WeightedHuberCriterion
+          weight: 0.1
+      heatmap_config:
+        channels:
+        - 2304
+        - 1152
+        - 16
+        kernel_size:
+        - 3
+        - 3
+        strides:
+        - 2
+        - 2
+      locref_config:
+        channels:
+        - 2304
+        - 1152
+        - 32
+        kernel_size:
+        - 3
+        - 3
+        strides:
+        - 2
+        - 2
+      paf_config:
+        channels:
+        - 2304
+        - 1152
+        - 96
+        kernel_size:
+        - 3
+        - 3
+        strides:
+        - 2
+        - 2
+      num_stages: 5
+net_type: dlcrnet_stride32_ms5
+runner:
+  type: PoseTrainingRunner
+  gpus:
+  key_metric: test.mAP
+  key_metric_asc: true
+  eval_interval: 25
+  optimizer:
+    type: AdamW
+    params:
+      lr: 0.0001
+  scheduler:
+    type: LRListScheduler
+    params:
+      lr_list:
+      - - 1e-05
+      - - 1e-06
+      milestones:
+      - 160
+      - 190
+  snapshots:
+    max_snapshots: 5
+    save_epochs: 50
+    save_optimizer_state: false
+train_settings:
+  batch_size: 8
+  dataloader_workers: 0
+  dataloader_pin_memory: false
+  display_iters: 1000
+  epochs: 200
+  seed: 42

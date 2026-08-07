@@ -1,0 +1,1846 @@
+2026-04-08 13:31:36 Training with configuration:
+2026-04-08 13:31:36 data:
+2026-04-08 13:31:36   bbox_margin: 20
+2026-04-08 13:31:36   colormode: RGB
+2026-04-08 13:31:36   inference:
+2026-04-08 13:31:36     normalize_images: True
+2026-04-08 13:31:36   train:
+2026-04-08 13:31:36     affine:
+2026-04-08 13:31:36       p: 0.5
+2026-04-08 13:31:36       rotation: 30
+2026-04-08 13:31:36       scaling: [0.5, 1.25]
+2026-04-08 13:31:36       translation: 0
+2026-04-08 13:31:36     crop_sampling:
+2026-04-08 13:31:36       width: 448
+2026-04-08 13:31:36       height: 448
+2026-04-08 13:31:36       max_shift: 0.1
+2026-04-08 13:31:36       method: hybrid
+2026-04-08 13:31:36     gaussian_noise: 12.75
+2026-04-08 13:31:36     motion_blur: True
+2026-04-08 13:31:36     normalize_images: True
+2026-04-08 13:31:36 device: auto
+2026-04-08 13:31:36 inference:
+2026-04-08 13:31:36   multithreading:
+2026-04-08 13:31:36     enabled: True
+2026-04-08 13:31:36     queue_length: 4
+2026-04-08 13:31:36     timeout: 30.0
+2026-04-08 13:31:36   compile:
+2026-04-08 13:31:36     enabled: False
+2026-04-08 13:31:36     backend: inductor
+2026-04-08 13:31:36   autocast:
+2026-04-08 13:31:36     enabled: False
+2026-04-08 13:31:36 metadata:
+2026-04-08 13:31:36   project_path: C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17
+2026-04-08 13:31:36   pose_config_path: C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\dlc-models-pytorch\iteration-0\BIOMAPMar17-trainset95shuffle1\train\pytorch_config.yaml
+2026-04-08 13:31:36   bodyparts: ['nosetip', 'nosebot', 'mouth', 'innereye', 'outereye', 'eyeup', 'eyedown', 'earcanal', 'eartip', 'earcenter', 'earmed', 'earlat', 'neck', 'chest', 'pawL', 'pawR']
+2026-04-08 13:31:36   unique_bodyparts: []
+2026-04-08 13:31:36   individuals: ['animal']
+2026-04-08 13:31:36   with_identity: None
+2026-04-08 13:31:36 method: bu
+2026-04-08 13:31:36 model:
+2026-04-08 13:31:36   backbone:
+2026-04-08 13:31:36     type: ResNet
+2026-04-08 13:31:36     model_name: resnet101
+2026-04-08 13:31:36     output_stride: 16
+2026-04-08 13:31:36     freeze_bn_stats: False
+2026-04-08 13:31:36     freeze_bn_weights: False
+2026-04-08 13:31:36   backbone_output_channels: 2048
+2026-04-08 13:31:36   heads:
+2026-04-08 13:31:36     bodypart:
+2026-04-08 13:31:36       type: HeatmapHead
+2026-04-08 13:31:36       weight_init: normal
+2026-04-08 13:31:36       predictor:
+2026-04-08 13:31:36         type: HeatmapPredictor
+2026-04-08 13:31:36         apply_sigmoid: False
+2026-04-08 13:31:36         clip_scores: True
+2026-04-08 13:31:36         location_refinement: True
+2026-04-08 13:31:36         locref_std: 7.2801
+2026-04-08 13:31:36       target_generator:
+2026-04-08 13:31:36         type: HeatmapGaussianGenerator
+2026-04-08 13:31:36         num_heatmaps: 16
+2026-04-08 13:31:36         pos_dist_thresh: 17
+2026-04-08 13:31:36         heatmap_mode: KEYPOINT
+2026-04-08 13:31:36         gradient_masking: False
+2026-04-08 13:31:36         generate_locref: True
+2026-04-08 13:31:36         locref_std: 7.2801
+2026-04-08 13:31:36       criterion:
+2026-04-08 13:31:36         heatmap:
+2026-04-08 13:31:36           type: WeightedMSECriterion
+2026-04-08 13:31:36           weight: 1.0
+2026-04-08 13:31:36         locref:
+2026-04-08 13:31:36           type: WeightedHuberCriterion
+2026-04-08 13:31:36           weight: 0.05
+2026-04-08 13:31:36       heatmap_config:
+2026-04-08 13:31:36         channels: [2048, 16]
+2026-04-08 13:31:36         kernel_size: [3]
+2026-04-08 13:31:36         strides: [2]
+2026-04-08 13:31:36       locref_config:
+2026-04-08 13:31:36         channels: [2048, 32]
+2026-04-08 13:31:36         kernel_size: [3]
+2026-04-08 13:31:36         strides: [2]
+2026-04-08 13:31:36 net_type: resnet_101
+2026-04-08 13:31:36 runner:
+2026-04-08 13:31:36   type: PoseTrainingRunner
+2026-04-08 13:31:36   gpus: None
+2026-04-08 13:31:36   key_metric: test.mAP
+2026-04-08 13:31:36   key_metric_asc: True
+2026-04-08 13:31:36   eval_interval: 10
+2026-04-08 13:31:36   optimizer:
+2026-04-08 13:31:36     type: AdamW
+2026-04-08 13:31:36     params:
+2026-04-08 13:31:36       lr: 0.0005
+2026-04-08 13:31:36   scheduler:
+2026-04-08 13:31:36     type: LRListScheduler
+2026-04-08 13:31:36     params:
+2026-04-08 13:31:36       lr_list: [[0.0001], [1e-05]]
+2026-04-08 13:31:36       milestones: [90, 120]
+2026-04-08 13:31:36   snapshots:
+2026-04-08 13:31:36     max_snapshots: 5
+2026-04-08 13:31:36     save_epochs: 50
+2026-04-08 13:31:36     save_optimizer_state: False
+2026-04-08 13:31:36 train_settings:
+2026-04-08 13:31:36   batch_size: 8
+2026-04-08 13:31:36   dataloader_workers: 0
+2026-04-08 13:31:36   dataloader_pin_memory: False
+2026-04-08 13:31:36   display_iters: 1000
+2026-04-08 13:31:36   epochs: 200
+2026-04-08 13:31:36   seed: 42
+2026-04-08 13:31:36 Loading pretrained weights from Hugging Face hub (timm/resnet101.a1h_in1k)
+2026-04-08 13:31:36 '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1017)' thrown while requesting HEAD https://huggingface.co/timm/resnet101.a1h_in1k/resolve/main/model.safetensors
+2026-04-08 13:31:36 Retrying in 1s [Retry 1/5].
+2026-04-08 13:43:56 Network architecture set to DLCRNET_STRIDE32_MS5
+2026-04-08 13:51:09 Valid subgraph found...
+2026-04-08 13:51:11 Training dataset successfully created.
+2026-04-08 13:51:30 Training with configuration:
+2026-04-08 13:51:30 data:
+2026-04-08 13:51:30   bbox_margin: 20
+2026-04-08 13:51:30   colormode: RGB
+2026-04-08 13:51:30   inference:
+2026-04-08 13:51:30     normalize_images: True
+2026-04-08 13:51:30   train:
+2026-04-08 13:51:30     affine:
+2026-04-08 13:51:30       p: 0.5
+2026-04-08 13:51:30       rotation: 30
+2026-04-08 13:51:30       scaling: [0.5, 1.25]
+2026-04-08 13:51:30       translation: 0
+2026-04-08 13:51:30     crop_sampling:
+2026-04-08 13:51:30       width: 448
+2026-04-08 13:51:30       height: 448
+2026-04-08 13:51:30       max_shift: 0.1
+2026-04-08 13:51:30       method: hybrid
+2026-04-08 13:51:30     gaussian_noise: 12.75
+2026-04-08 13:51:30     motion_blur: True
+2026-04-08 13:51:30     normalize_images: True
+2026-04-08 13:51:30 device: auto
+2026-04-08 13:51:30 inference:
+2026-04-08 13:51:30   multithreading:
+2026-04-08 13:51:30     enabled: True
+2026-04-08 13:51:30     queue_length: 4
+2026-04-08 13:51:30     timeout: 30.0
+2026-04-08 13:51:30   compile:
+2026-04-08 13:51:30     enabled: False
+2026-04-08 13:51:30     backend: inductor
+2026-04-08 13:51:30   autocast:
+2026-04-08 13:51:30     enabled: False
+2026-04-08 13:51:30 metadata:
+2026-04-08 13:51:30   project_path: C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17
+2026-04-08 13:51:30   pose_config_path: C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\dlc-models-pytorch\iteration-0\BIOMAPMar17-trainset95shuffle1\train\pytorch_config.yaml
+2026-04-08 13:51:30   bodyparts: ['nosetip', 'nosebot', 'mouth', 'innereye', 'outereye', 'eyeup', 'eyedown', 'earcanal', 'eartip', 'earcenter', 'earmed', 'earlat', 'neck', 'chest', 'pawL', 'pawR']
+2026-04-08 13:51:30   unique_bodyparts: []
+2026-04-08 13:51:30   individuals: ['animal']
+2026-04-08 13:51:30   with_identity: None
+2026-04-08 13:51:30 method: bu
+2026-04-08 13:51:30 model:
+2026-04-08 13:51:30   backbone:
+2026-04-08 13:51:30     type: DLCRNet
+2026-04-08 13:51:30     model_name: resnet50
+2026-04-08 13:51:30     pretrained: True
+2026-04-08 13:51:30     output_stride: 32
+2026-04-08 13:51:30   backbone_output_channels: 2304
+2026-04-08 13:51:30   pose_model:
+2026-04-08 13:51:30     stride: 8
+2026-04-08 13:51:30   heads:
+2026-04-08 13:51:30     bodypart:
+2026-04-08 13:51:30       type: DLCRNetHead
+2026-04-08 13:51:30       predictor:
+2026-04-08 13:51:30         type: PartAffinityFieldPredictor
+2026-04-08 13:51:30         num_animals: 1
+2026-04-08 13:51:30         num_multibodyparts: 16
+2026-04-08 13:51:30         num_uniquebodyparts: 0
+2026-04-08 13:51:30         nms_radius: 5
+2026-04-08 13:51:30         sigma: 1.0
+2026-04-08 13:51:30         locref_stdev: 7.2801
+2026-04-08 13:51:30         min_affinity: 0.05
+2026-04-08 13:51:30         graph: [[6, 13], [6, 7], [6, 9], [6, 15], [1, 6], [11, 13], [13, 14], [9, 13], [7, 13], [10, 13], [0, 13], [0, 15], [0, 4], [0, 14], [0, 12], [0, 5], [0, 1], [1, 15], [12, 15], [4, 15], [7, 15], [3, 15], [11, 15], [9, 15], [14, 15], [1, 4], [4, 5], [4, 8], [8, 11], [10, 11], [9, 11], [11, 12], [2, 9], [2, 5], [2, 3], [7, 9], [9, 12], [5, 10], [5, 12], [3, 5], [1, 14], [1, 12], [1, 7], [10, 12], [12, 14], [7, 10], [3, 7], [3, 10]]
+2026-04-08 13:51:30         edges_to_keep: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47]
+2026-04-08 13:51:30       target_generator:
+2026-04-08 13:51:30         type: SequentialGenerator
+2026-04-08 13:51:30         generators: [{'type': 'HeatmapPlateauGenerator', 'num_heatmaps': 16, 'pos_dist_thresh': 17, 'heatmap_mode': 'KEYPOINT', 'generate_locref': True, 'locref_std': 7.2801}, {'type': 'PartAffinityFieldGenerator', 'graph': [[6, 13], [6, 7], [6, 9], [6, 15], [1, 6], [11, 13], [13, 14], [9, 13], [7, 13], [10, 13], [0, 13], [0, 15], [0, 4], [0, 14], [0, 12], [0, 5], [0, 1], [1, 15], [12, 15], [4, 15], [7, 15], [3, 15], [11, 15], [9, 15], [14, 15], [1, 4], [4, 5], [4, 8], [8, 11], [10, 11], [9, 11], [11, 12], [2, 9], [2, 5], [2, 3], [7, 9], [9, 12], [5, 10], [5, 12], [3, 5], [1, 14], [1, 12], [1, 7], [10, 12], [12, 14], [7, 10], [3, 7], [3, 10]], 'width': 20}]
+2026-04-08 13:51:30       criterion:
+2026-04-08 13:51:30         heatmap:
+2026-04-08 13:51:30           type: WeightedBCECriterion
+2026-04-08 13:51:30           weight: 1.0
+2026-04-08 13:51:30         locref:
+2026-04-08 13:51:30           type: WeightedHuberCriterion
+2026-04-08 13:51:30           weight: 0.05
+2026-04-08 13:51:30         paf:
+2026-04-08 13:51:30           type: WeightedHuberCriterion
+2026-04-08 13:51:30           weight: 0.1
+2026-04-08 13:51:30       heatmap_config:
+2026-04-08 13:51:30         channels: [2304, 1152, 16]
+2026-04-08 13:51:30         kernel_size: [3, 3]
+2026-04-08 13:51:30         strides: [2, 2]
+2026-04-08 13:51:30       locref_config:
+2026-04-08 13:51:30         channels: [2304, 1152, 32]
+2026-04-08 13:51:30         kernel_size: [3, 3]
+2026-04-08 13:51:30         strides: [2, 2]
+2026-04-08 13:51:30       paf_config:
+2026-04-08 13:51:30         channels: [2304, 1152, 96]
+2026-04-08 13:51:30         kernel_size: [3, 3]
+2026-04-08 13:51:30         strides: [2, 2]
+2026-04-08 13:51:30       num_stages: 5
+2026-04-08 13:51:30 net_type: dlcrnet_stride32_ms5
+2026-04-08 13:51:30 runner:
+2026-04-08 13:51:30   type: PoseTrainingRunner
+2026-04-08 13:51:30   gpus: None
+2026-04-08 13:51:30   key_metric: test.mAP
+2026-04-08 13:51:30   key_metric_asc: True
+2026-04-08 13:51:30   eval_interval: 25
+2026-04-08 13:51:30   optimizer:
+2026-04-08 13:51:30     type: AdamW
+2026-04-08 13:51:30     params:
+2026-04-08 13:51:30       lr: 0.0001
+2026-04-08 13:51:30   scheduler:
+2026-04-08 13:51:30     type: LRListScheduler
+2026-04-08 13:51:30     params:
+2026-04-08 13:51:30       lr_list: [[1e-05], [1e-06]]
+2026-04-08 13:51:30       milestones: [160, 190]
+2026-04-08 13:51:30   snapshots:
+2026-04-08 13:51:30     max_snapshots: 5
+2026-04-08 13:51:30     save_epochs: 50
+2026-04-08 13:51:30     save_optimizer_state: False
+2026-04-08 13:51:30 train_settings:
+2026-04-08 13:51:30   batch_size: 8
+2026-04-08 13:51:30   dataloader_workers: 0
+2026-04-08 13:51:30   dataloader_pin_memory: False
+2026-04-08 13:51:30   display_iters: 1000
+2026-04-08 13:51:30   epochs: 200
+2026-04-08 13:51:30   seed: 42
+2026-04-08 13:51:30 Loading pretrained weights from Hugging Face hub (timm/resnet50.a1_in1k)
+2026-04-08 13:51:30 '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1017)' thrown while requesting HEAD https://huggingface.co/timm/resnet50.a1_in1k/resolve/main/model.safetensors
+2026-04-08 13:51:30 Retrying in 1s [Retry 1/5].
+2026-04-08 13:55:46 Exiting...
+2026-04-08 14:02:36 Training with configuration:
+2026-04-08 14:02:36 data:
+2026-04-08 14:02:36   bbox_margin: 20
+2026-04-08 14:02:36   colormode: RGB
+2026-04-08 14:02:36   inference:
+2026-04-08 14:02:36     normalize_images: True
+2026-04-08 14:02:36   train:
+2026-04-08 14:02:36     affine:
+2026-04-08 14:02:36       p: 0.5
+2026-04-08 14:02:36       rotation: 30
+2026-04-08 14:02:36       scaling: [0.5, 1.25]
+2026-04-08 14:02:36       translation: 0
+2026-04-08 14:02:36     crop_sampling:
+2026-04-08 14:02:36       width: 448
+2026-04-08 14:02:36       height: 448
+2026-04-08 14:02:36       max_shift: 0.1
+2026-04-08 14:02:36       method: hybrid
+2026-04-08 14:02:36     gaussian_noise: 12.75
+2026-04-08 14:02:36     motion_blur: True
+2026-04-08 14:02:36     normalize_images: True
+2026-04-08 14:02:36 device: auto
+2026-04-08 14:02:36 inference:
+2026-04-08 14:02:36   multithreading:
+2026-04-08 14:02:36     enabled: True
+2026-04-08 14:02:36     queue_length: 4
+2026-04-08 14:02:36     timeout: 30.0
+2026-04-08 14:02:36   compile:
+2026-04-08 14:02:36     enabled: False
+2026-04-08 14:02:36     backend: inductor
+2026-04-08 14:02:36   autocast:
+2026-04-08 14:02:36     enabled: False
+2026-04-08 14:02:36 metadata:
+2026-04-08 14:02:36   project_path: C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17
+2026-04-08 14:02:36   pose_config_path: C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\dlc-models-pytorch\iteration-0\BIOMAPMar17-trainset95shuffle1\train\pytorch_config.yaml
+2026-04-08 14:02:36   bodyparts: ['nosetip', 'nosebot', 'mouth', 'innereye', 'outereye', 'eyeup', 'eyedown', 'earcanal', 'eartip', 'earcenter', 'earmed', 'earlat', 'neck', 'chest', 'pawL', 'pawR']
+2026-04-08 14:02:36   unique_bodyparts: []
+2026-04-08 14:02:36   individuals: ['animal']
+2026-04-08 14:02:36   with_identity: None
+2026-04-08 14:02:36 method: bu
+2026-04-08 14:02:36 model:
+2026-04-08 14:02:36   backbone:
+2026-04-08 14:02:36     type: DLCRNet
+2026-04-08 14:02:36     model_name: resnet50
+2026-04-08 14:02:36     pretrained: True
+2026-04-08 14:02:36     output_stride: 32
+2026-04-08 14:02:36   backbone_output_channels: 2304
+2026-04-08 14:02:36   pose_model:
+2026-04-08 14:02:36     stride: 8
+2026-04-08 14:02:36   heads:
+2026-04-08 14:02:36     bodypart:
+2026-04-08 14:02:36       type: DLCRNetHead
+2026-04-08 14:02:36       predictor:
+2026-04-08 14:02:36         type: PartAffinityFieldPredictor
+2026-04-08 14:02:36         num_animals: 1
+2026-04-08 14:02:36         num_multibodyparts: 16
+2026-04-08 14:02:36         num_uniquebodyparts: 0
+2026-04-08 14:02:36         nms_radius: 5
+2026-04-08 14:02:36         sigma: 1.0
+2026-04-08 14:02:36         locref_stdev: 7.2801
+2026-04-08 14:02:36         min_affinity: 0.05
+2026-04-08 14:02:36         graph: [[6, 13], [6, 7], [6, 9], [6, 15], [1, 6], [11, 13], [13, 14], [9, 13], [7, 13], [10, 13], [0, 13], [0, 15], [0, 4], [0, 14], [0, 12], [0, 5], [0, 1], [1, 15], [12, 15], [4, 15], [7, 15], [3, 15], [11, 15], [9, 15], [14, 15], [1, 4], [4, 5], [4, 8], [8, 11], [10, 11], [9, 11], [11, 12], [2, 9], [2, 5], [2, 3], [7, 9], [9, 12], [5, 10], [5, 12], [3, 5], [1, 14], [1, 12], [1, 7], [10, 12], [12, 14], [7, 10], [3, 7], [3, 10]]
+2026-04-08 14:02:36         edges_to_keep: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47]
+2026-04-08 14:02:36       target_generator:
+2026-04-08 14:02:36         type: SequentialGenerator
+2026-04-08 14:02:36         generators: [{'type': 'HeatmapPlateauGenerator', 'num_heatmaps': 16, 'pos_dist_thresh': 17, 'heatmap_mode': 'KEYPOINT', 'generate_locref': True, 'locref_std': 7.2801}, {'type': 'PartAffinityFieldGenerator', 'graph': [[6, 13], [6, 7], [6, 9], [6, 15], [1, 6], [11, 13], [13, 14], [9, 13], [7, 13], [10, 13], [0, 13], [0, 15], [0, 4], [0, 14], [0, 12], [0, 5], [0, 1], [1, 15], [12, 15], [4, 15], [7, 15], [3, 15], [11, 15], [9, 15], [14, 15], [1, 4], [4, 5], [4, 8], [8, 11], [10, 11], [9, 11], [11, 12], [2, 9], [2, 5], [2, 3], [7, 9], [9, 12], [5, 10], [5, 12], [3, 5], [1, 14], [1, 12], [1, 7], [10, 12], [12, 14], [7, 10], [3, 7], [3, 10]], 'width': 20}]
+2026-04-08 14:02:36       criterion:
+2026-04-08 14:02:36         heatmap:
+2026-04-08 14:02:36           type: WeightedBCECriterion
+2026-04-08 14:02:36           weight: 1.0
+2026-04-08 14:02:36         locref:
+2026-04-08 14:02:36           type: WeightedHuberCriterion
+2026-04-08 14:02:36           weight: 0.05
+2026-04-08 14:02:36         paf:
+2026-04-08 14:02:36           type: WeightedHuberCriterion
+2026-04-08 14:02:36           weight: 0.1
+2026-04-08 14:02:36       heatmap_config:
+2026-04-08 14:02:36         channels: [2304, 1152, 16]
+2026-04-08 14:02:36         kernel_size: [3, 3]
+2026-04-08 14:02:36         strides: [2, 2]
+2026-04-08 14:02:36       locref_config:
+2026-04-08 14:02:36         channels: [2304, 1152, 32]
+2026-04-08 14:02:36         kernel_size: [3, 3]
+2026-04-08 14:02:36         strides: [2, 2]
+2026-04-08 14:02:36       paf_config:
+2026-04-08 14:02:36         channels: [2304, 1152, 96]
+2026-04-08 14:02:36         kernel_size: [3, 3]
+2026-04-08 14:02:36         strides: [2, 2]
+2026-04-08 14:02:36       num_stages: 5
+2026-04-08 14:02:36 net_type: dlcrnet_stride32_ms5
+2026-04-08 14:02:36 runner:
+2026-04-08 14:02:36   type: PoseTrainingRunner
+2026-04-08 14:02:36   gpus: None
+2026-04-08 14:02:36   key_metric: test.mAP
+2026-04-08 14:02:36   key_metric_asc: True
+2026-04-08 14:02:36   eval_interval: 25
+2026-04-08 14:02:36   optimizer:
+2026-04-08 14:02:36     type: AdamW
+2026-04-08 14:02:36     params:
+2026-04-08 14:02:36       lr: 0.0001
+2026-04-08 14:02:36   scheduler:
+2026-04-08 14:02:36     type: LRListScheduler
+2026-04-08 14:02:36     params:
+2026-04-08 14:02:36       lr_list: [[1e-05], [1e-06]]
+2026-04-08 14:02:36       milestones: [160, 190]
+2026-04-08 14:02:36   snapshots:
+2026-04-08 14:02:36     max_snapshots: 5
+2026-04-08 14:02:36     save_epochs: 50
+2026-04-08 14:02:36     save_optimizer_state: False
+2026-04-08 14:02:36 train_settings:
+2026-04-08 14:02:36   batch_size: 8
+2026-04-08 14:02:36   dataloader_workers: 0
+2026-04-08 14:02:36   dataloader_pin_memory: False
+2026-04-08 14:02:36   display_iters: 1000
+2026-04-08 14:02:36   epochs: 200
+2026-04-08 14:02:36   seed: 42
+2026-04-08 14:02:36 Loading pretrained weights from Hugging Face hub (timm/resnet50.a1_in1k)
+2026-04-08 14:02:36 '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1017)' thrown while requesting HEAD https://huggingface.co/timm/resnet50.a1_in1k/resolve/main/model.safetensors
+2026-04-08 14:02:36 Retrying in 1s [Retry 1/5].
+2026-04-08 14:04:11 Exiting...
+2026-04-08 15:32:18 Training with configuration:
+2026-04-08 15:32:18 data:
+2026-04-08 15:32:18   bbox_margin: 20
+2026-04-08 15:32:18   colormode: RGB
+2026-04-08 15:32:18   inference:
+2026-04-08 15:32:18     normalize_images: True
+2026-04-08 15:32:18   train:
+2026-04-08 15:32:18     affine:
+2026-04-08 15:32:18       p: 0.5
+2026-04-08 15:32:18       rotation: 30
+2026-04-08 15:32:18       scaling: [0.5, 1.25]
+2026-04-08 15:32:18       translation: 0
+2026-04-08 15:32:18     crop_sampling:
+2026-04-08 15:32:18       width: 448
+2026-04-08 15:32:18       height: 448
+2026-04-08 15:32:18       max_shift: 0.1
+2026-04-08 15:32:18       method: hybrid
+2026-04-08 15:32:18     gaussian_noise: 12.75
+2026-04-08 15:32:18     motion_blur: True
+2026-04-08 15:32:18     normalize_images: True
+2026-04-08 15:32:18 device: auto
+2026-04-08 15:32:18 inference:
+2026-04-08 15:32:18   multithreading:
+2026-04-08 15:32:18     enabled: True
+2026-04-08 15:32:18     queue_length: 4
+2026-04-08 15:32:18     timeout: 30.0
+2026-04-08 15:32:18   compile:
+2026-04-08 15:32:18     enabled: False
+2026-04-08 15:32:18     backend: inductor
+2026-04-08 15:32:18   autocast:
+2026-04-08 15:32:18     enabled: False
+2026-04-08 15:32:18 metadata:
+2026-04-08 15:32:18   project_path: C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17
+2026-04-08 15:32:18   pose_config_path: C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\dlc-models-pytorch\iteration-0\BIOMAPMar17-trainset95shuffle1\train\pytorch_config.yaml
+2026-04-08 15:32:18   bodyparts: ['nosetip', 'nosebot', 'mouth', 'innereye', 'outereye', 'eyeup', 'eyedown', 'earcanal', 'eartip', 'earcenter', 'earmed', 'earlat', 'neck', 'chest', 'pawL', 'pawR']
+2026-04-08 15:32:18   unique_bodyparts: []
+2026-04-08 15:32:18   individuals: ['animal']
+2026-04-08 15:32:18   with_identity: None
+2026-04-08 15:32:18 method: bu
+2026-04-08 15:32:18 model:
+2026-04-08 15:32:18   backbone:
+2026-04-08 15:32:18     type: DLCRNet
+2026-04-08 15:32:18     model_name: resnet50
+2026-04-08 15:32:18     pretrained: True
+2026-04-08 15:32:18     output_stride: 32
+2026-04-08 15:32:18   backbone_output_channels: 2304
+2026-04-08 15:32:18   pose_model:
+2026-04-08 15:32:18     stride: 8
+2026-04-08 15:32:18   heads:
+2026-04-08 15:32:18     bodypart:
+2026-04-08 15:32:18       type: DLCRNetHead
+2026-04-08 15:32:18       predictor:
+2026-04-08 15:32:18         type: PartAffinityFieldPredictor
+2026-04-08 15:32:18         num_animals: 1
+2026-04-08 15:32:18         num_multibodyparts: 16
+2026-04-08 15:32:18         num_uniquebodyparts: 0
+2026-04-08 15:32:18         nms_radius: 5
+2026-04-08 15:32:18         sigma: 1.0
+2026-04-08 15:32:18         locref_stdev: 7.2801
+2026-04-08 15:32:18         min_affinity: 0.05
+2026-04-08 15:32:18         graph: [[1, 14], [1, 9], [1, 3], [1, 8], [1, 13], [1, 6], [1, 5], [14, 15], [4, 14], [12, 14], [2, 14], [5, 14], [0, 14], [10, 15], [7, 15], [12, 15], [5, 15], [13, 15], [8, 13], [5, 8], [3, 8], [4, 8], [0, 8], [8, 12], [7, 13], [10, 13], [9, 13], [6, 13], [3, 13], [0, 3], [0, 4], [0, 10], [0, 5], [0, 11], [3, 4], [3, 5], [3, 6], [4, 7], [4, 5], [4, 9], [7, 12], [10, 12], [5, 10], [6, 10], [5, 12], [6, 9], [6, 11], [2, 6]]
+2026-04-08 15:32:18         edges_to_keep: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47]
+2026-04-08 15:32:18       target_generator:
+2026-04-08 15:32:18         type: SequentialGenerator
+2026-04-08 15:32:18         generators: [{'type': 'HeatmapPlateauGenerator', 'num_heatmaps': 16, 'pos_dist_thresh': 17, 'heatmap_mode': 'KEYPOINT', 'generate_locref': True, 'locref_std': 7.2801}, {'type': 'PartAffinityFieldGenerator', 'graph': [[1, 14], [1, 9], [1, 3], [1, 8], [1, 13], [1, 6], [1, 5], [14, 15], [4, 14], [12, 14], [2, 14], [5, 14], [0, 14], [10, 15], [7, 15], [12, 15], [5, 15], [13, 15], [8, 13], [5, 8], [3, 8], [4, 8], [0, 8], [8, 12], [7, 13], [10, 13], [9, 13], [6, 13], [3, 13], [0, 3], [0, 4], [0, 10], [0, 5], [0, 11], [3, 4], [3, 5], [3, 6], [4, 7], [4, 5], [4, 9], [7, 12], [10, 12], [5, 10], [6, 10], [5, 12], [6, 9], [6, 11], [2, 6]], 'width': 20}]
+2026-04-08 15:32:18       criterion:
+2026-04-08 15:32:18         heatmap:
+2026-04-08 15:32:18           type: WeightedBCECriterion
+2026-04-08 15:32:18           weight: 1.0
+2026-04-08 15:32:18         locref:
+2026-04-08 15:32:18           type: WeightedHuberCriterion
+2026-04-08 15:32:18           weight: 0.05
+2026-04-08 15:32:18         paf:
+2026-04-08 15:32:18           type: WeightedHuberCriterion
+2026-04-08 15:32:18           weight: 0.1
+2026-04-08 15:32:18       heatmap_config:
+2026-04-08 15:32:18         channels: [2304, 1152, 16]
+2026-04-08 15:32:18         kernel_size: [3, 3]
+2026-04-08 15:32:18         strides: [2, 2]
+2026-04-08 15:32:18       locref_config:
+2026-04-08 15:32:18         channels: [2304, 1152, 32]
+2026-04-08 15:32:18         kernel_size: [3, 3]
+2026-04-08 15:32:18         strides: [2, 2]
+2026-04-08 15:32:18       paf_config:
+2026-04-08 15:32:18         channels: [2304, 1152, 96]
+2026-04-08 15:32:18         kernel_size: [3, 3]
+2026-04-08 15:32:18         strides: [2, 2]
+2026-04-08 15:32:18       num_stages: 5
+2026-04-08 15:32:18 net_type: dlcrnet_stride32_ms5
+2026-04-08 15:32:18 runner:
+2026-04-08 15:32:18   type: PoseTrainingRunner
+2026-04-08 15:32:18   gpus: None
+2026-04-08 15:32:18   key_metric: test.mAP
+2026-04-08 15:32:18   key_metric_asc: True
+2026-04-08 15:32:18   eval_interval: 25
+2026-04-08 15:32:18   optimizer:
+2026-04-08 15:32:18     type: AdamW
+2026-04-08 15:32:18     params:
+2026-04-08 15:32:18       lr: 0.0001
+2026-04-08 15:32:18   scheduler:
+2026-04-08 15:32:18     type: LRListScheduler
+2026-04-08 15:32:18     params:
+2026-04-08 15:32:18       lr_list: [[1e-05], [1e-06]]
+2026-04-08 15:32:18       milestones: [160, 190]
+2026-04-08 15:32:18   snapshots:
+2026-04-08 15:32:18     max_snapshots: 5
+2026-04-08 15:32:18     save_epochs: 50
+2026-04-08 15:32:18     save_optimizer_state: False
+2026-04-08 15:32:18 train_settings:
+2026-04-08 15:32:18   batch_size: 8
+2026-04-08 15:32:18   dataloader_workers: 0
+2026-04-08 15:32:18   dataloader_pin_memory: False
+2026-04-08 15:32:18   display_iters: 1000
+2026-04-08 15:32:18   epochs: 200
+2026-04-08 15:32:18   seed: 42
+2026-04-08 15:32:18 Loading pretrained weights from Hugging Face hub (timm/resnet50.a1_in1k)
+2026-04-08 15:32:18 '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1017)' thrown while requesting HEAD https://huggingface.co/timm/resnet50.a1_in1k/resolve/main/model.safetensors
+2026-04-08 15:32:18 Retrying in 1s [Retry 1/5].
+2026-04-08 15:34:18 Exiting...
+2026-04-08 15:37:40 Training with configuration:
+2026-04-08 15:37:40 data:
+2026-04-08 15:37:40   bbox_margin: 20
+2026-04-08 15:37:40   colormode: RGB
+2026-04-08 15:37:40   inference:
+2026-04-08 15:37:40     normalize_images: True
+2026-04-08 15:37:40   train:
+2026-04-08 15:37:40     affine:
+2026-04-08 15:37:40       p: 0.5
+2026-04-08 15:37:40       rotation: 30
+2026-04-08 15:37:40       scaling: [0.5, 1.25]
+2026-04-08 15:37:40       translation: 0
+2026-04-08 15:37:40     crop_sampling:
+2026-04-08 15:37:40       width: 448
+2026-04-08 15:37:40       height: 448
+2026-04-08 15:37:40       max_shift: 0.1
+2026-04-08 15:37:40       method: hybrid
+2026-04-08 15:37:40     gaussian_noise: 12.75
+2026-04-08 15:37:40     motion_blur: True
+2026-04-08 15:37:40     normalize_images: True
+2026-04-08 15:37:40 device: auto
+2026-04-08 15:37:40 inference:
+2026-04-08 15:37:40   multithreading:
+2026-04-08 15:37:40     enabled: True
+2026-04-08 15:37:40     queue_length: 4
+2026-04-08 15:37:40     timeout: 30.0
+2026-04-08 15:37:40   compile:
+2026-04-08 15:37:40     enabled: False
+2026-04-08 15:37:40     backend: inductor
+2026-04-08 15:37:40   autocast:
+2026-04-08 15:37:40     enabled: False
+2026-04-08 15:37:40 metadata:
+2026-04-08 15:37:40   project_path: C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17
+2026-04-08 15:37:40   pose_config_path: C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\dlc-models-pytorch\iteration-0\BIOMAPMar17-trainset95shuffle1\train\pytorch_config.yaml
+2026-04-08 15:37:40   bodyparts: ['nosetip', 'nosebot', 'mouth', 'innereye', 'outereye', 'eyeup', 'eyedown', 'earcanal', 'eartip', 'earcenter', 'earmed', 'earlat', 'neck', 'chest', 'pawL', 'pawR']
+2026-04-08 15:37:40   unique_bodyparts: []
+2026-04-08 15:37:40   individuals: ['animal']
+2026-04-08 15:37:40   with_identity: None
+2026-04-08 15:37:40 method: bu
+2026-04-08 15:37:40 model:
+2026-04-08 15:37:40   backbone:
+2026-04-08 15:37:40     type: DLCRNet
+2026-04-08 15:37:40     model_name: resnet50
+2026-04-08 15:37:40     pretrained: True
+2026-04-08 15:37:40     output_stride: 32
+2026-04-08 15:37:40   backbone_output_channels: 2304
+2026-04-08 15:37:40   pose_model:
+2026-04-08 15:37:40     stride: 8
+2026-04-08 15:37:40   heads:
+2026-04-08 15:37:40     bodypart:
+2026-04-08 15:37:40       type: DLCRNetHead
+2026-04-08 15:37:40       predictor:
+2026-04-08 15:37:40         type: PartAffinityFieldPredictor
+2026-04-08 15:37:40         num_animals: 1
+2026-04-08 15:37:40         num_multibodyparts: 16
+2026-04-08 15:37:40         num_uniquebodyparts: 0
+2026-04-08 15:37:40         nms_radius: 5
+2026-04-08 15:37:40         sigma: 1.0
+2026-04-08 15:37:40         locref_stdev: 7.2801
+2026-04-08 15:37:40         min_affinity: 0.05
+2026-04-08 15:37:40         graph: [[1, 14], [1, 9], [1, 3], [1, 8], [1, 13], [1, 6], [1, 5], [14, 15], [4, 14], [12, 14], [2, 14], [5, 14], [0, 14], [10, 15], [7, 15], [12, 15], [5, 15], [13, 15], [8, 13], [5, 8], [3, 8], [4, 8], [0, 8], [8, 12], [7, 13], [10, 13], [9, 13], [6, 13], [3, 13], [0, 3], [0, 4], [0, 10], [0, 5], [0, 11], [3, 4], [3, 5], [3, 6], [4, 7], [4, 5], [4, 9], [7, 12], [10, 12], [5, 10], [6, 10], [5, 12], [6, 9], [6, 11], [2, 6]]
+2026-04-08 15:37:40         edges_to_keep: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47]
+2026-04-08 15:37:40       target_generator:
+2026-04-08 15:37:40         type: SequentialGenerator
+2026-04-08 15:37:40         generators: [{'type': 'HeatmapPlateauGenerator', 'num_heatmaps': 16, 'pos_dist_thresh': 17, 'heatmap_mode': 'KEYPOINT', 'generate_locref': True, 'locref_std': 7.2801}, {'type': 'PartAffinityFieldGenerator', 'graph': [[1, 14], [1, 9], [1, 3], [1, 8], [1, 13], [1, 6], [1, 5], [14, 15], [4, 14], [12, 14], [2, 14], [5, 14], [0, 14], [10, 15], [7, 15], [12, 15], [5, 15], [13, 15], [8, 13], [5, 8], [3, 8], [4, 8], [0, 8], [8, 12], [7, 13], [10, 13], [9, 13], [6, 13], [3, 13], [0, 3], [0, 4], [0, 10], [0, 5], [0, 11], [3, 4], [3, 5], [3, 6], [4, 7], [4, 5], [4, 9], [7, 12], [10, 12], [5, 10], [6, 10], [5, 12], [6, 9], [6, 11], [2, 6]], 'width': 20}]
+2026-04-08 15:37:40       criterion:
+2026-04-08 15:37:40         heatmap:
+2026-04-08 15:37:40           type: WeightedBCECriterion
+2026-04-08 15:37:40           weight: 1.0
+2026-04-08 15:37:40         locref:
+2026-04-08 15:37:40           type: WeightedHuberCriterion
+2026-04-08 15:37:40           weight: 0.05
+2026-04-08 15:37:40         paf:
+2026-04-08 15:37:40           type: WeightedHuberCriterion
+2026-04-08 15:37:40           weight: 0.1
+2026-04-08 15:37:40       heatmap_config:
+2026-04-08 15:37:40         channels: [2304, 1152, 16]
+2026-04-08 15:37:40         kernel_size: [3, 3]
+2026-04-08 15:37:40         strides: [2, 2]
+2026-04-08 15:37:40       locref_config:
+2026-04-08 15:37:40         channels: [2304, 1152, 32]
+2026-04-08 15:37:40         kernel_size: [3, 3]
+2026-04-08 15:37:40         strides: [2, 2]
+2026-04-08 15:37:40       paf_config:
+2026-04-08 15:37:40         channels: [2304, 1152, 96]
+2026-04-08 15:37:40         kernel_size: [3, 3]
+2026-04-08 15:37:40         strides: [2, 2]
+2026-04-08 15:37:40       num_stages: 5
+2026-04-08 15:37:40 net_type: dlcrnet_stride32_ms5
+2026-04-08 15:37:40 runner:
+2026-04-08 15:37:40   type: PoseTrainingRunner
+2026-04-08 15:37:40   gpus: None
+2026-04-08 15:37:40   key_metric: test.mAP
+2026-04-08 15:37:40   key_metric_asc: True
+2026-04-08 15:37:40   eval_interval: 25
+2026-04-08 15:37:40   optimizer:
+2026-04-08 15:37:40     type: AdamW
+2026-04-08 15:37:40     params:
+2026-04-08 15:37:40       lr: 0.0001
+2026-04-08 15:37:40   scheduler:
+2026-04-08 15:37:40     type: LRListScheduler
+2026-04-08 15:37:40     params:
+2026-04-08 15:37:40       lr_list: [[1e-05], [1e-06]]
+2026-04-08 15:37:40       milestones: [160, 190]
+2026-04-08 15:37:40   snapshots:
+2026-04-08 15:37:40     max_snapshots: 5
+2026-04-08 15:37:40     save_epochs: 50
+2026-04-08 15:37:40     save_optimizer_state: False
+2026-04-08 15:37:40 train_settings:
+2026-04-08 15:37:40   batch_size: 8
+2026-04-08 15:37:40   dataloader_workers: 0
+2026-04-08 15:37:40   dataloader_pin_memory: False
+2026-04-08 15:37:40   display_iters: 1000
+2026-04-08 15:37:40   epochs: 200
+2026-04-08 15:37:40   seed: 42
+2026-04-08 15:37:41 Loading pretrained weights from Hugging Face hub (timm/resnet50.a1_in1k)
+2026-04-08 15:37:41 '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1017)' thrown while requesting HEAD https://huggingface.co/timm/resnet50.a1_in1k/resolve/main/model.safetensors
+2026-04-08 15:37:41 Retrying in 1s [Retry 1/5].
+2026-04-08 15:38:42 Exiting...
+2026-04-08 15:40:21 Training with configuration:
+2026-04-08 15:40:21 data:
+2026-04-08 15:40:21   bbox_margin: 20
+2026-04-08 15:40:21   colormode: RGB
+2026-04-08 15:40:21   inference:
+2026-04-08 15:40:21     normalize_images: True
+2026-04-08 15:40:21   train:
+2026-04-08 15:40:21     affine:
+2026-04-08 15:40:21       p: 0.5
+2026-04-08 15:40:21       rotation: 30
+2026-04-08 15:40:21       scaling: [0.5, 1.25]
+2026-04-08 15:40:21       translation: 0
+2026-04-08 15:40:21     crop_sampling:
+2026-04-08 15:40:21       width: 448
+2026-04-08 15:40:21       height: 448
+2026-04-08 15:40:21       max_shift: 0.1
+2026-04-08 15:40:21       method: hybrid
+2026-04-08 15:40:21     gaussian_noise: 12.75
+2026-04-08 15:40:21     motion_blur: True
+2026-04-08 15:40:21     normalize_images: True
+2026-04-08 15:40:21 device: auto
+2026-04-08 15:40:21 inference:
+2026-04-08 15:40:21   multithreading:
+2026-04-08 15:40:21     enabled: True
+2026-04-08 15:40:21     queue_length: 4
+2026-04-08 15:40:21     timeout: 30.0
+2026-04-08 15:40:21   compile:
+2026-04-08 15:40:21     enabled: False
+2026-04-08 15:40:21     backend: inductor
+2026-04-08 15:40:21   autocast:
+2026-04-08 15:40:21     enabled: False
+2026-04-08 15:40:21 metadata:
+2026-04-08 15:40:21   project_path: C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17
+2026-04-08 15:40:21   pose_config_path: C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\dlc-models-pytorch\iteration-0\BIOMAPMar17-trainset95shuffle1\train\pytorch_config.yaml
+2026-04-08 15:40:21   bodyparts: ['nosetip', 'nosebot', 'mouth', 'innereye', 'outereye', 'eyeup', 'eyedown', 'earcanal', 'eartip', 'earcenter', 'earmed', 'earlat', 'neck', 'chest', 'pawL', 'pawR']
+2026-04-08 15:40:21   unique_bodyparts: []
+2026-04-08 15:40:21   individuals: ['animal']
+2026-04-08 15:40:21   with_identity: None
+2026-04-08 15:40:21 method: bu
+2026-04-08 15:40:21 model:
+2026-04-08 15:40:21   backbone:
+2026-04-08 15:40:21     type: DLCRNet
+2026-04-08 15:40:21     model_name: resnet50
+2026-04-08 15:40:21     pretrained: True
+2026-04-08 15:40:21     output_stride: 32
+2026-04-08 15:40:21   backbone_output_channels: 2304
+2026-04-08 15:40:21   pose_model:
+2026-04-08 15:40:21     stride: 8
+2026-04-08 15:40:21   heads:
+2026-04-08 15:40:21     bodypart:
+2026-04-08 15:40:21       type: DLCRNetHead
+2026-04-08 15:40:21       predictor:
+2026-04-08 15:40:21         type: PartAffinityFieldPredictor
+2026-04-08 15:40:21         num_animals: 1
+2026-04-08 15:40:21         num_multibodyparts: 16
+2026-04-08 15:40:21         num_uniquebodyparts: 0
+2026-04-08 15:40:21         nms_radius: 5
+2026-04-08 15:40:21         sigma: 1.0
+2026-04-08 15:40:21         locref_stdev: 7.2801
+2026-04-08 15:40:21         min_affinity: 0.05
+2026-04-08 15:40:21         graph: [[1, 14], [1, 9], [1, 3], [1, 8], [1, 13], [1, 6], [1, 5], [14, 15], [4, 14], [12, 14], [2, 14], [5, 14], [0, 14], [10, 15], [7, 15], [12, 15], [5, 15], [13, 15], [8, 13], [5, 8], [3, 8], [4, 8], [0, 8], [8, 12], [7, 13], [10, 13], [9, 13], [6, 13], [3, 13], [0, 3], [0, 4], [0, 10], [0, 5], [0, 11], [3, 4], [3, 5], [3, 6], [4, 7], [4, 5], [4, 9], [7, 12], [10, 12], [5, 10], [6, 10], [5, 12], [6, 9], [6, 11], [2, 6]]
+2026-04-08 15:40:21         edges_to_keep: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47]
+2026-04-08 15:40:21       target_generator:
+2026-04-08 15:40:21         type: SequentialGenerator
+2026-04-08 15:40:21         generators: [{'type': 'HeatmapPlateauGenerator', 'num_heatmaps': 16, 'pos_dist_thresh': 17, 'heatmap_mode': 'KEYPOINT', 'generate_locref': True, 'locref_std': 7.2801}, {'type': 'PartAffinityFieldGenerator', 'graph': [[1, 14], [1, 9], [1, 3], [1, 8], [1, 13], [1, 6], [1, 5], [14, 15], [4, 14], [12, 14], [2, 14], [5, 14], [0, 14], [10, 15], [7, 15], [12, 15], [5, 15], [13, 15], [8, 13], [5, 8], [3, 8], [4, 8], [0, 8], [8, 12], [7, 13], [10, 13], [9, 13], [6, 13], [3, 13], [0, 3], [0, 4], [0, 10], [0, 5], [0, 11], [3, 4], [3, 5], [3, 6], [4, 7], [4, 5], [4, 9], [7, 12], [10, 12], [5, 10], [6, 10], [5, 12], [6, 9], [6, 11], [2, 6]], 'width': 20}]
+2026-04-08 15:40:21       criterion:
+2026-04-08 15:40:21         heatmap:
+2026-04-08 15:40:21           type: WeightedBCECriterion
+2026-04-08 15:40:21           weight: 1.0
+2026-04-08 15:40:21         locref:
+2026-04-08 15:40:21           type: WeightedHuberCriterion
+2026-04-08 15:40:21           weight: 0.05
+2026-04-08 15:40:21         paf:
+2026-04-08 15:40:21           type: WeightedHuberCriterion
+2026-04-08 15:40:21           weight: 0.1
+2026-04-08 15:40:21       heatmap_config:
+2026-04-08 15:40:21         channels: [2304, 1152, 16]
+2026-04-08 15:40:21         kernel_size: [3, 3]
+2026-04-08 15:40:21         strides: [2, 2]
+2026-04-08 15:40:21       locref_config:
+2026-04-08 15:40:21         channels: [2304, 1152, 32]
+2026-04-08 15:40:21         kernel_size: [3, 3]
+2026-04-08 15:40:21         strides: [2, 2]
+2026-04-08 15:40:21       paf_config:
+2026-04-08 15:40:21         channels: [2304, 1152, 96]
+2026-04-08 15:40:21         kernel_size: [3, 3]
+2026-04-08 15:40:21         strides: [2, 2]
+2026-04-08 15:40:21       num_stages: 5
+2026-04-08 15:40:21 net_type: dlcrnet_stride32_ms5
+2026-04-08 15:40:21 runner:
+2026-04-08 15:40:21   type: PoseTrainingRunner
+2026-04-08 15:40:21   gpus: None
+2026-04-08 15:40:21   key_metric: test.mAP
+2026-04-08 15:40:21   key_metric_asc: True
+2026-04-08 15:40:21   eval_interval: 25
+2026-04-08 15:40:21   optimizer:
+2026-04-08 15:40:21     type: AdamW
+2026-04-08 15:40:21     params:
+2026-04-08 15:40:21       lr: 0.0001
+2026-04-08 15:40:21   scheduler:
+2026-04-08 15:40:21     type: LRListScheduler
+2026-04-08 15:40:21     params:
+2026-04-08 15:40:21       lr_list: [[1e-05], [1e-06]]
+2026-04-08 15:40:21       milestones: [160, 190]
+2026-04-08 15:40:21   snapshots:
+2026-04-08 15:40:21     max_snapshots: 5
+2026-04-08 15:40:21     save_epochs: 50
+2026-04-08 15:40:21     save_optimizer_state: False
+2026-04-08 15:40:21 train_settings:
+2026-04-08 15:40:21   batch_size: 8
+2026-04-08 15:40:21   dataloader_workers: 0
+2026-04-08 15:40:21   dataloader_pin_memory: False
+2026-04-08 15:40:21   display_iters: 1000
+2026-04-08 15:40:21   epochs: 200
+2026-04-08 15:40:21   seed: 42
+2026-04-08 15:40:21 Loading pretrained weights from Hugging Face hub (timm/resnet50.a1_in1k)
+2026-04-08 15:58:34 Exiting...
+2026-04-08 15:59:42 Training with configuration:
+2026-04-08 15:59:42 data:
+2026-04-08 15:59:42   bbox_margin: 20
+2026-04-08 15:59:42   colormode: RGB
+2026-04-08 15:59:42   inference:
+2026-04-08 15:59:42     normalize_images: True
+2026-04-08 15:59:42   train:
+2026-04-08 15:59:42     affine:
+2026-04-08 15:59:42       p: 0.5
+2026-04-08 15:59:42       rotation: 30
+2026-04-08 15:59:42       scaling: [0.5, 1.25]
+2026-04-08 15:59:42       translation: 0
+2026-04-08 15:59:42     crop_sampling:
+2026-04-08 15:59:42       width: 448
+2026-04-08 15:59:42       height: 448
+2026-04-08 15:59:42       max_shift: 0.1
+2026-04-08 15:59:42       method: hybrid
+2026-04-08 15:59:42     gaussian_noise: 12.75
+2026-04-08 15:59:42     motion_blur: True
+2026-04-08 15:59:42     normalize_images: True
+2026-04-08 15:59:42 device: auto
+2026-04-08 15:59:42 inference:
+2026-04-08 15:59:42   multithreading:
+2026-04-08 15:59:42     enabled: True
+2026-04-08 15:59:42     queue_length: 4
+2026-04-08 15:59:42     timeout: 30.0
+2026-04-08 15:59:42   compile:
+2026-04-08 15:59:42     enabled: False
+2026-04-08 15:59:42     backend: inductor
+2026-04-08 15:59:42   autocast:
+2026-04-08 15:59:42     enabled: False
+2026-04-08 15:59:42 metadata:
+2026-04-08 15:59:42   project_path: C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17
+2026-04-08 15:59:42   pose_config_path: C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\dlc-models-pytorch\iteration-0\BIOMAPMar17-trainset95shuffle1\train\pytorch_config.yaml
+2026-04-08 15:59:42   bodyparts: ['nosetip', 'nosebot', 'mouth', 'innereye', 'outereye', 'eyeup', 'eyedown', 'earcanal', 'eartip', 'earcenter', 'earmed', 'earlat', 'neck', 'chest', 'pawL', 'pawR']
+2026-04-08 15:59:42   unique_bodyparts: []
+2026-04-08 15:59:42   individuals: ['animal']
+2026-04-08 15:59:42   with_identity: None
+2026-04-08 15:59:42 method: bu
+2026-04-08 15:59:42 model:
+2026-04-08 15:59:42   backbone:
+2026-04-08 15:59:42     type: DLCRNet
+2026-04-08 15:59:42     model_name: resnet50
+2026-04-08 15:59:42     pretrained: True
+2026-04-08 15:59:42     output_stride: 32
+2026-04-08 15:59:42   backbone_output_channels: 2304
+2026-04-08 15:59:42   pose_model:
+2026-04-08 15:59:42     stride: 8
+2026-04-08 15:59:42   heads:
+2026-04-08 15:59:42     bodypart:
+2026-04-08 15:59:42       type: DLCRNetHead
+2026-04-08 15:59:42       predictor:
+2026-04-08 15:59:42         type: PartAffinityFieldPredictor
+2026-04-08 15:59:42         num_animals: 1
+2026-04-08 15:59:42         num_multibodyparts: 16
+2026-04-08 15:59:42         num_uniquebodyparts: 0
+2026-04-08 15:59:42         nms_radius: 5
+2026-04-08 15:59:42         sigma: 1.0
+2026-04-08 15:59:42         locref_stdev: 7.2801
+2026-04-08 15:59:42         min_affinity: 0.05
+2026-04-08 15:59:42         graph: [[1, 14], [1, 9], [1, 3], [1, 8], [1, 13], [1, 6], [1, 5], [14, 15], [4, 14], [12, 14], [2, 14], [5, 14], [0, 14], [10, 15], [7, 15], [12, 15], [5, 15], [13, 15], [8, 13], [5, 8], [3, 8], [4, 8], [0, 8], [8, 12], [7, 13], [10, 13], [9, 13], [6, 13], [3, 13], [0, 3], [0, 4], [0, 10], [0, 5], [0, 11], [3, 4], [3, 5], [3, 6], [4, 7], [4, 5], [4, 9], [7, 12], [10, 12], [5, 10], [6, 10], [5, 12], [6, 9], [6, 11], [2, 6]]
+2026-04-08 15:59:42         edges_to_keep: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47]
+2026-04-08 15:59:42       target_generator:
+2026-04-08 15:59:42         type: SequentialGenerator
+2026-04-08 15:59:42         generators: [{'type': 'HeatmapPlateauGenerator', 'num_heatmaps': 16, 'pos_dist_thresh': 17, 'heatmap_mode': 'KEYPOINT', 'generate_locref': True, 'locref_std': 7.2801}, {'type': 'PartAffinityFieldGenerator', 'graph': [[1, 14], [1, 9], [1, 3], [1, 8], [1, 13], [1, 6], [1, 5], [14, 15], [4, 14], [12, 14], [2, 14], [5, 14], [0, 14], [10, 15], [7, 15], [12, 15], [5, 15], [13, 15], [8, 13], [5, 8], [3, 8], [4, 8], [0, 8], [8, 12], [7, 13], [10, 13], [9, 13], [6, 13], [3, 13], [0, 3], [0, 4], [0, 10], [0, 5], [0, 11], [3, 4], [3, 5], [3, 6], [4, 7], [4, 5], [4, 9], [7, 12], [10, 12], [5, 10], [6, 10], [5, 12], [6, 9], [6, 11], [2, 6]], 'width': 20}]
+2026-04-08 15:59:42       criterion:
+2026-04-08 15:59:42         heatmap:
+2026-04-08 15:59:42           type: WeightedBCECriterion
+2026-04-08 15:59:42           weight: 1.0
+2026-04-08 15:59:42         locref:
+2026-04-08 15:59:42           type: WeightedHuberCriterion
+2026-04-08 15:59:42           weight: 0.05
+2026-04-08 15:59:42         paf:
+2026-04-08 15:59:42           type: WeightedHuberCriterion
+2026-04-08 15:59:42           weight: 0.1
+2026-04-08 15:59:42       heatmap_config:
+2026-04-08 15:59:42         channels: [2304, 1152, 16]
+2026-04-08 15:59:42         kernel_size: [3, 3]
+2026-04-08 15:59:42         strides: [2, 2]
+2026-04-08 15:59:42       locref_config:
+2026-04-08 15:59:42         channels: [2304, 1152, 32]
+2026-04-08 15:59:42         kernel_size: [3, 3]
+2026-04-08 15:59:42         strides: [2, 2]
+2026-04-08 15:59:42       paf_config:
+2026-04-08 15:59:42         channels: [2304, 1152, 96]
+2026-04-08 15:59:42         kernel_size: [3, 3]
+2026-04-08 15:59:42         strides: [2, 2]
+2026-04-08 15:59:42       num_stages: 5
+2026-04-08 15:59:42 net_type: dlcrnet_stride32_ms5
+2026-04-08 15:59:42 runner:
+2026-04-08 15:59:42   type: PoseTrainingRunner
+2026-04-08 15:59:42   gpus: None
+2026-04-08 15:59:42   key_metric: test.mAP
+2026-04-08 15:59:42   key_metric_asc: True
+2026-04-08 15:59:42   eval_interval: 25
+2026-04-08 15:59:42   optimizer:
+2026-04-08 15:59:42     type: AdamW
+2026-04-08 15:59:42     params:
+2026-04-08 15:59:42       lr: 0.0001
+2026-04-08 15:59:42   scheduler:
+2026-04-08 15:59:42     type: LRListScheduler
+2026-04-08 15:59:42     params:
+2026-04-08 15:59:42       lr_list: [[1e-05], [1e-06]]
+2026-04-08 15:59:42       milestones: [160, 190]
+2026-04-08 15:59:42   snapshots:
+2026-04-08 15:59:42     max_snapshots: 5
+2026-04-08 15:59:42     save_epochs: 50
+2026-04-08 15:59:42     save_optimizer_state: False
+2026-04-08 15:59:42 train_settings:
+2026-04-08 15:59:42   batch_size: 8
+2026-04-08 15:59:42   dataloader_workers: 0
+2026-04-08 15:59:42   dataloader_pin_memory: False
+2026-04-08 15:59:42   display_iters: 1000
+2026-04-08 15:59:42   epochs: 200
+2026-04-08 15:59:42   seed: 42
+2026-04-08 15:59:42 Loading pretrained weights from Hugging Face hub (timm/resnet50.a1_in1k)
+2026-04-08 15:59:54 Exiting...
+2026-04-08 16:01:08 Training with configuration:
+2026-04-08 16:01:08 data:
+2026-04-08 16:01:08   bbox_margin: 20
+2026-04-08 16:01:08   colormode: RGB
+2026-04-08 16:01:08   inference:
+2026-04-08 16:01:08     normalize_images: True
+2026-04-08 16:01:08   train:
+2026-04-08 16:01:08     affine:
+2026-04-08 16:01:08       p: 0.5
+2026-04-08 16:01:08       rotation: 30
+2026-04-08 16:01:08       scaling: [0.5, 1.25]
+2026-04-08 16:01:08       translation: 0
+2026-04-08 16:01:08     crop_sampling:
+2026-04-08 16:01:08       width: 448
+2026-04-08 16:01:08       height: 448
+2026-04-08 16:01:08       max_shift: 0.1
+2026-04-08 16:01:08       method: hybrid
+2026-04-08 16:01:08     gaussian_noise: 12.75
+2026-04-08 16:01:08     motion_blur: True
+2026-04-08 16:01:08     normalize_images: True
+2026-04-08 16:01:08 device: auto
+2026-04-08 16:01:08 inference:
+2026-04-08 16:01:08   multithreading:
+2026-04-08 16:01:08     enabled: True
+2026-04-08 16:01:08     queue_length: 4
+2026-04-08 16:01:08     timeout: 30.0
+2026-04-08 16:01:08   compile:
+2026-04-08 16:01:08     enabled: False
+2026-04-08 16:01:08     backend: inductor
+2026-04-08 16:01:08   autocast:
+2026-04-08 16:01:08     enabled: False
+2026-04-08 16:01:08 metadata:
+2026-04-08 16:01:08   project_path: C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17
+2026-04-08 16:01:08   pose_config_path: C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\dlc-models-pytorch\iteration-0\BIOMAPMar17-trainset95shuffle1\train\pytorch_config.yaml
+2026-04-08 16:01:08   bodyparts: ['nosetip', 'nosebot', 'mouth', 'innereye', 'outereye', 'eyeup', 'eyedown', 'earcanal', 'eartip', 'earcenter', 'earmed', 'earlat', 'neck', 'chest', 'pawL', 'pawR']
+2026-04-08 16:01:08   unique_bodyparts: []
+2026-04-08 16:01:08   individuals: ['animal']
+2026-04-08 16:01:08   with_identity: None
+2026-04-08 16:01:08 method: bu
+2026-04-08 16:01:08 model:
+2026-04-08 16:01:08   backbone:
+2026-04-08 16:01:08     type: ResNet
+2026-04-08 16:01:08     model_name: resnet101
+2026-04-08 16:01:08     output_stride: 16
+2026-04-08 16:01:08     freeze_bn_stats: False
+2026-04-08 16:01:08     freeze_bn_weights: False
+2026-04-08 16:01:08   backbone_output_channels: 2048
+2026-04-08 16:01:08   heads:
+2026-04-08 16:01:08     bodypart:
+2026-04-08 16:01:08       type: HeatmapHead
+2026-04-08 16:01:08       weight_init: normal
+2026-04-08 16:01:08       predictor:
+2026-04-08 16:01:08         type: HeatmapPredictor
+2026-04-08 16:01:08         apply_sigmoid: False
+2026-04-08 16:01:08         clip_scores: True
+2026-04-08 16:01:08         location_refinement: True
+2026-04-08 16:01:08         locref_std: 7.2801
+2026-04-08 16:01:08       target_generator:
+2026-04-08 16:01:08         type: HeatmapGaussianGenerator
+2026-04-08 16:01:08         num_heatmaps: 16
+2026-04-08 16:01:08         pos_dist_thresh: 17
+2026-04-08 16:01:08         heatmap_mode: KEYPOINT
+2026-04-08 16:01:08         gradient_masking: False
+2026-04-08 16:01:08         generate_locref: True
+2026-04-08 16:01:08         locref_std: 7.2801
+2026-04-08 16:01:08       criterion:
+2026-04-08 16:01:08         heatmap:
+2026-04-08 16:01:08           type: WeightedMSECriterion
+2026-04-08 16:01:08           weight: 1.0
+2026-04-08 16:01:08         locref:
+2026-04-08 16:01:08           type: WeightedHuberCriterion
+2026-04-08 16:01:08           weight: 0.05
+2026-04-08 16:01:08       heatmap_config:
+2026-04-08 16:01:08         channels: [2048, 16]
+2026-04-08 16:01:08         kernel_size: [3]
+2026-04-08 16:01:08         strides: [2]
+2026-04-08 16:01:08       locref_config:
+2026-04-08 16:01:08         channels: [2048, 32]
+2026-04-08 16:01:08         kernel_size: [3]
+2026-04-08 16:01:08         strides: [2]
+2026-04-08 16:01:08 net_type: resnet_101
+2026-04-08 16:01:08 runner:
+2026-04-08 16:01:08   type: PoseTrainingRunner
+2026-04-08 16:01:08   gpus: None
+2026-04-08 16:01:08   key_metric: test.mAP
+2026-04-08 16:01:08   key_metric_asc: True
+2026-04-08 16:01:08   eval_interval: 10
+2026-04-08 16:01:08   optimizer:
+2026-04-08 16:01:08     type: AdamW
+2026-04-08 16:01:08     params:
+2026-04-08 16:01:08       lr: 0.0005
+2026-04-08 16:01:08   scheduler:
+2026-04-08 16:01:08     type: LRListScheduler
+2026-04-08 16:01:08     params:
+2026-04-08 16:01:08       lr_list: [[0.0001], [1e-05]]
+2026-04-08 16:01:08       milestones: [90, 120]
+2026-04-08 16:01:08   snapshots:
+2026-04-08 16:01:08     max_snapshots: 5
+2026-04-08 16:01:08     save_epochs: 50
+2026-04-08 16:01:08     save_optimizer_state: False
+2026-04-08 16:01:08 train_settings:
+2026-04-08 16:01:08   batch_size: 8
+2026-04-08 16:01:08   dataloader_workers: 0
+2026-04-08 16:01:08   dataloader_pin_memory: False
+2026-04-08 16:01:08   display_iters: 1000
+2026-04-08 16:01:08   epochs: 200
+2026-04-08 16:01:08   seed: 42
+2026-04-08 16:01:08 Loading pretrained weights from Hugging Face hub (timm/resnet101.a1h_in1k)
+2026-04-08 16:01:08 '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1017)' thrown while requesting HEAD https://huggingface.co/timm/resnet101.a1h_in1k/resolve/main/model.safetensors
+2026-04-08 16:01:08 Retrying in 1s [Retry 1/5].
+2026-04-08 16:04:14 Training with configuration:
+2026-04-08 16:04:14 data:
+2026-04-08 16:04:14   bbox_margin: 20
+2026-04-08 16:04:14   colormode: RGB
+2026-04-08 16:04:14   inference:
+2026-04-08 16:04:14     normalize_images: True
+2026-04-08 16:04:14   train:
+2026-04-08 16:04:14     affine:
+2026-04-08 16:04:14       p: 0.5
+2026-04-08 16:04:14       rotation: 30
+2026-04-08 16:04:14       scaling: [0.5, 1.25]
+2026-04-08 16:04:14       translation: 0
+2026-04-08 16:04:14     crop_sampling:
+2026-04-08 16:04:14       width: 448
+2026-04-08 16:04:14       height: 448
+2026-04-08 16:04:14       max_shift: 0.1
+2026-04-08 16:04:14       method: hybrid
+2026-04-08 16:04:14     gaussian_noise: 12.75
+2026-04-08 16:04:14     motion_blur: True
+2026-04-08 16:04:14     normalize_images: True
+2026-04-08 16:04:14 device: auto
+2026-04-08 16:04:14 inference:
+2026-04-08 16:04:14   multithreading:
+2026-04-08 16:04:14     enabled: True
+2026-04-08 16:04:14     queue_length: 4
+2026-04-08 16:04:14     timeout: 30.0
+2026-04-08 16:04:14   compile:
+2026-04-08 16:04:14     enabled: False
+2026-04-08 16:04:14     backend: inductor
+2026-04-08 16:04:14   autocast:
+2026-04-08 16:04:14     enabled: False
+2026-04-08 16:04:14 metadata:
+2026-04-08 16:04:14   project_path: C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17
+2026-04-08 16:04:14   pose_config_path: C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\dlc-models-pytorch\iteration-0\BIOMAPMar17-trainset95shuffle1\train\pytorch_config.yaml
+2026-04-08 16:04:14   bodyparts: ['nosetip', 'nosebot', 'mouth', 'innereye', 'outereye', 'eyeup', 'eyedown', 'earcanal', 'eartip', 'earcenter', 'earmed', 'earlat', 'neck', 'chest', 'pawL', 'pawR']
+2026-04-08 16:04:14   unique_bodyparts: []
+2026-04-08 16:04:14   individuals: ['animal']
+2026-04-08 16:04:14   with_identity: None
+2026-04-08 16:04:14 method: bu
+2026-04-08 16:04:14 model:
+2026-04-08 16:04:14   backbone:
+2026-04-08 16:04:14     type: DLCRNet
+2026-04-08 16:04:14     model_name: resnet50
+2026-04-08 16:04:14     pretrained: True
+2026-04-08 16:04:14     output_stride: 32
+2026-04-08 16:04:14   backbone_output_channels: 2304
+2026-04-08 16:04:14   pose_model:
+2026-04-08 16:04:14     stride: 8
+2026-04-08 16:04:14   heads:
+2026-04-08 16:04:14     bodypart:
+2026-04-08 16:04:14       type: DLCRNetHead
+2026-04-08 16:04:14       predictor:
+2026-04-08 16:04:14         type: PartAffinityFieldPredictor
+2026-04-08 16:04:14         num_animals: 1
+2026-04-08 16:04:14         num_multibodyparts: 16
+2026-04-08 16:04:14         num_uniquebodyparts: 0
+2026-04-08 16:04:14         nms_radius: 5
+2026-04-08 16:04:14         sigma: 1.0
+2026-04-08 16:04:14         locref_stdev: 7.2801
+2026-04-08 16:04:14         min_affinity: 0.05
+2026-04-08 16:04:14         graph: [[0, 12], [0, 6], [0, 11], [0, 14], [0, 10], [0, 15], [7, 12], [5, 12], [10, 12], [1, 12], [4, 12], [6, 10], [6, 7], [5, 6], [6, 9], [1, 6], [4, 11], [11, 14], [9, 11], [3, 11], [5, 9], [3, 5], [5, 7], [4, 5], [5, 8], [1, 5], [9, 14], [2, 9], [9, 13], [1, 9], [8, 10], [10, 15], [7, 10], [4, 10], [4, 14], [4, 13], [1, 4], [4, 7], [4, 15], [2, 4], [1, 14], [8, 14], [7, 14], [2, 7], [2, 3], [1, 3], [1, 15], [8, 15]]
+2026-04-08 16:04:14         edges_to_keep: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47]
+2026-04-08 16:04:14       target_generator:
+2026-04-08 16:04:14         type: SequentialGenerator
+2026-04-08 16:04:14         generators: [{'type': 'HeatmapPlateauGenerator', 'num_heatmaps': 16, 'pos_dist_thresh': 17, 'heatmap_mode': 'KEYPOINT', 'generate_locref': True, 'locref_std': 7.2801}, {'type': 'PartAffinityFieldGenerator', 'graph': [[0, 12], [0, 6], [0, 11], [0, 14], [0, 10], [0, 15], [7, 12], [5, 12], [10, 12], [1, 12], [4, 12], [6, 10], [6, 7], [5, 6], [6, 9], [1, 6], [4, 11], [11, 14], [9, 11], [3, 11], [5, 9], [3, 5], [5, 7], [4, 5], [5, 8], [1, 5], [9, 14], [2, 9], [9, 13], [1, 9], [8, 10], [10, 15], [7, 10], [4, 10], [4, 14], [4, 13], [1, 4], [4, 7], [4, 15], [2, 4], [1, 14], [8, 14], [7, 14], [2, 7], [2, 3], [1, 3], [1, 15], [8, 15]], 'width': 20}]
+2026-04-08 16:04:14       criterion:
+2026-04-08 16:04:14         heatmap:
+2026-04-08 16:04:14           type: WeightedBCECriterion
+2026-04-08 16:04:14           weight: 1.0
+2026-04-08 16:04:14         locref:
+2026-04-08 16:04:14           type: WeightedHuberCriterion
+2026-04-08 16:04:14           weight: 0.05
+2026-04-08 16:04:14         paf:
+2026-04-08 16:04:14           type: WeightedHuberCriterion
+2026-04-08 16:04:14           weight: 0.1
+2026-04-08 16:04:14       heatmap_config:
+2026-04-08 16:04:14         channels: [2304, 1152, 16]
+2026-04-08 16:04:14         kernel_size: [3, 3]
+2026-04-08 16:04:14         strides: [2, 2]
+2026-04-08 16:04:14       locref_config:
+2026-04-08 16:04:14         channels: [2304, 1152, 32]
+2026-04-08 16:04:14         kernel_size: [3, 3]
+2026-04-08 16:04:14         strides: [2, 2]
+2026-04-08 16:04:14       paf_config:
+2026-04-08 16:04:14         channels: [2304, 1152, 96]
+2026-04-08 16:04:14         kernel_size: [3, 3]
+2026-04-08 16:04:14         strides: [2, 2]
+2026-04-08 16:04:14       num_stages: 5
+2026-04-08 16:04:14 net_type: dlcrnet_stride32_ms5
+2026-04-08 16:04:14 runner:
+2026-04-08 16:04:14   type: PoseTrainingRunner
+2026-04-08 16:04:14   gpus: None
+2026-04-08 16:04:14   key_metric: test.mAP
+2026-04-08 16:04:14   key_metric_asc: True
+2026-04-08 16:04:14   eval_interval: 25
+2026-04-08 16:04:14   optimizer:
+2026-04-08 16:04:14     type: AdamW
+2026-04-08 16:04:14     params:
+2026-04-08 16:04:14       lr: 0.0001
+2026-04-08 16:04:14   scheduler:
+2026-04-08 16:04:14     type: LRListScheduler
+2026-04-08 16:04:14     params:
+2026-04-08 16:04:14       lr_list: [[1e-05], [1e-06]]
+2026-04-08 16:04:14       milestones: [160, 190]
+2026-04-08 16:04:14   snapshots:
+2026-04-08 16:04:14     max_snapshots: 5
+2026-04-08 16:04:14     save_epochs: 50
+2026-04-08 16:04:14     save_optimizer_state: False
+2026-04-08 16:04:14 train_settings:
+2026-04-08 16:04:14   batch_size: 8
+2026-04-08 16:04:14   dataloader_workers: 0
+2026-04-08 16:04:14   dataloader_pin_memory: False
+2026-04-08 16:04:14   display_iters: 1000
+2026-04-08 16:04:14   epochs: 200
+2026-04-08 16:04:14   seed: 42
+2026-04-08 16:04:14 Loading pretrained weights from Hugging Face hub (timm/resnet50.a1_in1k)
+2026-04-08 16:04:15 '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1017)' thrown while requesting HEAD https://huggingface.co/timm/resnet50.a1_in1k/resolve/main/model.safetensors
+2026-04-08 16:04:15 Retrying in 1s [Retry 1/5].
+2026-04-08 16:05:54 Exiting...
+2026-04-08 16:07:13 Training with configuration:
+2026-04-08 16:07:13 data:
+2026-04-08 16:07:13   bbox_margin: 20
+2026-04-08 16:07:13   colormode: RGB
+2026-04-08 16:07:13   inference:
+2026-04-08 16:07:13     normalize_images: True
+2026-04-08 16:07:13   train:
+2026-04-08 16:07:13     affine:
+2026-04-08 16:07:13       p: 0.5
+2026-04-08 16:07:13       rotation: 30
+2026-04-08 16:07:13       scaling: [0.5, 1.25]
+2026-04-08 16:07:13       translation: 0
+2026-04-08 16:07:13     crop_sampling:
+2026-04-08 16:07:13       width: 448
+2026-04-08 16:07:13       height: 448
+2026-04-08 16:07:13       max_shift: 0.1
+2026-04-08 16:07:13       method: hybrid
+2026-04-08 16:07:13     gaussian_noise: 12.75
+2026-04-08 16:07:13     motion_blur: True
+2026-04-08 16:07:13     normalize_images: True
+2026-04-08 16:07:13 device: auto
+2026-04-08 16:07:13 inference:
+2026-04-08 16:07:13   multithreading:
+2026-04-08 16:07:13     enabled: True
+2026-04-08 16:07:13     queue_length: 4
+2026-04-08 16:07:13     timeout: 30.0
+2026-04-08 16:07:13   compile:
+2026-04-08 16:07:13     enabled: False
+2026-04-08 16:07:13     backend: inductor
+2026-04-08 16:07:13   autocast:
+2026-04-08 16:07:13     enabled: False
+2026-04-08 16:07:13 metadata:
+2026-04-08 16:07:13   project_path: C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17
+2026-04-08 16:07:13   pose_config_path: C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\dlc-models-pytorch\iteration-0\BIOMAPMar17-trainset95shuffle1\train\pytorch_config.yaml
+2026-04-08 16:07:13   bodyparts: ['nosetip', 'nosebot', 'mouth', 'innereye', 'outereye', 'eyeup', 'eyedown', 'earcanal', 'eartip', 'earcenter', 'earmed', 'earlat', 'neck', 'chest', 'pawL', 'pawR']
+2026-04-08 16:07:13   unique_bodyparts: []
+2026-04-08 16:07:13   individuals: ['animal']
+2026-04-08 16:07:13   with_identity: None
+2026-04-08 16:07:13 method: bu
+2026-04-08 16:07:13 model:
+2026-04-08 16:07:13   backbone:
+2026-04-08 16:07:13     type: DLCRNet
+2026-04-08 16:07:13     model_name: resnet50
+2026-04-08 16:07:13     pretrained: False
+2026-04-08 16:07:13     output_stride: 32
+2026-04-08 16:07:13   backbone_output_channels: 2304
+2026-04-08 16:07:13   pose_model:
+2026-04-08 16:07:13     stride: 8
+2026-04-08 16:07:13   heads:
+2026-04-08 16:07:13     bodypart:
+2026-04-08 16:07:13       type: DLCRNetHead
+2026-04-08 16:07:13       predictor:
+2026-04-08 16:07:13         type: PartAffinityFieldPredictor
+2026-04-08 16:07:13         num_animals: 1
+2026-04-08 16:07:13         num_multibodyparts: 16
+2026-04-08 16:07:13         num_uniquebodyparts: 0
+2026-04-08 16:07:13         nms_radius: 5
+2026-04-08 16:07:13         sigma: 1.0
+2026-04-08 16:07:13         locref_stdev: 7.2801
+2026-04-08 16:07:13         min_affinity: 0.05
+2026-04-08 16:07:13         graph: [[0, 12], [0, 6], [0, 11], [0, 14], [0, 10], [0, 15], [7, 12], [5, 12], [10, 12], [1, 12], [4, 12], [6, 10], [6, 7], [5, 6], [6, 9], [1, 6], [4, 11], [11, 14], [9, 11], [3, 11], [5, 9], [3, 5], [5, 7], [4, 5], [5, 8], [1, 5], [9, 14], [2, 9], [9, 13], [1, 9], [8, 10], [10, 15], [7, 10], [4, 10], [4, 14], [4, 13], [1, 4], [4, 7], [4, 15], [2, 4], [1, 14], [8, 14], [7, 14], [2, 7], [2, 3], [1, 3], [1, 15], [8, 15]]
+2026-04-08 16:07:13         edges_to_keep: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47]
+2026-04-08 16:07:13       target_generator:
+2026-04-08 16:07:13         type: SequentialGenerator
+2026-04-08 16:07:13         generators: [{'type': 'HeatmapPlateauGenerator', 'num_heatmaps': 16, 'pos_dist_thresh': 17, 'heatmap_mode': 'KEYPOINT', 'generate_locref': True, 'locref_std': 7.2801}, {'type': 'PartAffinityFieldGenerator', 'graph': [[0, 12], [0, 6], [0, 11], [0, 14], [0, 10], [0, 15], [7, 12], [5, 12], [10, 12], [1, 12], [4, 12], [6, 10], [6, 7], [5, 6], [6, 9], [1, 6], [4, 11], [11, 14], [9, 11], [3, 11], [5, 9], [3, 5], [5, 7], [4, 5], [5, 8], [1, 5], [9, 14], [2, 9], [9, 13], [1, 9], [8, 10], [10, 15], [7, 10], [4, 10], [4, 14], [4, 13], [1, 4], [4, 7], [4, 15], [2, 4], [1, 14], [8, 14], [7, 14], [2, 7], [2, 3], [1, 3], [1, 15], [8, 15]], 'width': 20}]
+2026-04-08 16:07:13       criterion:
+2026-04-08 16:07:13         heatmap:
+2026-04-08 16:07:13           type: WeightedBCECriterion
+2026-04-08 16:07:13           weight: 1.0
+2026-04-08 16:07:13         locref:
+2026-04-08 16:07:13           type: WeightedHuberCriterion
+2026-04-08 16:07:13           weight: 0.05
+2026-04-08 16:07:13         paf:
+2026-04-08 16:07:13           type: WeightedHuberCriterion
+2026-04-08 16:07:13           weight: 0.1
+2026-04-08 16:07:13       heatmap_config:
+2026-04-08 16:07:13         channels: [2304, 1152, 16]
+2026-04-08 16:07:13         kernel_size: [3, 3]
+2026-04-08 16:07:13         strides: [2, 2]
+2026-04-08 16:07:13       locref_config:
+2026-04-08 16:07:13         channels: [2304, 1152, 32]
+2026-04-08 16:07:13         kernel_size: [3, 3]
+2026-04-08 16:07:13         strides: [2, 2]
+2026-04-08 16:07:13       paf_config:
+2026-04-08 16:07:13         channels: [2304, 1152, 96]
+2026-04-08 16:07:13         kernel_size: [3, 3]
+2026-04-08 16:07:13         strides: [2, 2]
+2026-04-08 16:07:13       num_stages: 5
+2026-04-08 16:07:13 net_type: dlcrnet_stride32_ms5
+2026-04-08 16:07:13 runner:
+2026-04-08 16:07:13   type: PoseTrainingRunner
+2026-04-08 16:07:13   gpus: None
+2026-04-08 16:07:13   key_metric: test.mAP
+2026-04-08 16:07:13   key_metric_asc: True
+2026-04-08 16:07:13   eval_interval: 25
+2026-04-08 16:07:13   optimizer:
+2026-04-08 16:07:13     type: AdamW
+2026-04-08 16:07:13     params:
+2026-04-08 16:07:13       lr: 0.0001
+2026-04-08 16:07:13   scheduler:
+2026-04-08 16:07:13     type: LRListScheduler
+2026-04-08 16:07:13     params:
+2026-04-08 16:07:13       lr_list: [[1e-05], [1e-06]]
+2026-04-08 16:07:13       milestones: [160, 190]
+2026-04-08 16:07:13   snapshots:
+2026-04-08 16:07:13     max_snapshots: 5
+2026-04-08 16:07:13     save_epochs: 50
+2026-04-08 16:07:13     save_optimizer_state: False
+2026-04-08 16:07:13 train_settings:
+2026-04-08 16:07:13   batch_size: 8
+2026-04-08 16:07:13   dataloader_workers: 0
+2026-04-08 16:07:13   dataloader_pin_memory: False
+2026-04-08 16:07:13   display_iters: 1000
+2026-04-08 16:07:13   epochs: 200
+2026-04-08 16:07:13   seed: 42
+2026-04-08 16:07:13 Loading pretrained weights from Hugging Face hub (timm/resnet50.a1_in1k)
+2026-04-08 16:07:13 '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1017)' thrown while requesting HEAD https://huggingface.co/timm/resnet50.a1_in1k/resolve/main/model.safetensors
+2026-04-08 16:07:13 Retrying in 1s [Retry 1/5].
+2026-04-09 12:56:44 Training with configuration:
+2026-04-09 12:56:44 data:
+2026-04-09 12:56:44   bbox_margin: 20
+2026-04-09 12:56:44   colormode: RGB
+2026-04-09 12:56:44   inference:
+2026-04-09 12:56:44     normalize_images: True
+2026-04-09 12:56:44   train:
+2026-04-09 12:56:44     affine:
+2026-04-09 12:56:44       p: 0.5
+2026-04-09 12:56:44       rotation: 30
+2026-04-09 12:56:44       scaling: [0.5, 1.25]
+2026-04-09 12:56:44       translation: 0
+2026-04-09 12:56:44     crop_sampling:
+2026-04-09 12:56:44       width: 448
+2026-04-09 12:56:44       height: 448
+2026-04-09 12:56:44       max_shift: 0.1
+2026-04-09 12:56:44       method: hybrid
+2026-04-09 12:56:44     gaussian_noise: 12.75
+2026-04-09 12:56:44     motion_blur: True
+2026-04-09 12:56:44     normalize_images: True
+2026-04-09 12:56:44 device: auto
+2026-04-09 12:56:44 inference:
+2026-04-09 12:56:44   multithreading:
+2026-04-09 12:56:44     enabled: True
+2026-04-09 12:56:44     queue_length: 4
+2026-04-09 12:56:44     timeout: 30.0
+2026-04-09 12:56:44   compile:
+2026-04-09 12:56:44     enabled: False
+2026-04-09 12:56:44     backend: inductor
+2026-04-09 12:56:44   autocast:
+2026-04-09 12:56:44     enabled: False
+2026-04-09 12:56:44 metadata:
+2026-04-09 12:56:44   project_path: C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17
+2026-04-09 12:56:44   pose_config_path: C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\dlc-models-pytorch\iteration-0\BIOMAPMar17-trainset95shuffle1\train\pytorch_config.yaml
+2026-04-09 12:56:44   bodyparts: ['nosetip', 'nosebot', 'mouth', 'innereye', 'outereye', 'eyeup', 'eyedown', 'earcanal', 'eartip', 'earcenter', 'earmed', 'earlat', 'neck', 'chest', 'pawL', 'pawR']
+2026-04-09 12:56:44   unique_bodyparts: []
+2026-04-09 12:56:44   individuals: ['animal']
+2026-04-09 12:56:44   with_identity: None
+2026-04-09 12:56:44 method: bu
+2026-04-09 12:56:44 model:
+2026-04-09 12:56:44   backbone:
+2026-04-09 12:56:44     type: DLCRNet
+2026-04-09 12:56:44     model_name: resnet50
+2026-04-09 12:56:44     pretrained: False
+2026-04-09 12:56:44     output_stride: 32
+2026-04-09 12:56:44   backbone_output_channels: 2304
+2026-04-09 12:56:44   pose_model:
+2026-04-09 12:56:44     stride: 8
+2026-04-09 12:56:44   heads:
+2026-04-09 12:56:44     bodypart:
+2026-04-09 12:56:44       type: DLCRNetHead
+2026-04-09 12:56:44       predictor:
+2026-04-09 12:56:44         type: PartAffinityFieldPredictor
+2026-04-09 12:56:44         num_animals: 1
+2026-04-09 12:56:44         num_multibodyparts: 16
+2026-04-09 12:56:44         num_uniquebodyparts: 0
+2026-04-09 12:56:44         nms_radius: 5
+2026-04-09 12:56:44         sigma: 1.0
+2026-04-09 12:56:44         locref_stdev: 7.2801
+2026-04-09 12:56:44         min_affinity: 0.05
+2026-04-09 12:56:44         graph: [[0, 12], [0, 6], [0, 11], [0, 14], [0, 10], [0, 15], [7, 12], [5, 12], [10, 12], [1, 12], [4, 12], [6, 10], [6, 7], [5, 6], [6, 9], [1, 6], [4, 11], [11, 14], [9, 11], [3, 11], [5, 9], [3, 5], [5, 7], [4, 5], [5, 8], [1, 5], [9, 14], [2, 9], [9, 13], [1, 9], [8, 10], [10, 15], [7, 10], [4, 10], [4, 14], [4, 13], [1, 4], [4, 7], [4, 15], [2, 4], [1, 14], [8, 14], [7, 14], [2, 7], [2, 3], [1, 3], [1, 15], [8, 15]]
+2026-04-09 12:56:44         edges_to_keep: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47]
+2026-04-09 12:56:44       target_generator:
+2026-04-09 12:56:44         type: SequentialGenerator
+2026-04-09 12:56:44         generators: [{'type': 'HeatmapPlateauGenerator', 'num_heatmaps': 16, 'pos_dist_thresh': 17, 'heatmap_mode': 'KEYPOINT', 'generate_locref': True, 'locref_std': 7.2801}, {'type': 'PartAffinityFieldGenerator', 'graph': [[0, 12], [0, 6], [0, 11], [0, 14], [0, 10], [0, 15], [7, 12], [5, 12], [10, 12], [1, 12], [4, 12], [6, 10], [6, 7], [5, 6], [6, 9], [1, 6], [4, 11], [11, 14], [9, 11], [3, 11], [5, 9], [3, 5], [5, 7], [4, 5], [5, 8], [1, 5], [9, 14], [2, 9], [9, 13], [1, 9], [8, 10], [10, 15], [7, 10], [4, 10], [4, 14], [4, 13], [1, 4], [4, 7], [4, 15], [2, 4], [1, 14], [8, 14], [7, 14], [2, 7], [2, 3], [1, 3], [1, 15], [8, 15]], 'width': 20}]
+2026-04-09 12:56:44       criterion:
+2026-04-09 12:56:44         heatmap:
+2026-04-09 12:56:44           type: WeightedBCECriterion
+2026-04-09 12:56:44           weight: 1.0
+2026-04-09 12:56:44         locref:
+2026-04-09 12:56:44           type: WeightedHuberCriterion
+2026-04-09 12:56:44           weight: 0.05
+2026-04-09 12:56:44         paf:
+2026-04-09 12:56:44           type: WeightedHuberCriterion
+2026-04-09 12:56:44           weight: 0.1
+2026-04-09 12:56:44       heatmap_config:
+2026-04-09 12:56:44         channels: [2304, 1152, 16]
+2026-04-09 12:56:44         kernel_size: [3, 3]
+2026-04-09 12:56:44         strides: [2, 2]
+2026-04-09 12:56:44       locref_config:
+2026-04-09 12:56:44         channels: [2304, 1152, 32]
+2026-04-09 12:56:44         kernel_size: [3, 3]
+2026-04-09 12:56:44         strides: [2, 2]
+2026-04-09 12:56:44       paf_config:
+2026-04-09 12:56:44         channels: [2304, 1152, 96]
+2026-04-09 12:56:44         kernel_size: [3, 3]
+2026-04-09 12:56:44         strides: [2, 2]
+2026-04-09 12:56:44       num_stages: 5
+2026-04-09 12:56:44 net_type: dlcrnet_stride32_ms5
+2026-04-09 12:56:44 runner:
+2026-04-09 12:56:44   type: PoseTrainingRunner
+2026-04-09 12:56:44   gpus: None
+2026-04-09 12:56:44   key_metric: test.mAP
+2026-04-09 12:56:44   key_metric_asc: True
+2026-04-09 12:56:44   eval_interval: 25
+2026-04-09 12:56:44   optimizer:
+2026-04-09 12:56:44     type: AdamW
+2026-04-09 12:56:44     params:
+2026-04-09 12:56:44       lr: 0.0001
+2026-04-09 12:56:44   scheduler:
+2026-04-09 12:56:44     type: LRListScheduler
+2026-04-09 12:56:44     params:
+2026-04-09 12:56:44       lr_list: [[1e-05], [1e-06]]
+2026-04-09 12:56:44       milestones: [160, 190]
+2026-04-09 12:56:44   snapshots:
+2026-04-09 12:56:44     max_snapshots: 5
+2026-04-09 12:56:44     save_epochs: 50
+2026-04-09 12:56:44     save_optimizer_state: False
+2026-04-09 12:56:44 train_settings:
+2026-04-09 12:56:44   batch_size: 8
+2026-04-09 12:56:44   dataloader_workers: 0
+2026-04-09 12:56:44   dataloader_pin_memory: False
+2026-04-09 12:56:44   display_iters: 1000
+2026-04-09 12:56:44   epochs: 200
+2026-04-09 12:56:44   seed: 42
+2026-04-09 12:56:45 Loading pretrained weights from Hugging Face hub (timm/resnet50.a1_in1k)
+2026-04-09 12:56:45 '[Errno 11001] getaddrinfo failed' thrown while requesting HEAD https://huggingface.co/timm/resnet50.a1_in1k/resolve/main/model.safetensors
+2026-04-09 12:56:45 Retrying in 1s [Retry 1/5].
+2026-04-09 13:14:18 Training with configuration:
+2026-04-09 13:14:18 data:
+2026-04-09 13:14:18   bbox_margin: 20
+2026-04-09 13:14:18   colormode: RGB
+2026-04-09 13:14:18   inference:
+2026-04-09 13:14:18     normalize_images: True
+2026-04-09 13:14:18   train:
+2026-04-09 13:14:18     affine:
+2026-04-09 13:14:18       p: 0.5
+2026-04-09 13:14:18       rotation: 30
+2026-04-09 13:14:18       scaling: [0.5, 1.25]
+2026-04-09 13:14:18       translation: 0
+2026-04-09 13:14:18     crop_sampling:
+2026-04-09 13:14:18       width: 448
+2026-04-09 13:14:18       height: 448
+2026-04-09 13:14:18       max_shift: 0.1
+2026-04-09 13:14:18       method: hybrid
+2026-04-09 13:14:18     gaussian_noise: 12.75
+2026-04-09 13:14:18     motion_blur: True
+2026-04-09 13:14:18     normalize_images: True
+2026-04-09 13:14:18 device: auto
+2026-04-09 13:14:18 inference:
+2026-04-09 13:14:18   multithreading:
+2026-04-09 13:14:18     enabled: True
+2026-04-09 13:14:18     queue_length: 4
+2026-04-09 13:14:18     timeout: 30.0
+2026-04-09 13:14:18   compile:
+2026-04-09 13:14:18     enabled: False
+2026-04-09 13:14:18     backend: inductor
+2026-04-09 13:14:18   autocast:
+2026-04-09 13:14:18     enabled: False
+2026-04-09 13:14:18 metadata:
+2026-04-09 13:14:18   project_path: C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17
+2026-04-09 13:14:18   pose_config_path: C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\dlc-models-pytorch\iteration-0\BIOMAPMar17-trainset95shuffle1\train\pytorch_config.yaml
+2026-04-09 13:14:18   bodyparts: ['nosetip', 'nosebot', 'mouth', 'innereye', 'outereye', 'eyeup', 'eyedown', 'earcanal', 'eartip', 'earcenter', 'earmed', 'earlat', 'neck', 'chest', 'pawL', 'pawR']
+2026-04-09 13:14:18   unique_bodyparts: []
+2026-04-09 13:14:18   individuals: ['animal']
+2026-04-09 13:14:18   with_identity: None
+2026-04-09 13:14:18 method: bu
+2026-04-09 13:14:18 model:
+2026-04-09 13:14:18   backbone:
+2026-04-09 13:14:18     type: DLCRNet
+2026-04-09 13:14:18     model_name: resnet50
+2026-04-09 13:14:18     pretrained: False
+2026-04-09 13:14:18     output_stride: 32
+2026-04-09 13:14:18   backbone_output_channels: 2304
+2026-04-09 13:14:18   pose_model:
+2026-04-09 13:14:18     stride: 8
+2026-04-09 13:14:18   heads:
+2026-04-09 13:14:18     bodypart:
+2026-04-09 13:14:18       type: DLCRNetHead
+2026-04-09 13:14:18       predictor:
+2026-04-09 13:14:18         type: PartAffinityFieldPredictor
+2026-04-09 13:14:18         num_animals: 1
+2026-04-09 13:14:18         num_multibodyparts: 16
+2026-04-09 13:14:18         num_uniquebodyparts: 0
+2026-04-09 13:14:18         nms_radius: 5
+2026-04-09 13:14:18         sigma: 1.0
+2026-04-09 13:14:18         locref_stdev: 7.2801
+2026-04-09 13:14:18         min_affinity: 0.05
+2026-04-09 13:14:18         graph: [[0, 12], [0, 6], [0, 11], [0, 14], [0, 10], [0, 15], [7, 12], [5, 12], [10, 12], [1, 12], [4, 12], [6, 10], [6, 7], [5, 6], [6, 9], [1, 6], [4, 11], [11, 14], [9, 11], [3, 11], [5, 9], [3, 5], [5, 7], [4, 5], [5, 8], [1, 5], [9, 14], [2, 9], [9, 13], [1, 9], [8, 10], [10, 15], [7, 10], [4, 10], [4, 14], [4, 13], [1, 4], [4, 7], [4, 15], [2, 4], [1, 14], [8, 14], [7, 14], [2, 7], [2, 3], [1, 3], [1, 15], [8, 15]]
+2026-04-09 13:14:18         edges_to_keep: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47]
+2026-04-09 13:14:18       target_generator:
+2026-04-09 13:14:18         type: SequentialGenerator
+2026-04-09 13:14:18         generators: [{'type': 'HeatmapPlateauGenerator', 'num_heatmaps': 16, 'pos_dist_thresh': 17, 'heatmap_mode': 'KEYPOINT', 'generate_locref': True, 'locref_std': 7.2801}, {'type': 'PartAffinityFieldGenerator', 'graph': [[0, 12], [0, 6], [0, 11], [0, 14], [0, 10], [0, 15], [7, 12], [5, 12], [10, 12], [1, 12], [4, 12], [6, 10], [6, 7], [5, 6], [6, 9], [1, 6], [4, 11], [11, 14], [9, 11], [3, 11], [5, 9], [3, 5], [5, 7], [4, 5], [5, 8], [1, 5], [9, 14], [2, 9], [9, 13], [1, 9], [8, 10], [10, 15], [7, 10], [4, 10], [4, 14], [4, 13], [1, 4], [4, 7], [4, 15], [2, 4], [1, 14], [8, 14], [7, 14], [2, 7], [2, 3], [1, 3], [1, 15], [8, 15]], 'width': 20}]
+2026-04-09 13:14:18       criterion:
+2026-04-09 13:14:18         heatmap:
+2026-04-09 13:14:18           type: WeightedBCECriterion
+2026-04-09 13:14:18           weight: 1.0
+2026-04-09 13:14:18         locref:
+2026-04-09 13:14:18           type: WeightedHuberCriterion
+2026-04-09 13:14:18           weight: 0.05
+2026-04-09 13:14:18         paf:
+2026-04-09 13:14:18           type: WeightedHuberCriterion
+2026-04-09 13:14:18           weight: 0.1
+2026-04-09 13:14:18       heatmap_config:
+2026-04-09 13:14:18         channels: [2304, 1152, 16]
+2026-04-09 13:14:18         kernel_size: [3, 3]
+2026-04-09 13:14:18         strides: [2, 2]
+2026-04-09 13:14:18       locref_config:
+2026-04-09 13:14:18         channels: [2304, 1152, 32]
+2026-04-09 13:14:18         kernel_size: [3, 3]
+2026-04-09 13:14:18         strides: [2, 2]
+2026-04-09 13:14:18       paf_config:
+2026-04-09 13:14:18         channels: [2304, 1152, 96]
+2026-04-09 13:14:18         kernel_size: [3, 3]
+2026-04-09 13:14:18         strides: [2, 2]
+2026-04-09 13:14:18       num_stages: 5
+2026-04-09 13:14:18 net_type: dlcrnet_stride32_ms5
+2026-04-09 13:14:18 runner:
+2026-04-09 13:14:18   type: PoseTrainingRunner
+2026-04-09 13:14:18   gpus: None
+2026-04-09 13:14:18   key_metric: test.mAP
+2026-04-09 13:14:18   key_metric_asc: True
+2026-04-09 13:14:18   eval_interval: 25
+2026-04-09 13:14:18   optimizer:
+2026-04-09 13:14:18     type: AdamW
+2026-04-09 13:14:18     params:
+2026-04-09 13:14:18       lr: 0.0001
+2026-04-09 13:14:18   scheduler:
+2026-04-09 13:14:18     type: LRListScheduler
+2026-04-09 13:14:18     params:
+2026-04-09 13:14:18       lr_list: [[1e-05], [1e-06]]
+2026-04-09 13:14:18       milestones: [160, 190]
+2026-04-09 13:14:18   snapshots:
+2026-04-09 13:14:18     max_snapshots: 5
+2026-04-09 13:14:18     save_epochs: 50
+2026-04-09 13:14:18     save_optimizer_state: False
+2026-04-09 13:14:18 train_settings:
+2026-04-09 13:14:18   batch_size: 8
+2026-04-09 13:14:18   dataloader_workers: 0
+2026-04-09 13:14:18   dataloader_pin_memory: False
+2026-04-09 13:14:18   display_iters: 1000
+2026-04-09 13:14:18   epochs: 200
+2026-04-09 13:14:18   seed: 42
+2026-04-09 13:14:18 Loading pretrained weights from Hugging Face hub (timm/resnet50.a1_in1k)
+2026-04-09 13:18:55 Training with configuration:
+2026-04-09 13:18:55 data:
+2026-04-09 13:18:55   bbox_margin: 20
+2026-04-09 13:18:55   colormode: RGB
+2026-04-09 13:18:55   inference:
+2026-04-09 13:18:55     normalize_images: True
+2026-04-09 13:18:55   train:
+2026-04-09 13:18:55     affine:
+2026-04-09 13:18:55       p: 0.5
+2026-04-09 13:18:55       rotation: 30
+2026-04-09 13:18:55       scaling: [0.5, 1.25]
+2026-04-09 13:18:55       translation: 0
+2026-04-09 13:18:55     crop_sampling:
+2026-04-09 13:18:55       width: 448
+2026-04-09 13:18:55       height: 448
+2026-04-09 13:18:55       max_shift: 0.1
+2026-04-09 13:18:55       method: hybrid
+2026-04-09 13:18:55     gaussian_noise: 12.75
+2026-04-09 13:18:55     motion_blur: True
+2026-04-09 13:18:55     normalize_images: True
+2026-04-09 13:18:55 device: auto
+2026-04-09 13:18:55 inference:
+2026-04-09 13:18:55   multithreading:
+2026-04-09 13:18:55     enabled: True
+2026-04-09 13:18:55     queue_length: 4
+2026-04-09 13:18:55     timeout: 30.0
+2026-04-09 13:18:55   compile:
+2026-04-09 13:18:55     enabled: False
+2026-04-09 13:18:55     backend: inductor
+2026-04-09 13:18:55   autocast:
+2026-04-09 13:18:55     enabled: False
+2026-04-09 13:18:55 metadata:
+2026-04-09 13:18:55   project_path: C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17
+2026-04-09 13:18:55   pose_config_path: C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\dlc-models-pytorch\iteration-0\BIOMAPMar17-trainset95shuffle1\train\pytorch_config.yaml
+2026-04-09 13:18:55   bodyparts: ['nosetip', 'nosebot', 'mouth', 'innereye', 'outereye', 'eyeup', 'eyedown', 'earcanal', 'eartip', 'earcenter', 'earmed', 'earlat', 'neck', 'chest', 'pawL', 'pawR']
+2026-04-09 13:18:55   unique_bodyparts: []
+2026-04-09 13:18:55   individuals: ['animal']
+2026-04-09 13:18:55   with_identity: None
+2026-04-09 13:18:55 method: bu
+2026-04-09 13:18:55 model:
+2026-04-09 13:18:55   backbone:
+2026-04-09 13:18:55     type: DLCRNet
+2026-04-09 13:18:55     model_name: resnet50
+2026-04-09 13:18:55     pretrained: False
+2026-04-09 13:18:55     output_stride: 32
+2026-04-09 13:18:55   backbone_output_channels: 2304
+2026-04-09 13:18:55   pose_model:
+2026-04-09 13:18:55     stride: 8
+2026-04-09 13:18:55   heads:
+2026-04-09 13:18:55     bodypart:
+2026-04-09 13:18:55       type: DLCRNetHead
+2026-04-09 13:18:55       predictor:
+2026-04-09 13:18:55         type: PartAffinityFieldPredictor
+2026-04-09 13:18:55         num_animals: 1
+2026-04-09 13:18:55         num_multibodyparts: 16
+2026-04-09 13:18:55         num_uniquebodyparts: 0
+2026-04-09 13:18:55         nms_radius: 5
+2026-04-09 13:18:55         sigma: 1.0
+2026-04-09 13:18:55         locref_stdev: 7.2801
+2026-04-09 13:18:55         min_affinity: 0.05
+2026-04-09 13:18:55         graph: [[0, 12], [0, 6], [0, 11], [0, 14], [0, 10], [0, 15], [7, 12], [5, 12], [10, 12], [1, 12], [4, 12], [6, 10], [6, 7], [5, 6], [6, 9], [1, 6], [4, 11], [11, 14], [9, 11], [3, 11], [5, 9], [3, 5], [5, 7], [4, 5], [5, 8], [1, 5], [9, 14], [2, 9], [9, 13], [1, 9], [8, 10], [10, 15], [7, 10], [4, 10], [4, 14], [4, 13], [1, 4], [4, 7], [4, 15], [2, 4], [1, 14], [8, 14], [7, 14], [2, 7], [2, 3], [1, 3], [1, 15], [8, 15]]
+2026-04-09 13:18:55         edges_to_keep: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47]
+2026-04-09 13:18:55       target_generator:
+2026-04-09 13:18:55         type: SequentialGenerator
+2026-04-09 13:18:55         generators: [{'type': 'HeatmapPlateauGenerator', 'num_heatmaps': 16, 'pos_dist_thresh': 17, 'heatmap_mode': 'KEYPOINT', 'generate_locref': True, 'locref_std': 7.2801}, {'type': 'PartAffinityFieldGenerator', 'graph': [[0, 12], [0, 6], [0, 11], [0, 14], [0, 10], [0, 15], [7, 12], [5, 12], [10, 12], [1, 12], [4, 12], [6, 10], [6, 7], [5, 6], [6, 9], [1, 6], [4, 11], [11, 14], [9, 11], [3, 11], [5, 9], [3, 5], [5, 7], [4, 5], [5, 8], [1, 5], [9, 14], [2, 9], [9, 13], [1, 9], [8, 10], [10, 15], [7, 10], [4, 10], [4, 14], [4, 13], [1, 4], [4, 7], [4, 15], [2, 4], [1, 14], [8, 14], [7, 14], [2, 7], [2, 3], [1, 3], [1, 15], [8, 15]], 'width': 20}]
+2026-04-09 13:18:55       criterion:
+2026-04-09 13:18:55         heatmap:
+2026-04-09 13:18:55           type: WeightedBCECriterion
+2026-04-09 13:18:55           weight: 1.0
+2026-04-09 13:18:55         locref:
+2026-04-09 13:18:55           type: WeightedHuberCriterion
+2026-04-09 13:18:55           weight: 0.05
+2026-04-09 13:18:55         paf:
+2026-04-09 13:18:55           type: WeightedHuberCriterion
+2026-04-09 13:18:55           weight: 0.1
+2026-04-09 13:18:55       heatmap_config:
+2026-04-09 13:18:55         channels: [2304, 1152, 16]
+2026-04-09 13:18:55         kernel_size: [3, 3]
+2026-04-09 13:18:55         strides: [2, 2]
+2026-04-09 13:18:55       locref_config:
+2026-04-09 13:18:55         channels: [2304, 1152, 32]
+2026-04-09 13:18:55         kernel_size: [3, 3]
+2026-04-09 13:18:55         strides: [2, 2]
+2026-04-09 13:18:55       paf_config:
+2026-04-09 13:18:55         channels: [2304, 1152, 96]
+2026-04-09 13:18:55         kernel_size: [3, 3]
+2026-04-09 13:18:55         strides: [2, 2]
+2026-04-09 13:18:55       num_stages: 5
+2026-04-09 13:18:55 net_type: dlcrnet_stride32_ms5
+2026-04-09 13:18:55 runner:
+2026-04-09 13:18:55   type: PoseTrainingRunner
+2026-04-09 13:18:55   gpus: None
+2026-04-09 13:18:55   key_metric: test.mAP
+2026-04-09 13:18:55   key_metric_asc: True
+2026-04-09 13:18:55   eval_interval: 25
+2026-04-09 13:18:55   optimizer:
+2026-04-09 13:18:55     type: AdamW
+2026-04-09 13:18:55     params:
+2026-04-09 13:18:55       lr: 0.0001
+2026-04-09 13:18:55   scheduler:
+2026-04-09 13:18:55     type: LRListScheduler
+2026-04-09 13:18:55     params:
+2026-04-09 13:18:55       lr_list: [[1e-05], [1e-06]]
+2026-04-09 13:18:55       milestones: [160, 190]
+2026-04-09 13:18:55   snapshots:
+2026-04-09 13:18:55     max_snapshots: 5
+2026-04-09 13:18:55     save_epochs: 50
+2026-04-09 13:18:55     save_optimizer_state: False
+2026-04-09 13:18:55 train_settings:
+2026-04-09 13:18:55   batch_size: 8
+2026-04-09 13:18:55   dataloader_workers: 0
+2026-04-09 13:18:55   dataloader_pin_memory: False
+2026-04-09 13:18:55   display_iters: 1000
+2026-04-09 13:18:55   epochs: 200
+2026-04-09 13:18:55   seed: 42
+2026-04-09 13:18:56 Data Transforms:
+2026-04-09 13:18:56   Training:   Compose([
+  Affine(always_apply=False, p=0.5, interpolation=1, mask_interpolation=0, cval=0, mode=0, scale={'x': (0.5, 1.25), 'y': (0.5, 1.25)}, translate_percent=None, translate_px={'x': (0, 0), 'y': (0, 0)}, rotate=(-30, 30), fit_output=False, shear={'x': (0.0, 0.0), 'y': (0.0, 0.0)}, cval_mask=0, keep_ratio=True, rotate_method='largest_box'),
+  PadIfNeeded(always_apply=True, p=1.0, min_height=448, min_width=448, pad_height_divisor=None, pad_width_divisor=None, position=PositionType.CENTER, border_mode=0, value=None, mask_value=None),
+  KeypointAwareCrop(always_apply=True, p=1.0, width=448, height=448, max_shift=0.1, crop_sampling='hybrid'),
+  MotionBlur(always_apply=False, p=0.5, blur_limit=(3, 7), allow_shifted=True),
+  GaussNoise(always_apply=False, p=0.5, var_limit=(0, 162.5625), per_channel=True, mean=0),
+  Normalize(always_apply=False, p=1.0, mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225], max_pixel_value=255.0),
+], p=1.0, bbox_params={'format': 'coco', 'label_fields': ['bbox_labels'], 'min_area': 0.0, 'min_visibility': 0.0, 'min_width': 0.0, 'min_height': 0.0, 'check_each_transform': True}, keypoint_params={'format': 'xy', 'label_fields': ['class_labels'], 'remove_invisible': False, 'angle_in_degrees': True, 'check_each_transform': True}, additional_targets={}, is_check_shapes=True)
+2026-04-09 13:18:56   Validation: Compose([
+  Normalize(always_apply=False, p=1.0, mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225], max_pixel_value=255.0),
+], p=1.0, bbox_params={'format': 'coco', 'label_fields': ['bbox_labels'], 'min_area': 0.0, 'min_visibility': 0.0, 'min_width': 0.0, 'min_height': 0.0, 'check_each_transform': True}, keypoint_params={'format': 'xy', 'label_fields': ['class_labels'], 'remove_invisible': False, 'angle_in_degrees': True, 'check_each_transform': True}, additional_targets={}, is_check_shapes=True)
+2026-04-09 13:18:57 Using 1582 images and 84 for testing
+2026-04-09 13:18:57 
+Starting pose model training...
+--------------------------------------------------
+2026-04-09 13:20:26 Epoch 1/200 (lr=0.0001), train loss 0.02472, GPU: 4860.0/12281.5 MiB
+2026-04-09 13:21:51 Epoch 2/200 (lr=0.0001), train loss 0.01155, GPU: 4860.0/12281.5 MiB
+2026-04-09 13:23:13 Epoch 3/200 (lr=0.0001), train loss 0.01129, GPU: 4860.0/12281.5 MiB
+2026-04-09 13:24:35 Epoch 4/200 (lr=0.0001), train loss 0.01101, GPU: 4860.0/12281.5 MiB
+2026-04-09 13:25:55 Epoch 5/200 (lr=0.0001), train loss 0.01077, GPU: 4860.0/12281.5 MiB
+2026-04-09 13:27:16 Epoch 6/200 (lr=0.0001), train loss 0.01064, GPU: 4860.0/12281.5 MiB
+2026-04-09 13:28:36 Epoch 7/200 (lr=0.0001), train loss 0.01041, GPU: 4860.0/12281.5 MiB
+2026-04-09 13:29:56 Epoch 8/200 (lr=0.0001), train loss 0.01030, GPU: 4860.0/12281.5 MiB
+2026-04-09 13:31:15 Epoch 9/200 (lr=0.0001), train loss 0.01017, GPU: 4860.0/12281.5 MiB
+2026-04-09 13:32:35 Epoch 10/200 (lr=0.0001), train loss 0.01003, GPU: 4860.0/12281.5 MiB
+2026-04-09 13:33:55 Epoch 11/200 (lr=0.0001), train loss 0.00992, GPU: 4860.0/12281.5 MiB
+2026-04-09 13:35:15 Epoch 12/200 (lr=0.0001), train loss 0.00982, GPU: 4860.0/12281.5 MiB
+2026-04-09 13:36:35 Epoch 13/200 (lr=0.0001), train loss 0.00979, GPU: 4860.0/12281.5 MiB
+2026-04-09 13:37:55 Epoch 14/200 (lr=0.0001), train loss 0.00944, GPU: 4860.0/12281.5 MiB
+2026-04-09 13:39:15 Epoch 15/200 (lr=0.0001), train loss 0.00952, GPU: 4860.0/12281.5 MiB
+2026-04-09 13:40:34 Epoch 16/200 (lr=0.0001), train loss 0.00945, GPU: 4860.0/12281.5 MiB
+2026-04-09 13:41:54 Epoch 17/200 (lr=0.0001), train loss 0.00935, GPU: 4860.0/12281.5 MiB
+2026-04-09 13:43:14 Epoch 18/200 (lr=0.0001), train loss 0.00939, GPU: 4860.0/12281.5 MiB
+2026-04-09 13:44:34 Epoch 19/200 (lr=0.0001), train loss 0.00918, GPU: 4860.0/12281.5 MiB
+2026-04-09 13:45:54 Epoch 20/200 (lr=0.0001), train loss 0.00911, GPU: 4860.0/12281.5 MiB
+2026-04-09 13:47:13 Epoch 21/200 (lr=0.0001), train loss 0.00884, GPU: 4860.0/12281.5 MiB
+2026-04-09 13:48:33 Epoch 22/200 (lr=0.0001), train loss 0.00888, GPU: 4860.0/12281.5 MiB
+2026-04-09 13:49:53 Epoch 23/200 (lr=0.0001), train loss 0.00854, GPU: 4860.0/12281.5 MiB
+2026-04-09 13:51:13 Epoch 24/200 (lr=0.0001), train loss 0.00855, GPU: 4860.0/12281.5 MiB
+2026-04-09 13:52:32 Training for epoch 25 done, starting evaluation
+2026-04-09 13:52:52 Epoch 25/200 (lr=0.0001), train loss 0.00867, valid loss 0.00888, GPU: 4860.0/12281.5 MiB
+2026-04-09 13:52:52 Model performance:
+2026-04-09 13:52:52   metrics/test.rmse:         205.39
+2026-04-09 13:52:52   metrics/test.rmse_pcutoff:  98.92
+2026-04-09 13:52:52   metrics/test.mAP:           24.93
+2026-04-09 13:52:52   metrics/test.mAR:           34.49
+2026-04-09 13:54:12 Epoch 26/200 (lr=0.0001), train loss 0.00859, GPU: 4860.0/12281.5 MiB
+2026-04-09 13:55:32 Epoch 27/200 (lr=0.0001), train loss 0.00842, GPU: 4860.0/12281.5 MiB
+2026-04-09 13:56:52 Epoch 28/200 (lr=0.0001), train loss 0.00848, GPU: 4860.0/12281.5 MiB
+2026-04-09 13:58:12 Epoch 29/200 (lr=0.0001), train loss 0.00836, GPU: 4860.0/12281.5 MiB
+2026-04-09 13:59:31 Epoch 30/200 (lr=0.0001), train loss 0.00824, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:00:51 Epoch 31/200 (lr=0.0001), train loss 0.00824, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:02:11 Epoch 32/200 (lr=0.0001), train loss 0.00837, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:03:30 Epoch 33/200 (lr=0.0001), train loss 0.00820, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:04:49 Epoch 34/200 (lr=0.0001), train loss 0.00827, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:06:11 Epoch 35/200 (lr=0.0001), train loss 0.00814, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:07:33 Epoch 36/200 (lr=0.0001), train loss 0.00795, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:08:58 Epoch 37/200 (lr=0.0001), train loss 0.00792, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:10:23 Epoch 38/200 (lr=0.0001), train loss 0.00807, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:11:45 Epoch 39/200 (lr=0.0001), train loss 0.00803, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:13:08 Epoch 40/200 (lr=0.0001), train loss 0.00787, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:14:28 Epoch 41/200 (lr=0.0001), train loss 0.00788, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:15:53 Epoch 42/200 (lr=0.0001), train loss 0.00794, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:17:20 Epoch 43/200 (lr=0.0001), train loss 0.00799, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:18:46 Epoch 44/200 (lr=0.0001), train loss 0.00784, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:20:14 Epoch 45/200 (lr=0.0001), train loss 0.00799, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:21:41 Epoch 46/200 (lr=0.0001), train loss 0.00801, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:23:09 Epoch 47/200 (lr=0.0001), train loss 0.00762, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:24:36 Epoch 48/200 (lr=0.0001), train loss 0.00774, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:26:01 Epoch 49/200 (lr=0.0001), train loss 0.00785, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:27:21 Training for epoch 50 done, starting evaluation
+2026-04-09 14:27:40 Epoch 50/200 (lr=0.0001), train loss 0.00769, valid loss 0.00818, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:27:40 Model performance:
+2026-04-09 14:27:40   metrics/test.rmse:         106.99
+2026-04-09 14:27:40   metrics/test.rmse_pcutoff:  41.21
+2026-04-09 14:27:40   metrics/test.mAP:           50.18
+2026-04-09 14:27:40   metrics/test.mAR:           56.67
+2026-04-09 14:29:01 Epoch 51/200 (lr=0.0001), train loss 0.00781, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:30:20 Epoch 52/200 (lr=0.0001), train loss 0.00766, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:31:40 Epoch 53/200 (lr=0.0001), train loss 0.00761, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:33:00 Epoch 54/200 (lr=0.0001), train loss 0.00758, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:34:23 Epoch 55/200 (lr=0.0001), train loss 0.00761, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:35:48 Epoch 56/200 (lr=0.0001), train loss 0.00754, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:37:09 Epoch 57/200 (lr=0.0001), train loss 0.00766, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:38:28 Epoch 58/200 (lr=0.0001), train loss 0.00763, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:39:48 Epoch 59/200 (lr=0.0001), train loss 0.00757, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:41:08 Epoch 60/200 (lr=0.0001), train loss 0.00739, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:42:27 Epoch 61/200 (lr=0.0001), train loss 0.00747, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:43:47 Epoch 62/200 (lr=0.0001), train loss 0.00749, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:45:07 Epoch 63/200 (lr=0.0001), train loss 0.00746, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:46:26 Epoch 64/200 (lr=0.0001), train loss 0.00743, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:47:46 Epoch 65/200 (lr=0.0001), train loss 0.00751, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:49:05 Epoch 66/200 (lr=0.0001), train loss 0.00723, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:50:27 Epoch 67/200 (lr=0.0001), train loss 0.00740, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:51:47 Epoch 68/200 (lr=0.0001), train loss 0.00742, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:53:08 Epoch 69/200 (lr=0.0001), train loss 0.00740, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:54:30 Epoch 70/200 (lr=0.0001), train loss 0.00730, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:55:50 Epoch 71/200 (lr=0.0001), train loss 0.00733, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:57:10 Epoch 72/200 (lr=0.0001), train loss 0.00739, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:58:33 Epoch 73/200 (lr=0.0001), train loss 0.00714, GPU: 4860.0/12281.5 MiB
+2026-04-09 14:59:56 Epoch 74/200 (lr=0.0001), train loss 0.00745, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:01:16 Training for epoch 75 done, starting evaluation
+2026-04-09 15:01:35 Epoch 75/200 (lr=0.0001), train loss 0.00737, valid loss 0.00781, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:01:35 Model performance:
+2026-04-09 15:01:35   metrics/test.rmse:          82.34
+2026-04-09 15:01:35   metrics/test.rmse_pcutoff:  27.57
+2026-04-09 15:01:35   metrics/test.mAP:           57.17
+2026-04-09 15:01:35   metrics/test.mAR:           62.46
+2026-04-09 15:02:56 Epoch 76/200 (lr=0.0001), train loss 0.00709, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:04:15 Epoch 77/200 (lr=0.0001), train loss 0.00727, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:05:35 Epoch 78/200 (lr=0.0001), train loss 0.00720, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:06:57 Epoch 79/200 (lr=0.0001), train loss 0.00742, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:08:22 Epoch 80/200 (lr=0.0001), train loss 0.00730, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:09:46 Epoch 81/200 (lr=0.0001), train loss 0.00742, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:11:12 Epoch 82/200 (lr=0.0001), train loss 0.00719, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:12:35 Epoch 83/200 (lr=0.0001), train loss 0.00716, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:13:55 Epoch 84/200 (lr=0.0001), train loss 0.00732, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:15:16 Epoch 85/200 (lr=0.0001), train loss 0.00716, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:16:37 Epoch 86/200 (lr=0.0001), train loss 0.00724, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:17:58 Epoch 87/200 (lr=0.0001), train loss 0.00707, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:19:18 Epoch 88/200 (lr=0.0001), train loss 0.00708, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:20:37 Epoch 89/200 (lr=0.0001), train loss 0.00703, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:21:57 Epoch 90/200 (lr=0.0001), train loss 0.00701, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:23:16 Epoch 91/200 (lr=0.0001), train loss 0.00710, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:24:35 Epoch 92/200 (lr=0.0001), train loss 0.00695, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:25:57 Epoch 93/200 (lr=0.0001), train loss 0.00701, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:27:21 Epoch 94/200 (lr=0.0001), train loss 0.00702, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:28:45 Epoch 95/200 (lr=0.0001), train loss 0.00719, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:30:07 Epoch 96/200 (lr=0.0001), train loss 0.00705, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:31:28 Epoch 97/200 (lr=0.0001), train loss 0.00691, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:32:50 Epoch 98/200 (lr=0.0001), train loss 0.00704, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:34:11 Epoch 99/200 (lr=0.0001), train loss 0.00684, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:35:33 Training for epoch 100 done, starting evaluation
+2026-04-09 15:35:51 Epoch 100/200 (lr=0.0001), train loss 0.00700, valid loss 0.00801, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:35:51 Model performance:
+2026-04-09 15:35:51   metrics/test.rmse:          68.63
+2026-04-09 15:35:51   metrics/test.rmse_pcutoff:  21.14
+2026-04-09 15:35:51   metrics/test.mAP:           60.88
+2026-04-09 15:35:51   metrics/test.mAR:           66.38
+2026-04-09 15:37:11 Epoch 101/200 (lr=0.0001), train loss 0.00722, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:38:31 Epoch 102/200 (lr=0.0001), train loss 0.00703, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:39:52 Epoch 103/200 (lr=0.0001), train loss 0.00689, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:41:12 Epoch 104/200 (lr=0.0001), train loss 0.00682, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:42:32 Epoch 105/200 (lr=0.0001), train loss 0.00683, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:43:52 Epoch 106/200 (lr=0.0001), train loss 0.00691, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:45:12 Epoch 107/200 (lr=0.0001), train loss 0.00690, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:46:32 Epoch 108/200 (lr=0.0001), train loss 0.00692, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:47:56 Epoch 109/200 (lr=0.0001), train loss 0.00696, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:49:19 Epoch 110/200 (lr=0.0001), train loss 0.00699, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:50:39 Epoch 111/200 (lr=0.0001), train loss 0.00686, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:52:01 Epoch 112/200 (lr=0.0001), train loss 0.00685, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:53:20 Epoch 113/200 (lr=0.0001), train loss 0.00676, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:54:38 Epoch 114/200 (lr=0.0001), train loss 0.00692, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:55:56 Epoch 115/200 (lr=0.0001), train loss 0.00680, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:57:15 Epoch 116/200 (lr=0.0001), train loss 0.00683, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:58:36 Epoch 117/200 (lr=0.0001), train loss 0.00692, GPU: 4860.0/12281.5 MiB
+2026-04-09 15:59:56 Epoch 118/200 (lr=0.0001), train loss 0.00691, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:01:16 Epoch 119/200 (lr=0.0001), train loss 0.00681, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:02:36 Epoch 120/200 (lr=0.0001), train loss 0.00669, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:03:56 Epoch 121/200 (lr=0.0001), train loss 0.00686, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:05:16 Epoch 122/200 (lr=0.0001), train loss 0.00673, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:06:33 Epoch 123/200 (lr=0.0001), train loss 0.00691, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:07:50 Epoch 124/200 (lr=0.0001), train loss 0.00670, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:09:08 Training for epoch 125 done, starting evaluation
+2026-04-09 16:09:27 Epoch 125/200 (lr=0.0001), train loss 0.00680, valid loss 0.00787, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:09:27 Model performance:
+2026-04-09 16:09:27   metrics/test.rmse:          48.45
+2026-04-09 16:09:27   metrics/test.rmse_pcutoff:  16.56
+2026-04-09 16:09:27   metrics/test.mAP:           67.40
+2026-04-09 16:09:27   metrics/test.mAR:           71.88
+2026-04-09 16:10:44 Epoch 126/200 (lr=0.0001), train loss 0.00673, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:12:03 Epoch 127/200 (lr=0.0001), train loss 0.00670, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:13:21 Epoch 128/200 (lr=0.0001), train loss 0.00689, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:14:39 Epoch 129/200 (lr=0.0001), train loss 0.00672, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:15:56 Epoch 130/200 (lr=0.0001), train loss 0.00663, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:17:13 Epoch 131/200 (lr=0.0001), train loss 0.00684, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:18:31 Epoch 132/200 (lr=0.0001), train loss 0.00658, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:19:49 Epoch 133/200 (lr=0.0001), train loss 0.00662, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:21:06 Epoch 134/200 (lr=0.0001), train loss 0.00683, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:22:24 Epoch 135/200 (lr=0.0001), train loss 0.00681, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:23:41 Epoch 136/200 (lr=0.0001), train loss 0.00659, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:24:59 Epoch 137/200 (lr=0.0001), train loss 0.00674, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:26:16 Epoch 138/200 (lr=0.0001), train loss 0.00663, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:27:33 Epoch 139/200 (lr=0.0001), train loss 0.00663, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:28:51 Epoch 140/200 (lr=0.0001), train loss 0.00660, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:30:09 Epoch 141/200 (lr=0.0001), train loss 0.00668, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:31:27 Epoch 142/200 (lr=0.0001), train loss 0.00682, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:32:45 Epoch 143/200 (lr=0.0001), train loss 0.00655, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:34:03 Epoch 144/200 (lr=0.0001), train loss 0.00647, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:35:21 Epoch 145/200 (lr=0.0001), train loss 0.00657, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:36:40 Epoch 146/200 (lr=0.0001), train loss 0.00664, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:37:58 Epoch 147/200 (lr=0.0001), train loss 0.00662, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:39:18 Epoch 148/200 (lr=0.0001), train loss 0.00672, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:40:37 Epoch 149/200 (lr=0.0001), train loss 0.00662, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:41:56 Training for epoch 150 done, starting evaluation
+2026-04-09 16:42:14 Epoch 150/200 (lr=0.0001), train loss 0.00650, valid loss 0.00787, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:42:14 Model performance:
+2026-04-09 16:42:14   metrics/test.rmse:          54.58
+2026-04-09 16:42:14   metrics/test.rmse_pcutoff:  17.25
+2026-04-09 16:42:14   metrics/test.mAP:           64.65
+2026-04-09 16:42:14   metrics/test.mAR:           68.99
+2026-04-09 16:43:32 Epoch 151/200 (lr=0.0001), train loss 0.00642, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:44:50 Epoch 152/200 (lr=0.0001), train loss 0.00661, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:46:07 Epoch 153/200 (lr=0.0001), train loss 0.00643, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:47:27 Epoch 154/200 (lr=0.0001), train loss 0.00658, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:48:45 Epoch 155/200 (lr=0.0001), train loss 0.00659, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:50:04 Epoch 156/200 (lr=0.0001), train loss 0.00647, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:51:23 Epoch 157/200 (lr=0.0001), train loss 0.00660, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:52:43 Epoch 158/200 (lr=0.0001), train loss 0.00664, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:54:03 Epoch 159/200 (lr=0.0001), train loss 0.00649, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:55:22 Epoch 160/200 (lr=1e-05), train loss 0.00636, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:56:42 Epoch 161/200 (lr=1e-05), train loss 0.00625, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:57:59 Epoch 162/200 (lr=1e-05), train loss 0.00606, GPU: 4860.0/12281.5 MiB
+2026-04-09 16:59:17 Epoch 163/200 (lr=1e-05), train loss 0.00619, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:00:34 Epoch 164/200 (lr=1e-05), train loss 0.00619, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:01:52 Epoch 165/200 (lr=1e-05), train loss 0.00623, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:03:10 Epoch 166/200 (lr=1e-05), train loss 0.00615, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:04:27 Epoch 167/200 (lr=1e-05), train loss 0.00613, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:05:45 Epoch 168/200 (lr=1e-05), train loss 0.00607, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:07:02 Epoch 169/200 (lr=1e-05), train loss 0.00617, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:08:20 Epoch 170/200 (lr=1e-05), train loss 0.00609, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:09:38 Epoch 171/200 (lr=1e-05), train loss 0.00598, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:10:55 Epoch 172/200 (lr=1e-05), train loss 0.00592, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:12:14 Epoch 173/200 (lr=1e-05), train loss 0.00609, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:13:32 Epoch 174/200 (lr=1e-05), train loss 0.00612, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:14:49 Training for epoch 175 done, starting evaluation
+2026-04-09 17:15:07 Epoch 175/200 (lr=1e-05), train loss 0.00592, valid loss 0.00737, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:15:07 Model performance:
+2026-04-09 17:15:07   metrics/test.rmse:          36.05
+2026-04-09 17:15:07   metrics/test.rmse_pcutoff:  18.60
+2026-04-09 17:15:07   metrics/test.mAP:           70.12
+2026-04-09 17:15:07   metrics/test.mAR:           73.48
+2026-04-09 17:16:25 Epoch 176/200 (lr=1e-05), train loss 0.00611, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:17:42 Epoch 177/200 (lr=1e-05), train loss 0.00615, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:19:00 Epoch 178/200 (lr=1e-05), train loss 0.00606, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:20:17 Epoch 179/200 (lr=1e-05), train loss 0.00608, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:21:35 Epoch 180/200 (lr=1e-05), train loss 0.00606, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:22:52 Epoch 181/200 (lr=1e-05), train loss 0.00611, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:24:10 Epoch 182/200 (lr=1e-05), train loss 0.00604, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:25:27 Epoch 183/200 (lr=1e-05), train loss 0.00614, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:26:46 Epoch 184/200 (lr=1e-05), train loss 0.00607, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:28:04 Epoch 185/200 (lr=1e-05), train loss 0.00607, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:29:22 Epoch 186/200 (lr=1e-05), train loss 0.00614, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:30:39 Epoch 187/200 (lr=1e-05), train loss 0.00616, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:31:58 Epoch 188/200 (lr=1e-05), train loss 0.00608, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:33:17 Epoch 189/200 (lr=1e-05), train loss 0.00587, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:34:37 Epoch 190/200 (lr=1e-06), train loss 0.00610, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:35:57 Epoch 191/200 (lr=1e-06), train loss 0.00599, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:37:16 Epoch 192/200 (lr=1e-06), train loss 0.00584, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:38:36 Epoch 193/200 (lr=1e-06), train loss 0.00607, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:39:56 Epoch 194/200 (lr=1e-06), train loss 0.00610, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:41:14 Epoch 195/200 (lr=1e-06), train loss 0.00616, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:42:32 Epoch 196/200 (lr=1e-06), train loss 0.00601, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:43:49 Epoch 197/200 (lr=1e-06), train loss 0.00597, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:45:07 Epoch 198/200 (lr=1e-06), train loss 0.00611, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:46:25 Epoch 199/200 (lr=1e-06), train loss 0.00594, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:47:42 Training for epoch 200 done, starting evaluation
+2026-04-09 17:48:00 Epoch 200/200 (lr=1e-06), train loss 0.00605, valid loss 0.00736, GPU: 4860.0/12281.5 MiB
+2026-04-09 17:48:00 Model performance:
+2026-04-09 17:48:00   metrics/test.rmse:          35.93
+2026-04-09 17:48:00   metrics/test.rmse_pcutoff:  16.17
+2026-04-09 17:48:00   metrics/test.mAP:           70.35
+2026-04-09 17:48:00   metrics/test.mAR:           74.20
+2026-04-10 10:19:07 Evaluation scorer: DLC_DlcrnetStride32Ms5_BIOMAPMar17shuffle1_snapshot_best-200
+2026-04-10 10:19:07 Evaluation results file: DLC_DlcrnetStride32Ms5_BIOMAPMar17shuffle1_snapshot_best-200-results.csv
+2026-04-10 10:19:07 Evaluation results for DLC_DlcrnetStride32Ms5_BIOMAPMar17shuffle1_snapshot_best-200-results.csv (pcutoff: 0.6):
+2026-04-10 10:19:07 train rmse            35.12
+train rmse_pcutoff    13.44
+train mAP             71.15
+train mAR             74.84
+test rmse             41.41
+test rmse_pcutoff     16.11
+test mAP              70.35
+test mAR              74.20
+Name: (0.95, 1, 200, -1, 0.6), dtype: float64
+2026-04-10 10:20:29 All video files have been cleared.
+2026-04-10 10:20:29 Cleared selected videos
+2026-04-10 10:20:29 All video files have been cleared.
+2026-04-10 10:20:29 Cleared selected videos
+2026-04-10 10:20:29 All video files have been cleared.
+2026-04-10 10:20:29 Cleared selected videos
+2026-04-10 10:20:29 All video files have been cleared.
+2026-04-10 10:20:29 Cleared selected videos
+2026-04-10 10:20:29 All video files have been cleared.
+2026-04-10 10:20:29 Cleared selected videos
+2026-04-10 10:20:29 All video files have been cleared.
+2026-04-10 10:20:29 Cleared selected videos
+2026-04-10 10:20:29 All video files have been cleared.
+2026-04-10 10:20:29 Cleared selected videos
+2026-04-10 10:20:29 All video files have been cleared.
+2026-04-10 10:20:29 Cleared selected videos
+2026-04-10 10:20:29 Video type set to avi
+2026-04-10 10:20:29 Video type set to avi
+2026-04-10 10:20:29 Video type set to avi
+2026-04-10 10:20:29 Video type set to avi
+2026-04-10 10:20:29 Video type set to avi
+2026-04-10 10:20:29 Video type set to avi
+2026-04-10 10:20:29 Video type set to avi
+2026-04-10 10:20:29 Video type set to avi
+2026-04-10 10:20:36 Videos added to analyze:
+{'C:\\Users\\lmbwo\\Desktop\\BIOMAP-Megan_G_-2026-03-17\\videos\\F_Mouse1_Sound-03192026131352-0000.avi'}
+Current video files:
+{'C:\\Users\\lmbwo\\Desktop\\BIOMAP-Megan_G_-2026-03-17\\videos\\F_Mouse1_Sound-03192026131352-0000.avi'}
+2026-04-10 10:20:40 Save results as CSV ENABLED
+2026-04-10 10:20:44 Analyzing videos with C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\dlc-models-pytorch\iteration-0\BIOMAPMar17-trainset95shuffle1\train\snapshot-best-200.pt
+2026-04-10 10:20:45 Using scorer: DLC_DlcrnetStride32Ms5_BIOMAPMar17shuffle1_snapshot_best-200
+2026-04-10 10:20:45 Starting to analyze C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\videos\F_Mouse1_Sound-03192026131352-0000.avi
+2026-04-10 10:20:45 Video metadata: 
+  Overall # of frames:    93411
+  Duration of video [s]:  1809.59
+  fps:                    51.62
+  resolution:             w=1920, h=1200
+
+2026-04-10 10:20:45 Running pose prediction with batch size 8
+2026-04-11 05:04:55 Saving results in C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\videos\F_Mouse1_Sound-03192026131352-0000DLC_DlcrnetStride32Ms5_BIOMAPMar17shuffle1_snapshot_best-200.h5 and C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\videos\F_Mouse1_Sound-03192026131352-0000DLC_DlcrnetStride32Ms5_BIOMAPMar17shuffle1_snapshot_best-200_full.pickle
+2026-04-11 05:04:57 The videos are analyzed. Now your research can truly start!
+You can create labeled videos with 'create_labeled_video'.
+If the tracking is not satisfactory for some videos, consider expanding the training set. You can use the function 'extract_outlier_frames' to extract a few representative outlier frames.
+
+2026-04-13 15:50:33 Starting to process video: C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\videos\F_Mouse1_Sound-03192026131352-0000.avi
+2026-04-13 15:50:33 Loading C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\videos\F_Mouse1_Sound-03192026131352-0000.avi and data.
+2026-04-13 15:50:33 Duration of video [s]: 1809.59, recorded with 51.62 fps!
+2026-04-13 15:50:33 Overall # of frames: 93411 with cropped frame dimensions: 1920 1200
+2026-04-13 15:50:33 Generating frames and creating video.
+2026-04-13 15:50:33 Labeled videos created.
+2026-04-13 15:55:28 Exiting...

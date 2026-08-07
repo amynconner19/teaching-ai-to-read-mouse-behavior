@@ -1,0 +1,174 @@
+# Project definitions (do not edit)
+Task: BIOMAP
+scorer: Megan_G_
+date: Mar17
+multianimalproject: false
+identity:
+
+
+# Project path (change when moving around)
+project_path: C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17
+
+
+# Default DeepLabCut engine to use for shuffle creation (either pytorch or tensorflow)
+engine: pytorch
+
+
+# Annotation data set configuration (and individual video cropping parameters)
+video_sets:
+  C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\videos\F_Mouse1_Baseline-03172026102926-0000.avi:
+    crop: 0, 1920, 0, 1200
+  C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\videos\F_Mouse1_CGRP-03172026104205-0000.avi:
+    crop: 0, 1920, 0, 1200
+  C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\videos\M_Mouse1_Baseline-03172026132319-0000.avi:
+    crop: 0, 1920, 0, 1200
+  C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\videos\M_Mouse1_CGRP-03172026133649-0000.avi:
+    crop: 0, 1920, 0, 1200
+  C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\videos\M_Mouse1_Sound-03172026151221-0000.avi:
+    crop: 0, 1920, 0, 1200
+  C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\videos\M_Mouse2_Baseline-03172026141551-0000.avi:
+    crop: 0, 1920, 0, 1200
+  C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\videos\M_Mouse2_CGRP-03172026143048-0000.avi:
+    crop: 0, 1920, 0, 1200
+  C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\videos\M_Mouse2_Sound-03172026154736-0000.avi:
+    crop: 0, 1920, 0, 1200
+  C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\videos\F_Mouse1_BaselineSaline-03192026095427-0000.avi:
+    crop: 0, 1920, 0, 1200
+  C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\videos\F_Mouse1_Saline-03192026100702-0000.avi:
+    crop: 0, 1920, 0, 1200
+  C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\videos\F_Mouse2_BaselineSaline-03192026104138-0000.avi:
+    crop: 0, 1920, 0, 1200
+  C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\videos\F_Mouse2_Saline-03192026105436-0000.avi:
+    crop: 0, 1920, 0, 1200
+  C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\videos\F_Mouse1_Sound-03192026131352-0000.avi:
+    crop: 0, 1920, 0, 1200
+  C:\Users\lmbwo\Desktop\BIOMAP-Megan_G_-2026-03-17\videos\F_Mouse2_Sound-03192026134635-0000.avi:
+    crop: 0, 1920, 0, 1200
+bodyparts:
+- nosetip
+- nosebot
+- mouth
+- innereye
+- outereye
+- eyeup
+- eyedown
+- earcanal
+- eartip
+- earcenter
+- earmed
+- earlat
+- neck
+
+
+# Fraction of video to start/stop when extracting frames for labeling/refinement
+
+
+# Fraction of video to start/stop when extracting frames for labeling/refinement
+
+
+# Fraction of video to start/stop when extracting frames for labeling/refinement
+
+
+# Fraction of video to start/stop when extracting frames for labeling/refinement
+
+
+# Fraction of video to start/stop when extracting frames for labeling/refinement
+
+
+# Fraction of video to start/stop when extracting frames for labeling/refinement
+
+
+# Fraction of video to start/stop when extracting frames for labeling/refinement
+
+
+# Fraction of video to start/stop when extracting frames for labeling/refinement
+
+
+# Fraction of video to start/stop when extracting frames for labeling/refinement
+
+    # Fraction of video to start/stop when extracting frames for labeling/refinement
+
+
+# Fraction of video to start/stop when extracting frames for labeling/refinement
+
+
+# Fraction of video to start/stop when extracting frames for labeling/refinement
+
+
+# Fraction of video to start/stop when extracting frames for labeling/refinement
+
+
+# Fraction of video to start/stop when extracting frames for labeling/refinement
+
+
+# Fraction of video to start/stop when extracting frames for labeling/refinement
+
+
+# Fraction of video to start/stop when extracting frames for labeling/refinement
+
+
+# Fraction of video to start/stop when extracting frames for labeling/refinement
+start: 0
+stop: 1
+numframes2pick: 200
+
+
+# Plotting configuration
+skeleton:
+- - nosetip
+  - nosebot
+- - mouth
+  - innereye
+- - nosetip
+  - innereye
+- - nosebot
+  - innereye
+- - innereye
+  - outereye
+- - eyeup
+  - eyedown
+- - innereye
+  - earcanal
+- - earcanal
+  - eartip
+- - earmed
+  - earlat
+- - nosetip
+  - neck
+skeleton_color: black
+pcutoff: 0.6
+dotsize: 12
+alphavalue: 0.7
+colormap: rainbow
+
+
+# Training,Evaluation and Analysis configuration
+TrainingFraction:
+- 0.95
+iteration: 0
+default_net_type: dlcrnet_stride32_ms5
+default_augmenter: default
+snapshotindex: -1
+detector_snapshotindex: -1
+batch_size: 8
+detector_batch_size: 1
+
+
+# Cropping Parameters (for analysis and outlier frame detection)
+cropping: false
+#if cropping is true for analysis, then set the values here:
+x1: 0
+x2: 640
+y1: 277
+y2: 624
+
+
+# Refinement configuration (parameters from annotation dataset configuration also relevant in this stage)
+corner2move2:
+- 50
+- 50
+move2corner: true
+
+
+# Conversion tables to fine-tune SuperAnimal weights
+SuperAnimalConversionTables:

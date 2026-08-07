@@ -6,3 +6,4 @@ BIOMAP[[:space:]]Paw[[:space:]]Digits-Megan[[:space:]]G-2026-06-10/** filter=lfs
 *.png filter=lfs diff=lfs merge=lfs -text
 *.csv filter=lfs diff=lfs merge=lfs -text
 *.json filter=lfs diff=lfs merge=lfs -text
+*.pt filter=lfs diff=lfs merge=lfs -text
