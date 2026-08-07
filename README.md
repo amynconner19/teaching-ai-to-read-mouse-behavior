@@ -159,11 +159,11 @@ A fully validated classifier is **not expected** during the BrainHack weekend.
 
 ## Software
 
-- [Software Overview](docs/software/README.md)
-- [Install DeepLabCut](docs/software/INSTALL_DEEPLABCUT.md)
-- [Run DeepLabCut](docs/software/RUN_DEEPLABCUT.md)
-- [Install SimBA](docs/software/INSTALL_SIMBA.md)
-- [Run SimBA](docs/software/RUN_SIMBA.md)
+- [Software Overview](software/README.md)
+- [Install DeepLabCut](software/INSTALL_DEEPLABCUT.md)
+- [Run DeepLabCut](software/RUN_DEEPLABCUT.md)
+- [Install SimBA](software/INSTALL_SIMBA.md)
+- [Run SimBA](software/RUN_SIMBA.md)
 
 ## Analysis
 
