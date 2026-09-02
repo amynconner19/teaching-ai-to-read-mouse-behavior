@@ -28,31 +28,30 @@ Automation will improve reproducibility, standardize analyses, reduce manual eff
 
 # What We Are Automating
 
-```text
 Batch of Behavioral Videos
             │
             ▼
-Run Trained DeepLabCut Models
+Run Two Pretrained DeepLabCut Models
             │
             ▼
-Tracking CSV Files
+Generate Pose-Tracking CSV Files
             │
-            ├───────────────────────┐
-            │                       │
-            ▼                       ▼
-BIOMAP Analysis Scripts           SimBA
-            │                       │
-            ▼                       ▼
-Facial & Body Metrics       Complex Behaviors
-            │                       │
-            └───────────┬───────────┘
-                        ▼
-               Manual Post-Processing
-                        ▼
-               Manual Figure Generation
-                        ▼
-              Manual Statistical Preparation
-```
+            ├──────────────────────────┐
+            │                          │
+            ▼                          ▼
+Run BIOMAP Analysis Scripts    Run SimBA Classification
+            │                          │
+            ▼                          ▼
+Generate Facial and Body       Generate Complex
+Behavior Metrics               Behavior Metrics
+            │                          │
+            └────────────┬─────────────┘
+                         ▼
+                Post-Processing
+                         ▼
+                Figure Generation
+                         ▼
+               Statistical Preparation
 
 See the [Current Workflow](docs/CURRENT_WORKFLOW.md) for additional details.
 
