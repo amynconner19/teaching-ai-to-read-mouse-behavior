@@ -19,32 +19,35 @@ flowchart TD
     C["Run Paw-Tracking DeepLabCut Model"]
     D["Generate Facial and Body Tracking CSV"]
     E["Generate Paw-Tracking CSV"]
-    F["Run BIOMAP Sound Assay Analysis"]
-    G["Run SimBA Behavioral Classification"]
-    H["Calculate Facial and Body Metrics"]
-    I["Calculate Complex Behavior Metrics"]
-    J["Calculate Change From Baseline"]
-    K["Manually Process Outputs"]
-    L["Manually Calculate Composite Scores"]
-    M["Generate Figures"]
-    N["Perform Statistical Analyses"]
-    O["Final Results"]
+    F["Both Tracking CSV Files Generated"]
+    G["Run BIOMAP Sound Assay Analysis"]
+    H["Run SimBA Behavioral Classification"]
+    I["Calculate Facial and Body Metrics"]
+    J["Calculate Complex Behavior Metrics"]
+    K["Calculate Change From Baseline"]
+    L["Manually Process Outputs"]
+    M["Manually Calculate Composite Scores"]
+    N["Generate Figures"]
+    O["Perform Statistical Analyses"]
+    P["Final Results"]
 
     A --> B
     A --> C
     B --> D
     C --> E
     D --> F
-    E --> G
+    E --> F
+    F --> G
     F --> H
     G --> I
     H --> J
-    J --> K
+    I --> K
     K --> L
     L --> M
-    I --> M
     M --> N
+    J --> N
     N --> O
+    O --> P
 ```
 
 ### BIOMAP outputs
