@@ -22,40 +22,38 @@ Once started, the pipeline should automatically complete the remaining analysis 
 
 # Desired Pipeline
 
-From the researcher's perspective, the entire workflow should be reduced to one input, one command, and one standardized set of outputs.
+From the researcher’s perspective, the entire workflow should be reduced to one input, one command, and one standardized set of outputs.
 
-```text
-┌──────────────────────────────────────────────┐
-│ INPUT                                        │
-│                                              │
-│ • Batch of behavioral videos                 │
-│ • Video metadata and randomized sound order  │
-│ • Experimental epoch definitions             │
-└──────────────────────┬───────────────────────┘
-                       │
-                       ▼
-        ┌────────────────────────────────┐
-        │                                │
-        │  biomap analyze raw_videos/    │
-        │                                │
-        │  Automated BIOMAP Pipeline     │
-        │                                │
-        └────────────────┬───────────────┘
-                         │
-                         ▼
-┌──────────────────────────────────────────────┐
-│ OUTPUT                                       │
-│                                              │
-│ • Individual facial-grimace measurements     │
-│ • Individual body-position measurements      │
-│ • Complex-behavior measurements              │
-│ • Facial Grimace composite scores            │
-│ • Body Position composite scores              │
-│ • Publication-quality figures                │
-│ • Analysis-ready datasets                    │
-│ • Quality-control reports                    │
-└──────────────────────────────────────────────┘
+```mermaid
+flowchart TD
+    subgraph INPUT["INPUT"]
+        A["Batch of Behavioral Videos"]
+        B["Video Metadata and Randomized Sound Order"]
+        C["Experimental Epoch Definitions"]
+    end
 
+    D["Run One Command: biomap analyze raw_videos/"]
+    E["Automated BIOMAP Pipeline"]
+
+    subgraph OUTPUT["STANDARDIZED OUTPUTS"]
+        F["Facial-Grimace and Body-Position Measurements"]
+        G["Complex Behavior Measurements"]
+        H["Facial Grimace and Body Position Composite Scores"]
+        I["Publication-Quality Figures"]
+        J["Analysis-Ready Datasets"]
+        K["Quality-Control Reports"]
+    end
+
+    A --> D
+    B --> D
+    C --> D
+    D --> E
+    E --> F
+    E --> G
+    E --> H
+    E --> I
+    E --> J
+    E --> K
 ```
 ---
 
