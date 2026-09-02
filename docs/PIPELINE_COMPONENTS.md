@@ -10,26 +10,23 @@ This document breaks the workflow into independent components that contributors 
 
 # Pipeline Summary
 
-```text
-Batch of Behavioral Videos
-            │
-            ▼
-Run Trained DeepLabCut Models
-            │
-            ▼
-Tracking CSV Files
-            │
-      ┌─────┴─────┐
-      │           │
-      ▼           ▼
-BIOMAP Analysis   SimBA Analysis
-      │           │
-      └─────┬─────┘
-            ▼
-     Figure Generation
-            │
-            ▼
-   Analysis-Ready Outputs
+```mermaid
+flowchart TD
+    A["Input a Batch of Behavioral Videos"]
+    B["Run Two Pretrained DeepLabCut Models"]
+    C["Generate Tracking CSV Files"]
+    D["Run BIOMAP Analysis"]
+    E["Run SimBA Analysis"]
+    F["Generate Figures"]
+    G["Export Analysis-Ready Outputs"]
+
+    A --> B
+    B --> C
+    C --> D
+    C --> E
+    D --> F
+    E --> F
+    F --> G
 ```
 
 ---
