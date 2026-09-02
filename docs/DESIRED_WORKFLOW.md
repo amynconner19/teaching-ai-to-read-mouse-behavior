@@ -85,24 +85,6 @@ results/
 ```
 ---
 
-# BrainHack Objectives
-
-BrainHack participants are **not expected to complete the entire pipeline during one weekend**.
-
-Instead, the goal is to make meaningful progress toward this long-term vision by:
-
-- Automating execution of the trained DeepLabCut models.
-- Connecting existing software packages into a unified workflow.
-- Automating baseline normalization.
-- Automating manual post-processing steps.
-- Automating composite score calculation.
-- Automating figure generation.
-- Standardizing metadata handling.
-- Improving documentation and reproducibility.
-- Identifying future development priorities.
-
----
-
 # Design Principles
 
 The BIOMAP pipeline should be:
