@@ -147,18 +147,3 @@ Potential tasks:
 
 ---
 
-# Suggested BrainHack Priorities
-
-## High Priority
-
-1. Automate DeepLabCut execution
-2. Integrate the BIOMAP analysis pipeline
-3. Automate SimBA execution
-4. Generate publication-quality figures
-5. Build an end-to-end analysis pipeline
-
-## Stretch Goals
-
-- Improve inactive behavioral-state classification
-- Develop a command-line interface
-- Support additional experimental designs
