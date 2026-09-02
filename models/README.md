@@ -1,48 +1,44 @@
 # BIOMAP DeepLabCut Models
 
-This directory contains the pretrained DeepLabCut (DLC) models used in the BIOMAP workflow.
+This directory contains two pretrained DeepLabCut (DLC) projects used in the BIOMAP workflow.
 
-BIOMAP uses two pretrained DeepLabCut projects for pose estimation. Both models have already been trained and should be used as provided.
+Each project includes a `videos/` folder containing the experimental video to analyze. Use the existing model in that project to analyze the video in its corresponding `videos/` folder.
 
-**You do not need to create a new DeepLabCut project or train a new model.**
+The models are already trained. No model creation or retraining is required.
 
-## Pretrained Models
-
-### 1. BIOMAP Paw Digits
+## Model 1 — BIOMAP Paw Digits
 
 ```text
-BIOMAP Paw Digits-Megan G-2026-06-10/
+models/BIOMAP Paw Digits-Megan G-2026-06-10/
 ```
 
-This DeepLabCut project contains the pretrained model used to track paw, digit, and other body landmarks required for the BIOMAP workflow.
+This model tracks paw, digit, and other body landmarks used in the BIOMAP analysis.
 
-### 2. BIOMAP
+Analyze the video located in:
 
 ```text
-BIOMAP-Megan_G_-2026-03-17/
+models/BIOMAP Paw Digits-Megan G-2026-06-10/videos/
 ```
 
-This directory contains the second pretrained DeepLabCut model used in the BIOMAP workflow.
-
-## Downloading the Models
-
-Clone or download the complete `teaching-ai-to-read-mouse-behavior` repository.
-
-The pretrained DeepLabCut projects are located under:
+## Model 2 — BIOMAP
 
 ```text
-models/
+models/BIOMAP-Megan_G_-2026-03-17/
 ```
 
-Keep the contents and internal directory structure of each DeepLabCut project intact.
+This is the second pose-estimation model used in the BIOMAP workflow.
 
-Do not rename or reorganize the files or directories within either project.
+Analyze the video located in:
 
-## Updating the DeepLabCut Project Paths
+```text
+models/BIOMAP-Megan_G_-2026-03-17/videos/
+```
 
-DeepLabCut stores the location of each project in its `config.yaml` file.
+## Setup
 
-Because these projects were created on a different computer, you must update `project_path` before using each model.
+Clone or download the complete `teaching-ai-to-read-mouse-behavior` repository and keep the internal structure of both projects intact.
+
+DeepLabCut stores the location of each project in its `config.yaml` file. Because these projects were created on another computer, update the `project_path` in each configuration file before running the models.
 
 ### BIOMAP Paw Digits
 
@@ -52,21 +48,15 @@ Open:
 models/BIOMAP Paw Digits-Megan G-2026-06-10/config.yaml
 ```
 
-Change:
+Change `project_path` to the location of this project folder on your computer.
 
-```yaml
-project_path: C:\Users\lmbwo\Desktop\BIOMAP Paw Digits-Megan G-2026-06-10
-```
-
-to the location of this folder on your computer.
-
-For example, on Windows:
+Windows example:
 
 ```yaml
 project_path: C:\Users\YourUsername\Desktop\teaching-ai-to-read-mouse-behavior\models\BIOMAP Paw Digits-Megan G-2026-06-10
 ```
 
-or on macOS:
+macOS example:
 
 ```yaml
 project_path: /Users/YourUsername/Desktop/teaching-ai-to-read-mouse-behavior/models/BIOMAP Paw Digits-Megan G-2026-06-10
@@ -80,45 +70,36 @@ Open:
 models/BIOMAP-Megan_G_-2026-03-17/config.yaml
 ```
 
-Similarly, update its `project_path` to the location of the `BIOMAP-Megan_G_-2026-03-17` folder on your computer.
+Update `project_path` to the location of the `BIOMAP-Megan_G_-2026-03-17` folder on your computer.
 
-Your exact paths will depend on where you cloned or downloaded the repository.
+## Analyze the Videos
 
-## Original Training Videos
+For each project:
 
-The original videos used to train the DeepLabCut models are not included in this repository because of their large file sizes.
+1. Open its existing `config.yaml` file in DeepLabCut.
+2. Select **Analyze videos**.
+3. Select the video inside that project’s `videos/` folder.
+4. Run the pretrained model.
+5. Keep the resulting tracking files in the project’s `videos/` folder for the next stage of the BIOMAP workflow.
 
-You may therefore see paths to the original training videos under `video_sets` in the DeepLabCut `config.yaml` files.
+Repeat these steps using both pretrained projects.
 
-These paths do not need to be changed when using the pretrained models to analyze new videos.
+## About `video_sets`
 
-**Do not replace the entries under `video_sets` with the videos you want to analyze.**
+The `video_sets` section of each `config.yaml` may contain paths to the original training videos. Those videos are not included because of their large file sizes.
 
-## Using the Models
+These entries are part of the original project configuration and are not the videos being analyzed during this exercise. They can remain unchanged.
 
-For the BIOMAP workflow:
+## Project Structure
 
-1. Install DeepLabCut according to the installation instructions provided in this repository.
-2. Download or clone this repository.
-3. Locate the pretrained projects in `models/`.
-4. Update `project_path` in each project's `config.yaml`.
-5. Use the existing `config.yaml` files and pretrained models to analyze the provided experimental videos.
-6. Do not create new DeepLabCut projects.
-7. Do not retrain the models.
-
-The resulting DeepLabCut tracking data will be used in subsequent steps of the BIOMAP workflow.
-
-## Important
-
-Do not modify the internal DeepLabCut project structure.
-
-Directories such as:
+Keep the model folders and their contents in their original locations, including:
 
 ```text
 dlc-models-pytorch/
 training-datasets/
 labeled-data/
 evaluation-results-pytorch/
+videos/
 ```
 
-are part of the pretrained DeepLabCut projects and should remain in their original locations.
+The DeepLabCut tracking files generated from the provided videos will be used in subsequent BIOMAP analysis steps.
