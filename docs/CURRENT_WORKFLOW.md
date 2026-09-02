@@ -91,17 +91,3 @@ The following steps currently require manual user interaction:
 | Statistical analysis | Manual |
 
 ---
-
-# Current Limitations
-
-The current workflow:
-
-- Requires running multiple software packages independently.
-- Requires manual file management between analysis steps.
-- Requires user-specified frame ranges for each experimental condition.
-- Requires manual correction of nose-tip crossing measurements.
-- Requires manual calculation of composite Facial Grimace and Body Position scores.
-- Requires manual figure generation and statistical analysis. 
-- Is difficult to reproduce consistently across researchers and laboratories.
-
-These limitations motivate the development of an automated, reproducible BIOMAP analysis pipeline.
