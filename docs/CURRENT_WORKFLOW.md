@@ -12,57 +12,61 @@ The purpose of this document is to describe the current workflow and identify op
 
 # Current Workflow
 
-```text
-                    Batch of Behavioral Videos
-                                │
-                ┌───────────────┴───────────────┐
-                │                               │
-                ▼                               ▼
-   Run trained DeepLabCut model       Run trained DeepLabCut model
-      for facial/body tracking             for paw tracking
-                │                               │
-                ▼                               ▼
-   Facial/body tracking CSV              Paw tracking CSV
-                │                               │
-                │                               │
-                │              ┌────────────────┘
-                │              │
-                ▼              ▼
-      BIOMAP Analysis Script                SimBA
-     ("Sound Assay Analysis")      Behavioral Classification
-                │                               │
-                ▼                               ▼
- Calculate individual facial &         Calculate complex
- body-position measurements          behavioral metrics
- (Ear Ratio, Eye Ratio, etc.)      (Grooming, Rearing,
-                │                  Pausing, Respiration)
-                ▼
- Calculate percent change from
- baseline for each sound-level
- condition
-                │
-                ▼
- Manual post-processing
- • Convert cumulative nose-tip
-   crossings to epoch-specific counts
- • Normalize the 10-minute baseline
-   to a 2-minute equivalent
-                │
-                ▼
- Manual composite score calculation
- • Facial Grimace Score
- • Body Position Score
-                │
-                └───────────────┬───────────────┐
-                                ▼
-                    Manual Figure Generation
-                                │
-                                ▼
-                    Manual Statistical Analysis
-                                │
-                                ▼
-                           Final Results
+```mermaid
+flowchart TD
+    A["Input a Batch of Behavioral Videos"]
+    B["Run Facial and Body DeepLabCut Model"]
+    C["Run Paw-Tracking DeepLabCut Model"]
+    D["Generate Facial and Body Tracking CSV"]
+    E["Generate Paw-Tracking CSV"]
+    F["Run BIOMAP Sound Assay Analysis"]
+    G["Run SimBA Behavioral Classification"]
+    H["Calculate Facial and Body Metrics"]
+    I["Calculate Complex Behavior Metrics"]
+    J["Calculate Change From Baseline"]
+    K["Manually Process Outputs"]
+    L["Manually Calculate Composite Scores"]
+    M["Generate Figures"]
+    N["Perform Statistical Analyses"]
+    O["Final Results"]
+
+    A --> B
+    A --> C
+    B --> D
+    C --> E
+    D --> F
+    E --> G
+    F --> H
+    G --> I
+    H --> J
+    J --> K
+    K --> L
+    L --> M
+    I --> M
+    M --> N
+    N --> O
 ```
+
+### BIOMAP outputs
+
+- Individual facial and body-position metrics, including Ear Ratio and Eye Ratio
+- Percent change from baseline for each sound-level condition
+- Facial Grimace and Body Position composite scores
+
+### SimBA outputs
+
+- Grooming
+- Rearing
+- Pausing
+- Respiration
+
+### Current manual processing
+
+- Convert cumulative nose-tip crossings into epoch-specific counts
+- Normalize the 10-minute baseline to a 2-minute equivalent
+- Calculate composite scores
+- Generate figures
+- Perform statistical analyses
 
 ---
 
