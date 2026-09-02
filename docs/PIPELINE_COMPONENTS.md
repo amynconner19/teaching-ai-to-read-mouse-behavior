@@ -16,7 +16,7 @@ flowchart TD
     B["Run Two Pretrained DeepLabCut Models"]
     C["Generate Tracking CSV Files"]
     D["Run BIOMAP Analysis"]
-    E["Run SimBA Analysis"]
+    E["Run Pretrained SimBA Model"]
     F["Generate Figures"]
     G["Export Analysis-Ready Outputs"]
 
