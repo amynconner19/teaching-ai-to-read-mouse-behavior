@@ -2,211 +2,95 @@
 
 ## Overview
 
-BIOMAP behavioral videos contain a no-sound baseline period followed by alternating sound and silence periods.
+BIOMAP recordings contain:
 
-The order of sound levels is randomized across experimental days. Therefore, the analysis pipeline cannot assume that sound levels always occur in the same sequence.
+* A 10-minute no-sound baseline
+* Multiple 2-minute sound presentations
+* A 2-minute silence period after each sound
 
-A metadata file is needed to describe the order and timing of experimental conditions for each recording.
+Sound levels are presented in a randomized order each experimental day. The analysis pipeline must therefore use metadata—not epoch position—to identify each condition.
 
----
+## Recording Timeline
 
-# Experimental Timeline
-
-Each recording begins with a 10-minute baseline period with no sound.
-
-This is followed by multiple 2-minute sound presentations. Each sound presentation is followed by a 2-minute silence period.
-
-A simplified recording may look like:
-
-```text
-10 minutes
-Baseline — No Sound
-        │
-        ▼
-2 minutes
-Sound Level A
-        │
-        ▼
-2 minutes
-Silence
-        │
-        ▼
-2 minutes
-Sound Level B
-        │
-        ▼
-2 minutes
-Silence
-        │
-        ▼
-2 minutes
-Sound Level C
-        │
-        ▼
-2 minutes
-Silence
-        │
-        ▼
-...
+```mermaid
+flowchart TD
+    A["Baseline<br/>No Sound · 10 min"] --> B["Sound Epoch<br/>Randomized Level · 2 min"]
+    B --> C["Silence Epoch<br/>No Sound · 2 min"]
+    C --> D{"Additional<br/>Sound Levels?"}
+    D -->|Yes| B
+    D -->|No| E["Recording Complete"]
 ```
 
-The order of Sound Level A, Sound Level B, Sound Level C, and later conditions is randomized for each experimental day.
-
-For example:
+Example randomized orders:
 
 ```text
-Experiment Day 1:
-Baseline → 90 dB → Silence → 70 dB → Silence → 110 dB → Silence
-
-Experiment Day 2:
-Baseline → 110 dB → Silence → 90 dB → Silence → 70 dB → Silence
+Day 1: Baseline → 90 dB → Silence → 70 dB → Silence → 110 dB
+Day 2: Baseline → 110 dB → Silence → 90 dB → Silence → 70 dB
 ```
 
----
+## Metadata Requirements
 
-# Why Randomized Sound Order Matters
+Each recording needs a metadata file identifying the condition and timing of every experimental epoch.
 
-The pipeline cannot assign conditions based only on their position in the video.
+Recommended fields:
 
-For example, the first sound period cannot automatically be labeled `70_dB`, because it may be `90_dB`, `100_dB`, or another level depending on the randomized experimental order.
+| Field                 | Description                             |
+| --------------------- | --------------------------------------- |
+| `video_id`            | Unique recording identifier             |
+| `file_name`           | Video filename                          |
+| `mouse_id`            | Animal identifier                       |
+| `experimental_date`   | Date of recording                       |
+| `experimental_group`  | Experimental group                      |
+| `sex`                 | Animal sex                              |
+| `frame_rate`          | Verified video frame rate               |
+| `epoch_order`         | Chronological epoch number              |
+| `condition`           | Condition label                         |
+| `sound_level_db`      | Sound level, if applicable              |
+| `epoch_type`          | Baseline, sound, or silence             |
+| `start_frame`         | First frame of the epoch                |
+| `end_frame`           | Frame immediately after the epoch       |
+| `duration_s`          | Epoch duration in seconds               |
+| `preceding_condition` | Previous experimental condition         |
+| `exclude`             | Whether the epoch should be excluded    |
+| `notes`               | Interruptions or other relevant details |
 
-Each recording therefore requires metadata describing:
-
-- Video identity
-- Experimental date
-- Sound-level order
-- Start time or start frame for each epoch
-- End time or end frame for each epoch
-- Silence periods
-- Baseline period
-- Any excluded or interrupted periods
-
----
-
-# Experimental Epochs
-
-An epoch is a defined period of the video associated with one experimental condition.
-
-Typical BIOMAP epochs include:
-
-- Baseline
-- Sound presentation
-- Silence after sound
-- Additional sound presentation
-- Additional silence period
-
-Each epoch should have:
-
-- A unique order number
-- A condition label
-- A start frame
-- An end frame
-- A duration
-- Any relevant notes
-
----
-
-# Example Metadata File
-
-A CSV file may be used to define the experimental epochs.
+## Example Metadata
 
 ```csv
-video_id,file_name,epoch_order,condition,start_frame,end_frame,duration_s
-mouse01,mouse01.mp4,1,baseline,0,18000,600
-mouse01,mouse01.mp4,2,90_dB,18001,21600,120
-mouse01,mouse01.mp4,3,silence_after_90,21601,25200,120
-mouse01,mouse01.mp4,4,110_dB,25201,28800,120
-mouse01,mouse01.mp4,5,silence_after_110,28801,32400,120
+video_id,file_name,epoch_order,condition,sound_level_db,epoch_type,start_frame,end_frame,duration_s,exclude
+mouse01,mouse01.mp4,1,baseline,,baseline,0,18000,600,false
+mouse01,mouse01.mp4,2,90_dB,90,sound,18000,21600,120,false
+mouse01,mouse01.mp4,3,silence_after_90,,silence,21600,25200,120,false
+mouse01,mouse01.mp4,4,110_dB,110,sound,25200,28800,120,false
+mouse01,mouse01.mp4,5,silence_after_110,,silence,28800,32400,120,false
 ```
 
-This example assumes a frame rate of 30 frames per second.
+This example assumes a frame rate of 30 frames per second and treats `end_frame` as exclusive. Actual frame ranges must be based on the verified frame rate and experimental timing.
 
-The actual frame numbers must be based on the recording's verified frame rate and experimental timing.
+## Epoch Identification
 
----
+The current BIOMAP script requires users to enter start and stop frames manually.
 
-# Start and Stop Frames
+The desired pipeline should instead read epoch boundaries from metadata generated through one of the following methods:
 
-The current BIOMAP analysis script requires the user to enter start and stop frames for each experimental condition.
+1. Manual entry after each experiment
+2. Timestamps exported from the acquisition software
+3. Conversion of timestamps to video frames
+4. Automatic event detection using a synchronized trigger
 
-The desired pipeline should instead read these values from metadata.
+## Baseline Comparison
 
-Possible approaches include:
+The 10-minute baseline is the reference condition for each 2-minute sound or silence epoch.
 
-1. Manually create a metadata file after each experiment.
-2. Export event timestamps from the acquisition software.
-3. Convert recorded timestamps into video frame numbers.
-4. Automatically detect experimental events if a synchronized trigger is available.
+Averages, ratios, angles, percentages, and other duration-independent measurements can be compared using the established BIOMAP method.
 
-The most appropriate approach will depend on the available acquisition records.
+Count-based measurements must first be adjusted for the difference in epoch duration.
 
----
+### Nose-Tip Crossing Example
 
-# Baseline Period
+The nose-tip crossing output is cumulative. Counts for each epoch must therefore be calculated by subtracting the cumulative value at the start of the epoch from the value at the end.
 
-The baseline is a 10-minute period with no sound.
-
-It is used as the reference condition for calculating behavioral change during later sound and silence epochs.
-
-For many measurements, the pipeline calculates:
-
-```text
-Percent Change from Baseline
-```
-
-for each experimental condition.
-
----
-
-# Comparing the Baseline with 2-Minute Epochs
-
-The baseline is 10 minutes long, while sound and silence epochs are 2 minutes long.
-
-For measurements expressed as averages, ratios, angles, percentages, or other values that are not inherently duration-dependent, the baseline summary may be compared directly with condition-specific summaries using the established BIOMAP method.
-
-For count-based measures, the duration difference must be handled explicitly.
-
----
-
-# Nose-Tip Crossing Example
-
-The nose-tip crossing output is cumulative across the video.
-
-Suppose:
-
-```text
-Cumulative crossings at the end of baseline: 45
-Cumulative crossings at the end of 90 dB:    67
-```
-
-The number of crossings during the 90 dB epoch is:
-
-```text
-67 - 45 = 22 crossings
-```
-
-The 10-minute baseline must also be converted to a 2-minute equivalent.
-
-Because 10 minutes contains five 2-minute periods:
-
-```text
-45 ÷ 5 = 9 crossings per 2 minutes
-```
-
-The comparison is therefore:
-
-```text
-Baseline: 9 crossings per 2 minutes
-90 dB:   22 crossings per 2 minutes
-```
-
----
-
-# Later Epochs
-
-For every later condition, the number of crossings within that epoch is calculated by subtracting the cumulative count at the start of the epoch from the cumulative count at the end.
-
-Example:
+Example cumulative values:
 
 ```text
 End of baseline:             45
@@ -215,129 +99,76 @@ End of silence after 90 dB:  81
 End of 110 dB:              100
 ```
 
-Condition-specific crossing counts are:
+Calculated epoch counts:
 
 ```text
-Baseline, 2-minute equivalent: 45 ÷ 5 = 9
-90 dB:                         67 - 45 = 22
-Silence after 90 dB:           81 - 67 = 14
-110 dB:                       100 - 81 = 19
+Baseline per 2 minutes: 45 ÷ 5 = 9
+90 dB:                  67 − 45 = 22
+Silence after 90 dB:    81 − 67 = 14
+110 dB:                100 − 81 = 19
 ```
 
----
+General calculation:
 
-# Baseline Normalization
+```text
+Epoch Count =
+Cumulative Count at End − Cumulative Count at Start
+```
 
-The desired pipeline should calculate baseline-normalized behavioral measurements for each condition.
+Because the baseline is 10 minutes long, its total count is divided by five to produce a 2-minute equivalent.
 
-For a measurement expressed as percent change from baseline:
+## Baseline Normalization
+
+For measurements reported as percent change from baseline:
 
 ```text
 Percent Change =
-((Condition Value - Baseline Value) / Baseline Value) × 100
+((Condition Value − Baseline Value) / Baseline Value) × 100
 ```
 
-The exact sign convention and calculation method should remain consistent with the existing BIOMAP analysis script.
+The calculation and sign convention should remain consistent with the existing BIOMAP analysis script.
 
 The pipeline should preserve:
 
-- Raw baseline value
-- Raw condition value
-- Corrected condition value, when applicable
-- Percent change from baseline
-- Experimental condition label
+* Raw baseline value
+* Raw condition value
+* Corrected condition value, when applicable
+* Percent change from baseline
+* Experimental condition label
 
----
-
-# Recommended Metadata Fields
-
-A video-level metadata file may include:
-
-```text
-video_id
-file_name
-mouse_id
-experimental_date
-experimental_group
-sex
-frame_rate
-baseline_start
-baseline_end
-sound_order
-notes
-```
-
-An epoch-level metadata file may include:
-
-```text
-video_id
-epoch_order
-condition
-sound_level_db
-epoch_type
-start_frame
-end_frame
-duration_s
-preceding_condition
-exclude
-notes
-```
-
----
-
-# Example Epoch-Level Metadata
-
-```csv
-video_id,epoch_order,condition,sound_level_db,epoch_type,start_frame,end_frame,duration_s,exclude
-mouse01,1,baseline,,baseline,0,18000,600,false
-mouse01,2,90_dB,90,sound,18001,21600,120,false
-mouse01,3,silence_after_90,,silence,21601,25200,120,false
-mouse01,4,110_dB,110,sound,25201,28800,120,false
-mouse01,5,silence_after_110,,silence,28801,32400,120,false
-```
-
----
-
-# Validation Checks
+## Validation Checks
 
 Before analysis, the pipeline should verify that:
 
-- Every video has metadata.
-- Every epoch has a start and end frame.
-- Epochs do not overlap.
-- Epochs occur in chronological order.
-- End frames are greater than start frames.
-- Frame ranges do not exceed the video length.
-- The baseline duration is approximately 10 minutes.
-- Sound and silence durations are approximately 2 minutes.
-- Every sound epoch has the correct sound-level label.
-- Randomized sound order is preserved.
-- Excluded epochs are clearly marked.
-- The frame rate is known.
+* Every video has matching metadata
+* The frame rate is known
+* Every epoch has valid start and end frames
+* Epochs occur in chronological order
+* Epochs do not overlap
+* Frame ranges do not exceed the video length
+* The baseline is approximately 10 minutes
+* Sound and silence epochs are approximately 2 minutes
+* Every sound epoch has the correct sound-level label
+* The randomized sound order is preserved
+* Excluded or interrupted epochs are clearly marked
 
----
+## BrainHack Development Tasks
 
-# BrainHack Opportunities
+Potential development tasks include:
 
-Potential BrainHack tasks include:
+* Design the metadata schema and templates
+* Match videos with metadata files
+* Import timestamps from acquisition software
+* Convert timestamps to frame numbers
+* Detect missing or overlapping epochs
+* Flag incorrect epoch durations
+* Automate count-based corrections
+* Generate a visual timeline for each recording
+* Produce clear validation warnings
 
-- Designing the metadata schema
-- Creating metadata templates
-- Validating metadata automatically
-- Converting timestamps to frame numbers
-- Detecting missing or overlapping epochs
-- Matching videos to metadata files
-- Automating nose-tip crossing correction
-- Generating a visual timeline for each recording
-- Producing warnings for incorrect epoch durations
+## Desired Workflow
 
----
-
-# Desired Outcome
-
-The user should not need to manually enter start and stop frames every time the BIOMAP analysis script is run.
-
-Instead, the user should provide:
+The user should not need to enter start and stop frames each time the BIOMAP analysis is run.
 
 ```bash
 biomap analyze \
@@ -345,4 +176,10 @@ biomap analyze \
     --metadata data/video_manifest.csv
 ```
 
-The pipeline should then use the metadata to identify every baseline, sound, and silence epoch automatically.
+The pipeline should then:
+
+1. Match each video to its metadata
+2. Identify all baseline, sound, and silence epochs
+3. Preserve the randomized sound-level order
+4. Apply the appropriate baseline and duration corrections
+5. Run the BIOMAP analysis automatically
