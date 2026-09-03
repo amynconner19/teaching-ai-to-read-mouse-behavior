@@ -149,9 +149,11 @@ The goal is not to finish the entire pipeline in one weekend. Contributions that
 1. Read the [BIOMAP bioRxiv Preprint](paper/BIOMAP_Biorxiv.pdf)
 2. Review the [Current Workflow](docs/CURRENT_WORKFLOW.md)
 3. Explore the [Desired Workflow](docs/DESIRED_WORKFLOW.md)
-4. Follow the [Software Overview](software/README.md)
-5. Browse the repository’s **Issues** tab
-6. 🎉 Start hacking!
+4. Watch the [Current BIOMAP Pipeline Tutorial](biomap-tutorial/README.md)
+5. Download the [Example Behavioral Video](videos/README.md)
+6. Follow the [Software Overview and Setup Instructions](software/README.md)
+7. Browse the repository’s **Issues** tab to select a task
+8. 🎉 Start hacking!
 
 ---
 
