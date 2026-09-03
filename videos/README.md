@@ -1,10 +1,10 @@
-# Example Videos
+# Example Video
 
-This folder provides example behavioral videos for developing and testing the automated BIOMAP pipeline.
+This folder provides example behavioral video for developing and testing the automated BIOMAP pipeline.
 
 ## Download
 
-📥 [Download the example behavioral video from Google Drive](https://drive.google.com/file/d/1f8y_uXNYOb40_Jp7LwBjLqWS94HDiFoX/view?usp=drive_link)
+📥 [Download the example behavioral video from Google Drive](https://drive.google.com/file/d/1w2l9ZiiBPIbYl2EyvN27BHWj-Yq1zH_2/view?usp=drive_link)
 
 ## Intended Use
 
