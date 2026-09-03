@@ -13,6 +13,7 @@ After downloading the video, copy it into the `videos/` folder of **both** DeepL
 ```text
 models/BIOMAP Paw Digits-Megan G-2026-06-10/videos/
 models/BIOMAP-Megan_G_-2026-03-17/videos/
+```
 
 ## Model 1 — BIOMAP Paw Digits
 
