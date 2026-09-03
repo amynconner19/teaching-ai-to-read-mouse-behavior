@@ -12,7 +12,7 @@ simba-model/BIOMAPComplexPawNosetip/
 
 Before running this project:
 
-1. Download the example behavioral video.
+1. [Download the example behavioral video from Google Drive](https://drive.google.com/file/d/1w2l9ZiiBPIbYl2EyvN27BHWj-Yq1zH_2/view?usp=drive_link)
 2. Analyze the video using both pretrained DeepLabCut models described in the [DeepLabCut model instructions](../deeplabcut-models/README.md).
 3. Prepare the combined DeepLabCut tracking CSV required by SimBA.
 
