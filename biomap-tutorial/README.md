@@ -5,12 +5,14 @@ This video demonstrates the current manual BIOMAP workflow that the BrainHack pr
 The walkthrough shows:
 
 - Which programs must be opened
-- Which project and data files must be selected
+- Which files and projects must be selected
 - Which pretrained DeepLabCut models must be run
-- Which pretrained SimBA models must be run
+- How the resulting tracking files are processed
+- How BIOMAP and SimBA analyses are completed
+- Which figures and analysis-ready outputs are generated
 
 ## Video Walkthrough
 
-[Watch the BIOMAP pipeline tutorial](biomap-pipeline-walkthrough.mp4)
+▶️ [Watch the BIOMAP Pipeline Tutorial]((https://youtu.be/DparydJ-zg4))
 
-> This recording documents the existing manual workflow. The project goal is to convert these steps into a reproducible, automated pipeline.
+> This recording documents the current manual workflow. The project goal is to convert these steps into a reproducible, automated pipeline.
