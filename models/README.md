@@ -2,9 +2,17 @@
 
 This directory contains two pretrained DeepLabCut (DLC) projects used in the BIOMAP workflow.
 
-Each project includes a `videos/` folder containing the experimental video to analyze. Use the existing model in that project to analyze the video in its corresponding `videos/` folder.
-
 The models are already trained. No model creation or retraining is required.
+
+## Example Video
+
+[Download the example behavioral video from Google Drive](https://drive.google.com/file/d/1w2l9ZiiBPIbYl2EyvN27BHWj-Yq1zH_2/view?usp=drive_link)
+
+After downloading the video, copy it into the `videos/` folder of **both** DeepLabCut projects:
+
+```text
+models/BIOMAP Paw Digits-Megan G-2026-06-10/videos/
+models/BIOMAP-Megan_G_-2026-03-17/videos/
 
 ## Model 1 — BIOMAP Paw Digits
 
