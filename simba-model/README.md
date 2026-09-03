@@ -25,8 +25,6 @@ The CSV imported into SimBA must contain tracking data from both pretrained Deep
 
 Use the BIOMAP Paw Digits CSV as the primary file and append the nose-tip coordinate and likelihood columns from the BIOMAP model output. Ensure the rows remain aligned by video frame.
 
-The resulting combined CSV should contain the paw, digit, body, and nose-tip landmarks expected by the SimBA project. Do not import the two model outputs as separate videos.
-
 This process is demonstrated in the [BIOMAP Pipeline Video Tutorial](../biomap-tutorial/README.md).
 
 ## Update the SimBA Project Paths
