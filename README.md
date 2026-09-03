@@ -33,7 +33,7 @@ flowchart TD
     A["Input a Batch of Behavioral Videos"]
     B["Run Two Pretrained DeepLabCut Models"]
     C["Generate Pose-Tracking CSV Files"]
-    D["Run BIOMAP Analysis Scripts"]
+    D["Run Analysis Script"]
     E["Run SimBA Classification"]
     F["Generate Facial and Body Behavior Metrics"]
     G["Generate Complex Behavior Metrics"]
