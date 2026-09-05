@@ -1,1 +1,6 @@
-test_setting: true
+# Input directory with .avi files
+input: "input"
+base_project: "../deeplabcut-models/BIOMAP-Megan_G_-2026-03-17"
+
+# Output directory with everything
+output: "output"
