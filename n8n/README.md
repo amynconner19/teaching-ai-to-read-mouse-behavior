@@ -17,12 +17,23 @@ n8n does not implement feature calculations, pose estimation, classification, or
 other scientific analysis. The workflow delegates those operations to `biomap analyze`,
 which orchestrates the existing DeepLabCut, BIOMAP, and SimBA scripts.
 
+The n8n integration therefore requires the pipeline implementation—and its
+`biomap analyze` CLI—to already be available in the checkout. Installing n8n alone does
+not install or implement the BIOMAP pipeline.
+
 ## Contents
 
 - `n8n_biomap_workflow.json` — importable two-node hackathon workflow.
 - `setup/start_n8n_macos.sh` — portable macOS startup helper.
 - `setup/environment.example` — example environment variables.
 - `docs/BIOMAP_N8N_SETUP.md` — complete local setup and operating instructions.
+
+## Fresh machine / first-time setup
+
+For the complete path from a new checkout through the first workflow run, see
+[Fresh machine / first-time setup](docs/BIOMAP_N8N_SETUP.md#fresh-machine--first-time-setup).
+It covers Node.js 24, n8n, Miniforge, the required Conda environments, workflow import,
+and common setup failures.
 
 ## Import the workflow
 
