@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+repo_root="$(cd -- "${script_dir}/../.." && pwd)"
+
+export BIOMAP_REPO="${repo_root}"
+export BIOMAP_DLC_ENV="biomap-dlc"
+export BIOMAP_SIMBA_ENV="biomap-simba"
+export N8N_BLOCK_ENV_ACCESS_IN_NODE="false"
+export NODES_EXCLUDE="[]"
+
+if ! command -v n8n >/dev/null 2>&1; then
+    echo "n8n is not installed or is not on PATH. Install it with: npm install --global n8n" >&2
+    exit 127
+fi
+
+exec n8n start
