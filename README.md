@@ -155,6 +155,23 @@ The goal is not to finish the entire pipeline in one weekend. Contributions that
 7. Browse the repository’s **Issues** tab to select a task
 8. 🎉 Start hacking!
 
+## Automated DeepLabCut Quick Start
+
+The initial Snakemake workflow runs every input video through both pretrained
+DeepLabCut models without opening the GUI.
+
+1. Put videos in `data/raw_videos/`.
+2. Activate an environment containing Snakemake.
+3. From the repository root, run:
+
+```bash
+snakemake --use-conda --cores 1
+```
+
+Apple-silicon Macs use CPU analysis by default to avoid the current PyTorch MPS
+error. See the [automated workflow guide](workflow/README.md) for dry runs,
+NVIDIA GPU configuration, output locations, and Git LFS instructions.
+
 ---
 
 # Acknowledgments

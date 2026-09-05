@@ -1,0 +1,19 @@
+# Example configuration for a Windows/Linux workstation with an NVIDIA GPU.
+video_dir: data/raw_videos
+output_dir: results/deeplabcut
+video_extensions:
+  - .avi
+  - .mp4
+  - .mov
+device: cuda:0
+batch_size: 8
+
+models:
+  nose:
+    config: deeplabcut-models/BIOMAP-Megan_G_-2026-03-17/config.yaml
+    shuffle: 1
+    trainingsetindex: 0
+  paw_digits:
+    config: deeplabcut-models/BIOMAP Paw Digits-Megan G-2026-06-10/config.yaml
+    shuffle: 1
+    trainingsetindex: 0

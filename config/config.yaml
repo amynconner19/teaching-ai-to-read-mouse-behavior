@@ -1,0 +1,21 @@
+# Default configuration for Apple-silicon Macs.
+# CPU is intentional: DeepLabCut 3.0.1 can fail on MPS with
+# "torch.mps has no attribute current_device".
+video_dir: data/raw_videos
+output_dir: results/deeplabcut
+video_extensions:
+  - .avi
+  - .mp4
+  - .mov
+device: cpu
+batch_size: 1
+
+models:
+  nose:
+    config: deeplabcut-models/BIOMAP-Megan_G_-2026-03-17/config.yaml
+    shuffle: 1
+    trainingsetindex: 0
+  paw_digits:
+    config: deeplabcut-models/BIOMAP Paw Digits-Megan G-2026-06-10/config.yaml
+    shuffle: 1
+    trainingsetindex: 0
