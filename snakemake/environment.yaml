@@ -1,0 +1,9 @@
+name: teaching-ai-to-mouse-behavior
+
+channels:
+  - conda-forge
+  - bioconda
+
+dependencies:
+  - python>=3.12
+  - snakemake>=9.26.1
