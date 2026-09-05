@@ -32,6 +32,8 @@ pip install simba-uw-tf-dev
 
 ## Usage 
 
+Put your videos in `input/videos/*.avi`.
+
 To run the default rule `all`:
 
 ```
