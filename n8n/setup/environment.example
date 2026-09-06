@@ -1,6 +1,23 @@
+# Environment for the BIOMAP DeepLabCut n8n runner.
+#
+# These are reference values, not a file that is read automatically. Export the
+# four BIOMAP_* variables in the SAME shell that starts n8n; exports do not
+# carry into another Terminal window. start_n8n_macos.sh preserves any value
+# already exported and fills in the rest.
+#
+# Absolute path to this checkout. Leave blank to let the startup script derive
+# it from its own location.
 BIOMAP_REPO=
+# Directory scanned for input videos. Leave blank to default to $BIOMAP_REPO/videos.
 BIOMAP_VIDEO_DIR=
+# Conda environment entered with `conda run` for DeepLabCut inference.
 BIOMAP_DLC_ENV=biomap-dlc
+# Device passed straight to DeepLabCut. `cpu` is the validated Mac path: the
+# checkpoints were serialized on CUDA and fail to deserialize on a non-CUDA
+# machine unless the device is set explicitly. The runner never auto-selects
+# CUDA or MPS.
 BIOMAP_DLC_DEVICE=cpu
+# Allow the Execute Command node to read the variables above.
 N8N_BLOCK_ENV_ACCESS_IN_NODE=false
+# Do not exclude any node types, so Execute Command stays available.
 NODES_EXCLUDE=[]

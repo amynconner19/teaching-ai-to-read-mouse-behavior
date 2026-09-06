@@ -15,6 +15,40 @@ class DlcCsvError(ValueError):
     """Raised when a DeepLabCut CSV cannot safely enter the pipeline."""
 
 
+def video_stem(path: Path | str) -> str:
+    """The video a DeepLabCut CSV belongs to.
+
+    DeepLabCut names outputs ``<video><scorer>.csv``, where the scorer always
+    begins with ``DLC``. Everything before that marker identifies the video.
+    """
+
+    stem = Path(path).stem
+    return stem.split("DLC", 1)[0]
+
+
+def index_by_video(directory: Path | str) -> dict[str, Path]:
+    """Map video stem -> DeepLabCut CSV for every CSV in a directory.
+
+    Two CSVs describing the same video are refused rather than resolved by
+    guessing, so a stale scorer left beside a new one can never be silently
+    reused as a cached result.
+    """
+
+    directory = Path(directory)
+    if not directory.is_dir():
+        raise DlcCsvError(f"DeepLabCut CSV directory does not exist: {directory}")
+    index: dict[str, Path] = {}
+    for path in sorted(directory.glob("*.csv")):
+        stem = video_stem(path)
+        if stem in index:
+            raise DlcCsvError(
+                f"Two DeepLabCut CSVs in {directory} describe video '{stem}': "
+                f"{index[stem].name} and {path.name}"
+            )
+        index[stem] = path
+    return index
+
+
 @dataclass(frozen=True)
 class DlcCsv:
     """A validated DLC table with dynamic body-part column mappings."""

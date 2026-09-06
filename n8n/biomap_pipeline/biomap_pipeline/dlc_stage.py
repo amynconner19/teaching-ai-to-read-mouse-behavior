@@ -6,7 +6,7 @@ disposable runtime mirror under ``n8n/biomap_pipeline/results/.work/dlc`` whose
 field to the config's own directory, so the config can only live inside a
 project-shaped directory), copies the small YAML files and symlinks the large
 snapshot files. Inference itself runs through :mod:`biomap_pipeline.dlc_headless`
-inside the configured Conda environment, exactly as the SimBA stage does.
+inside the Conda environment named by ``BIOMAP_DLC_ENV``.
 
 Every scientific parameter comes from the project: ``snapshotindex``,
 ``TrainingFraction``, ``iteration``, body parts, and cropping are read by
@@ -27,10 +27,21 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable
 
-from .dlc_csv import DlcCsvError, validate_dlc_csv
-from .dlc_merge import index_by_video, video_stem
+from .dlc_csv import DlcCsvError, index_by_video, validate_dlc_csv, video_stem
 from .paths import CONTRIBUTION_ROOT, ContributionPaths
-from .states import DlcStageError
+
+
+class DlcStageError(RuntimeError):
+    """A DeepLabCut stage cannot run, or its output is unusable.
+
+    ``next_action`` carries the operator instruction for this specific
+    failure, for example the exact ``git lfs pull`` that materializes a model
+    file. It stays ``None`` when the caller supplies a generic instruction.
+    """
+
+    def __init__(self, message: str, next_action: str | None = None) -> None:
+        super().__init__(message)
+        self.next_action = next_action
 
 
 #: Directory in the checkout that holds both pretrained projects.
@@ -39,7 +50,7 @@ DLC_MODELS_DIRNAME = "deeplabcut-models"
 #: Marker line the headless runner prints once DeepLabCut returns its scorer.
 SCORER_PREFIX = "BIOMAP_DLC_SCORER="
 
-#: Body parts SimBA needs from the PawDigits project (nosetip comes from facial).
+#: Body parts the pretrained PawDigits project tracks.
 PAW_BODY_PARTS = (
     "front_right_finger_tip",
     "right_wrist",
@@ -119,6 +130,16 @@ def dlc_models() -> tuple[DlcModel, ...]:
             required_body_parts=FACIAL_BODY_PARTS,
         ),
     )
+
+
+def paw_model() -> DlcModel:
+    """The PawDigits model, the only one this contribution currently runs.
+
+    The facial descriptor above is inert data describing the second pretrained
+    project; nothing in this contribution executes it.
+    """
+
+    return next(model for model in dlc_models() if model.key == "paw")
 
 
 def is_lfs_pointer(path: Path) -> bool:
@@ -346,7 +367,7 @@ class DlcStage:
                     f"{exc}. DeepLabCut left {empty} tracking cell(s) empty, which is "
                     "how it records keypoints below its detection threshold (NaN). "
                     "The pipeline's tracking contract rejects NaN, so a NaN policy "
-                    "(for example SimBA's import interpolation) must be decided "
+                    "(interpolation at import time, for example) must be decided "
                     "before this output can continue."
                 ) from exc
             raise
@@ -585,20 +606,50 @@ def count_empty_tracking_cells(csv_path: Path) -> int:
     return sum(1 for row in rows[3:] for cell in row[1:] if not cell.strip())
 
 
-def _count_frames_if_avi(video_path: Path) -> int | None:
-    """Frame count from the AVI header, or ``None`` when it cannot be read.
+def count_avi_frames(video_path: Path) -> int | None:
+    """Frame count for an AVI via OpenCV, or ``None`` when it is unavailable.
 
-    The SimBA stage enforces the frame count against the merged CSV with its
-    own error reporting; here an unreadable header only disables the early
-    check rather than failing the DeepLabCut stage.
+    OpenCV ships with the DeepLabCut environment, but the orchestrator may run
+    under an interpreter that lacks it. Every failure path returns ``None`` and
+    explains itself, because this count is only an extra cross-check on cached
+    tracking; DeepLabCut itself always reads the video directly.
     """
+
+    try:
+        import cv2
+    except ImportError:
+        print(
+            "[DLC] frame count unavailable: OpenCV is not importable in this "
+            "interpreter; skipping the cached frame-count cross-check",
+            flush=True,
+        )
+        return None
+
+    capture = cv2.VideoCapture(str(video_path))
+    try:
+        if not capture.isOpened():
+            print(
+                f"[DLC] frame count unavailable: OpenCV cannot open {video_path}",
+                flush=True,
+            )
+            return None
+        count = int(capture.get(cv2.CAP_PROP_FRAME_COUNT))
+    finally:
+        capture.release()
+
+    if count < 1:
+        print(
+            f"[DLC] frame count unavailable: OpenCV reported {count} frames for "
+            f"{video_path}",
+            flush=True,
+        )
+        return None
+    return count
+
+
+def _count_frames_if_avi(video_path: Path) -> int | None:
+    """Frame count for AVI input only; other containers skip the check."""
 
     if video_path.suffix.lower() != ".avi":
         return None
-    from .simba_stage import SimbaStageError, count_avi_frames
-
-    try:
-        return count_avi_frames(video_path)
-    except SimbaStageError as exc:
-        print(f"[DLC] frame count unavailable from AVI header; SimBA will verify it: {exc}", flush=True)
-        return None
+    return count_avi_frames(video_path)
