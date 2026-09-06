@@ -1,5 +1,6 @@
-BIOMAP_REPO=/absolute/path/to/teaching-ai-to-read-mouse-behavior
+BIOMAP_REPO=
+BIOMAP_VIDEO_DIR=
 BIOMAP_DLC_ENV=biomap-dlc
-BIOMAP_SIMBA_ENV=biomap-simba
+BIOMAP_DLC_DEVICE=cpu
 N8N_BLOCK_ENV_ACCESS_IN_NODE=false
 NODES_EXCLUDE=[]

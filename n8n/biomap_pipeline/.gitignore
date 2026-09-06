@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+# All runtime data: logs, tracking CSVs, disposable DLC/SimBA workspaces,
+# caches, status files, and generated classifier outputs.
+/results/

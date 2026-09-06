@@ -1,255 +1,265 @@
-# BIOMAP n8n setup on macOS
+# BIOMAP DeepLabCut n8n setup
 
-This guide installs n8n directly on macOS and connects it to the existing BIOMAP
-command-line pipeline. n8n is only the automation and orchestration layer; it does not
-contain or replace any scientific calculations.
+This guide takes a new researcher from a clone to the simplified, self-hosted
+n8n workflow:
 
-The integration requires the pipeline implementation and its `biomap analyze` CLI to
-already be available in the repository checkout. The n8n files do not install or
-implement that CLI, DeepLabCut analysis, SimBA inference, feature calculations, or
-report generation.
-
-## Fresh machine / first-time setup
-
-Follow these steps on a Mac that has not previously run n8n.
-
-1. Clone the repository and enter the checkout:
-
-   ```bash
-   git clone <repository-url>
-   cd teaching-ai-to-read-mouse-behavior
-   ```
-
-2. Install Node.js 24 using the macOS installer from the Node.js website or a Node
-   version manager. Confirm that Node 24 and npm are available:
-
-   ```bash
-   node --version
-   npm --version
-   ```
-
-3. Install n8n globally with npm and verify the command:
-
-   ```bash
-   npm install --global n8n
-   n8n --version
-   ```
-
-4. Install the Apple Silicon Miniforge distribution, initialize Conda for the shell,
-   and open a new terminal. Confirm that Conda is available:
-
-   ```bash
-   conda --version
-   ```
-
-5. Verify that the two pipeline environments already exist and are runnable:
-
-   ```bash
-   conda env list
-   conda run -n biomap-dlc python --version
-   conda run -n biomap-simba python --version
-   ```
-
-   Their required names are `biomap-dlc` and `biomap-simba`. Environment creation and
-   scientific dependency installation belong to the BIOMAP pipeline implementation,
-   not to n8n.
-
-6. Verify that this checkout includes the pipeline CLI:
-
-   ```bash
-   ./biomap --help
-   ./biomap analyze --help
-   ```
-
-   If `./biomap` is absent, obtain or merge the BIOMAP pipeline implementation before
-   continuing. This n8n integration cannot run independently of that implementation.
-
-7. Start n8n with the repository helper:
-
-   ```bash
-   ./n8n/setup/start_n8n_macos.sh
-   ```
-
-8. Open [http://localhost:5678](http://localhost:5678) in a browser.
-
-9. In the n8n workflow menu, choose **Import from File** and select:
-
-   ```text
-   n8n/n8n_biomap_workflow.json
-   ```
-
-10. Open **Run BIOMAP Pipeline**, confirm its input directory and flags, save the
-    workflow, and run it from the Manual Trigger.
-
-For a safe first check, temporarily use `./biomap analyze videos/ --dry-run` in the
-Execute Command node. It validates the orchestration command without starting
-DeepLabCut or SimBA inference.
-
-## Prerequisites
-
-### Node.js 24 and n8n
-
-This setup uses Node.js 24. Confirm that Node and npm are available:
-
-```bash
-node --version
-npm --version
+```text
+Manual Trigger → Pipeline Inputs → Run DeepLabCut
 ```
 
-Install n8n globally with npm:
+The current workflow runs only the pretrained PawDigits DeepLabCut model. It
+does not run facial tracking, merge DLC files, start SimBA, or route BIOMAP
+terminal states.
+
+## 1. Clone and materialize model files
+
+```bash
+git clone <repository-url>
+cd teaching-ai-to-read-mouse-behavior
+git lfs install
+git lfs pull --include="deeplabcut-models/BIOMAP Paw Digits-Megan G-2026-06-10/**"
+```
+
+The required scientific configuration is:
+
+```text
+deeplabcut-models/BIOMAP Paw Digits-Megan G-2026-06-10/config.yaml
+```
+
+Do not edit the model configuration, trained weights, or project files for the
+n8n integration. The runner creates an ignored runtime mirror instead.
+
+To detect an unmaterialized LFS pointer:
+
+```bash
+head -n 1 "deeplabcut-models/BIOMAP Paw Digits-Megan G-2026-06-10/config.yaml"
+```
+
+`version https://git-lfs.github.com/spec/v1` means the real file is not present.
+
+## 2. Install local prerequisites
+
+Install:
+
+- Conda or Miniforge
+- a working `biomap-dlc` environment containing the repository-compatible
+  DeepLabCut and PyTorch versions
+- Node.js and self-hosted n8n
+
+Example n8n installation:
 
 ```bash
 npm install --global n8n
 n8n --version
 ```
 
-### Miniforge and Conda environments
-
-Install Miniforge for the native macOS architecture and initialize Conda for the shell.
-The BIOMAP wrappers expect these existing environment names:
-
-```text
-biomap-dlc
-biomap-simba
-```
-
-Confirm both environments are visible before starting n8n:
+Confirm the DLC environment without running inference:
 
 ```bash
 conda env list
+conda run -n biomap-dlc python -c 'import deeplabcut; print(deeplabcut.__version__)'
 ```
 
-The environments contain the scientific dependencies. n8n should not install or
-replace DeepLabCut, SimBA, model files, or their dependencies.
+The workflow does not assume the shell or n8n process is already activated in
+`biomap-dlc`. The DLC subprocess enters it through `conda run`.
 
-## Start n8n locally
+## 3. Provide an AVI input
 
-From the repository root, run:
+Place or mount the input AVI in a local directory readable by n8n. Videos are
+runtime data and must not be committed.
+
+AVI input has been validated through OpenCV and real DeepLabCut CPU inference
+startup. The sample development video contained 116451 frames; a full run can
+take tens of minutes.
+
+## 4. Configure the environment
+
+Set these variables in the same shell that starts n8n:
+
+```bash
+export BIOMAP_REPO="/path/to/teaching-ai-to-read-mouse-behavior"
+export BIOMAP_VIDEO_DIR="$BIOMAP_REPO/videos"
+export BIOMAP_DLC_ENV="biomap-dlc"
+export BIOMAP_DLC_DEVICE="cpu"
+```
+
+Portable placeholders are also provided in `n8n/setup/environment.example`.
+The supplied startup helper preserves values already set in the environment;
+otherwise it derives `BIOMAP_REPO` and `BIOMAP_VIDEO_DIR` from its own location
+and defaults the environment and device to `biomap-dlc` and `cpu`.
+
+CPU is intentional for the validated Mac path. These checkpoints were saved on
+CUDA, and an explicit `device="cpu"` prevents CUDA deserialization failures.
+The code does not automatically choose CUDA or MPS.
+
+## 5. Start self-hosted n8n
+
+From the repository root:
 
 ```bash
 ./n8n/setup/start_n8n_macos.sh
 ```
 
-The helper derives the repository root from its own location, exports the BIOMAP Conda
-environment names, enables environment access in workflow nodes, enables the Execute
-Command node, and then runs `n8n start`.
+The helper starts n8n with the repository as its working directory and enables
+the Execute Command node and environment access. Keep this terminal open.
 
-For reference, `n8n/setup/environment.example` lists the variables without personal
-paths. The startup helper sets them automatically for its n8n process.
+## 6. Import the workflow
 
-Open the editor URL shown by n8n and import `n8n/n8n_biomap_workflow.json` using the
-workflow menu's **Import from File** action.
+1. Open the local n8n editor, normally <http://localhost:5678>.
+2. Choose **Import from File**.
+3. Select `n8n/n8n_biomap_workflow.json`.
+4. Save **BIOMAP DeepLabCut Runner**.
 
-## Execute Command usage
-
-The supplied workflow has one scientific execution path:
+The JSON contains exactly:
 
 ```text
-Manual Trigger → Run BIOMAP Pipeline
+Manual Trigger → Pipeline Inputs → Run DeepLabCut
 ```
 
-The Execute Command node changes to `BIOMAP_REPO` and invokes the repository-local CLI.
-This keeps Conda activation and all pipeline stages in the BIOMAP orchestration code
-rather than duplicating them in n8n.
+`Pipeline Inputs` exposes only `video_dir`, derived from
+`BIOMAP_VIDEO_DIR`. There are no stale SimBA or state-routing nodes.
 
-Recommended production command:
+## 7. Execute
+
+Click **Execute workflow**. The stored command is:
 
 ```bash
-./biomap analyze videos/ --resume
+/bin/bash -lc '
+set -o pipefail
+: "${BIOMAP_REPO:?BIOMAP_REPO is required}"
+: "${BIOMAP_VIDEO_DIR:?BIOMAP_VIDEO_DIR is required}"
+: "${BIOMAP_DLC_ENV:?BIOMAP_DLC_ENV is required}"
+: "${BIOMAP_DLC_DEVICE:?BIOMAP_DLC_DEVICE is required}"
+cd "$BIOMAP_REPO" || exit 70
+mkdir -p n8n/biomap_pipeline/results/logs || exit 71
+PYTHONUNBUFFERED=1 BIOMAP_DLC_ENV="$BIOMAP_DLC_ENV" BIOMAP_DLC_DEVICE="$BIOMAP_DLC_DEVICE" \
+  ./n8n/biomap_pipeline/biomap dlc "$BIOMAP_VIDEO_DIR" --resume 2>&1 \
+  | tee n8n/biomap_pipeline/results/logs/dlc_live.log
+'
 ```
 
-Hackathon/demo command using cached tracking outputs:
+The `biomap dlc` entry point runs only PawDigits. It builds a disposable runtime
+project, then launches this API inside `BIOMAP_DLC_ENV`:
+
+```python
+deeplabcut.analyze_videos(
+    config,
+    [video],
+    video_extensions=".avi",
+    shuffle=1,
+    trainingsetindex=0,
+    save_as_csv=True,
+    destfolder=prediction_directory,
+    device=device,
+)
+```
+
+The model's existing snapshot, body parts, training fraction, cropping, and
+other scientific settings remain authoritative.
+
+## 8. Monitor progress
+
+In another terminal:
 
 ```bash
-./biomap analyze videos/ --resume --demo
+tail -f "$BIOMAP_REPO/n8n/biomap_pipeline/results/logs/dlc_live.log"
 ```
 
-Safe validation command that prints commands and paths without executing the pipeline:
+Development-machine example only:
 
 ```bash
-./biomap analyze videos/ --dry-run
+tail -f "/Users/jkathila/Desktop/work/teaching-ai-to-read-mouse-behavior/n8n/biomap_pipeline/results/logs/dlc_live.log"
 ```
 
-To use a different input directory, replace `videos/` in the Execute Command node with
-the desired path. Quote paths that contain spaces.
+Expected output includes:
 
-## Operational notes
+```text
+[n8n] DeepLabCut command started
+[DLC Paw] START
+[Python] DeepLabCut imported
+[DLC Paw] DeepLabCut <version>; device cpu
+[DLC Paw] Analyzing videos with ...
+[DLC Paw] Running pose prediction with batch size 8
+[DLC Paw] 47/116451
+```
 
-- DeepLabCut inference can be long-running. Use `--resume` to reuse verified completed
-  stages and `--demo` when suitable cached tracking outputs are available.
-- SimBA requires the existing project ROI setup, including the scientifically defined
-  `AboveFloor` ROI, before headless inference can complete.
-- A non-zero CLI exit status makes the Execute Command node fail. The CLI output names
-  the failed stage and expected output location.
-- Run n8n under the same macOS user that can access the repository, Conda installation,
-  input videos, models, and output directories.
-- Replace the Manual Trigger with an appropriate file or external trigger later without
-  expanding the scientific pipeline into separate n8n nodes.
+Output is unbuffered through `PYTHONUNBUFFERED=1`, `python -u`, and
+`conda run --no-capture-output`. stdout and stderr are combined and streamed
+through `tee`.
 
-## Troubleshooting
+## 9. Resume behavior and outputs
 
-### `n8n: command not found`
+The workflow always supplies `--resume`. For each video:
 
-Confirm that the global npm installation succeeded:
+- a verified Paw CSV is logged as `SKIP_CACHED` and reused;
+- missing output starts inference;
+- an empty, partial, malformed, wrong-body-part, or wrong-frame-count CSV is
+  rejected and inference starts again.
+
+Runtime locations, all ignored by Git:
+
+```text
+n8n/biomap_pipeline/results/logs/dlc_live.log
+n8n/biomap_pipeline/results/.work/dlc/
+n8n/biomap_pipeline/results/tracking/paw/
+```
+
+## 10. Troubleshooting
+
+### Empty DLC environment
+
+Symptom:
+
+```text
+ArgumentError: Argument --name requires a value
+```
+
+Set `BIOMAP_DLC_ENV=biomap-dlc` before starting n8n. The supplied workflow
+also checks for the variable and fails clearly when it is absent.
+
+### CUDA checkpoint error on Mac
+
+Symptom:
+
+```text
+Attempting to deserialize object on a CUDA device but torch.cuda.is_available() is False
+```
+
+Set and export:
 
 ```bash
-npm install --global n8n
-npm prefix --global
+BIOMAP_DLC_DEVICE=cpu
 ```
 
-The global npm `bin` directory must be on `PATH`. Open a new terminal after installing
-n8n, then rerun `n8n --version`. If Node was installed with a version manager, activate
-Node 24 in the same shell before starting n8n.
+MPS fallback does not solve CUDA checkpoint deserialization.
 
-### `conda: command not found`
+### Git LFS pointer text
 
-Confirm Miniforge is installed and initialize it for the default macOS shell:
+If a required model file begins with the Git LFS URL, run the scoped
+`git lfs pull` command from step 1. Do not stage the resulting local model-file
+changes with the n8n PR.
+
+### Blank live log
+
+- Confirm the workflow execution is active.
+- Confirm `Run DeepLabCut` still contains `2>&1 | tee`.
+- Confirm `n8n/biomap_pipeline/results/logs/` is writable.
+- Confirm n8n inherited all four required environment variables.
+
+### Conda is unavailable to n8n
+
+Start n8n from a shell where `conda --version` succeeds. The workflow does not
+require manual activation of `biomap-dlc`, but the `conda` executable must be on
+`PATH`.
+
+## 11. Lightweight validation
+
+These checks do not run DeepLabCut inference:
 
 ```bash
-"$HOME/miniforge3/bin/conda" init zsh
+cd n8n/biomap_pipeline
+python -m unittest discover -s tests -v
+python -m json.tool ../n8n_biomap_workflow.json >/dev/null
+cd ../..
+git diff --check -- n8n/
 ```
-
-Close and reopen the terminal, then run `conda --version`. If Miniforge was installed
-somewhere else, substitute that installation path.
-
-### `biomap: command not found`
-
-The supplied workflow uses the repository-local `./biomap` launcher, not a scientific
-implementation supplied by n8n. From the repository root, check:
-
-```bash
-test -x ./biomap
-./biomap analyze --help
-```
-
-If the file is missing, obtain or merge the BIOMAP pipeline implementation. If the file
-exists but is not executable, correct its executable permission in the pipeline
-implementation rather than replacing it with logic inside the n8n workflow.
-
-### Missing `biomap-dlc` or `biomap-simba`
-
-List and probe the environments:
-
-```bash
-conda env list
-conda run -n biomap-dlc python --version
-conda run -n biomap-simba python --version
-```
-
-Create the missing environment using the validated environment definition supplied by
-the BIOMAP pipeline implementation. Keep the exact names because the orchestration CLI
-uses them. Do not install scientific packages ad hoc from the n8n workflow.
-
-### `localhost:5678` is not opening
-
-Keep the terminal running `start_n8n_macos.sh` open and inspect it for startup errors.
-Confirm that n8n is listening on the expected port:
-
-```bash
-lsof -nP -iTCP:5678 -sTCP:LISTEN
-```
-
-If nothing is listening, resolve the terminal error and restart the helper. If another
-process owns port 5678, stop that service or configure n8n to use an available port,
-then open the corresponding localhost URL. Also confirm that the URL uses `http`, not
-`https`.
