@@ -1,3 +1,100 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6923faccb9bbd8f1d24aa728e1ff252459ffa15ad1bfeee136b3621e4ac034cd
-size 2907
+# Project definitions (do not edit)
+Task: BIOMAP Paw Digits
+scorer: Megan G
+date: Jun10
+multianimalproject: false
+identity:
+
+
+# Project path (change when moving around)
+project_path: C:\Users\lmbwo\Desktop\BIOMAP Paw Digits-Megan G-2026-06-10
+
+
+# Default DeepLabCut engine to use for shuffle creation (either pytorch or tensorflow)
+engine: pytorch
+
+
+# Annotation data set configuration (and individual video cropping parameters)
+video_sets:
+  C:\Users\lmbwo\Desktop\BIOMAP Paw Digits-Megan G-2026-06-10\videos\female_controlmouse2_baseline-05062026170234-0000.avi:
+    crop: 0, 1360, 0, 820
+  C:\Users\lmbwo\Desktop\BIOMAP Paw Digits-Megan G-2026-06-10\videos\female_controlmouse3_baseline-05062026173807-0000.avi:
+    crop: 0, 1360, 0, 820
+  C:\Users\lmbwo\Desktop\BIOMAP Paw Digits-Megan G-2026-06-10\videos\female_mouse1_baseline-05052026131946-0000.avi:
+    crop: 0, 1360, 0, 820
+  C:\Users\lmbwo\Desktop\BIOMAP Paw Digits-Megan G-2026-06-10\videos\female_mouse2_baseline-05052026135431-0000.avi:
+    crop: 0, 1360, 0, 820
+  C:\Users\lmbwo\Desktop\BIOMAP Paw Digits-Megan G-2026-06-10\videos\male_controlmouse1_baseline-05062026143633-0000.avi:
+    crop: 0, 1360, 0, 820
+  C:\Users\lmbwo\Desktop\BIOMAP Paw Digits-Megan G-2026-06-10\videos\male_controlmouse2_baseline-05062026151038-0000.avi:
+    crop: 0, 1360, 0, 820
+  C:\Users\lmbwo\Desktop\BIOMAP Paw Digits-Megan G-2026-06-10\videos\male_mouse3_baseline-05052026111904-0000.avi:
+    crop: 0, 1360, 0, 820
+  C:\Users\lmbwo\Desktop\BIOMAP Paw Digits-Megan G-2026-06-10\videos\male_mouse4_baseline-05052026115715-0000.avi:
+    crop: 0, 1360, 0, 820
+bodyparts:
+- front_right_finger_tip
+- right_wrist
+- front_left_finger_tip
+- left_wrist
+- back_right_toe_tip
+- right_heel
+- back_left_toe_tip
+- left_heel
+- tail_base
+- back
+
+# Fraction of video to start/stop when extracting frames for labeling/refinement
+start: 0
+stop: 1
+numframes2pick: 200
+
+
+# Plotting configuration
+skeleton:
+- - front_right_finger_tip
+  - right_wrist
+- - front_left_finger_tip
+  - left_wrist
+- - back_right_toe_tip
+  - right_heel
+- - back_left_toe_tip
+  - left_heel
+
+skeleton_color: black
+pcutoff: 0.6
+dotsize: 12
+alphavalue: 0.7
+colormap: rainbow
+
+
+# Training,Evaluation and Analysis configuration
+TrainingFraction:
+- 0.95
+iteration: 0
+default_net_type: resnet_50
+default_augmenter: default
+snapshotindex: -1
+detector_snapshotindex: -1
+batch_size: 8
+detector_batch_size: 1
+
+
+# Cropping Parameters (for analysis and outlier frame detection)
+cropping: false
+#if cropping is true for analysis, then set the values here:
+x1: 0
+x2: 640
+y1: 277
+y2: 624
+
+
+# Refinement configuration (parameters from annotation dataset configuration also relevant in this stage)
+corner2move2:
+- 50
+- 50
+move2corner: true
+
+
+# Conversion tables to fine-tune SuperAnimal weights
+SuperAnimalConversionTables:
