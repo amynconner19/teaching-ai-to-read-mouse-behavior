@@ -34,7 +34,13 @@ pip install simba-uw-tf-dev
 
 Put your videos in `input/videos/*.avi`.
 
-To run the default rule `all`:
+To run everything up to the GUI step, use the rule `run_all_preprocessing`:
+
+```
+snakemake --cores 2 --use-conda run_all_preprocessing
+```
+
+Then finish with the rest of the processing after you have finished the GUI step:
 
 ```
 snakemake --cores 2 --use-conda

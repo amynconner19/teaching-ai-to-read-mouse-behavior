@@ -13,6 +13,14 @@ rule all:
             video_name=VIDEO_NAMES
         )
 
+# This rule runs everything up to the GUI step
+rule run_preprocessing:
+    input:
+        expand(
+            f"{config['output']}/{{video_name}}.csv",
+            video_name=VIDEO_NAMES
+        )
+
 rule copy_base_project:
     input:
         base=config["base_project"]
