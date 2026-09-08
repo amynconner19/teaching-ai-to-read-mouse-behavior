@@ -1,4 +1,19 @@
 #!/usr/bin/env bash
+#
+# Launcher for self-hosted n8n with the BIOMAP DeepLabCut variables set.
+#
+# This script is NOT a dependency installer. It does:
+#   - derive or preserve BIOMAP_REPO and BIOMAP_VIDEO_DIR
+#   - set or preserve BIOMAP_DLC_ENV and BIOMAP_DLC_DEVICE
+#   - configure n8n environment access for the Execute Command node
+#   - start the local n8n server with the repository as working directory
+#
+# It does NOT install Git, Git LFS, Miniforge/Conda, Node.js, n8n, DeepLabCut,
+# or PyTorch, and it never creates the biomap-dlc environment or materializes
+# Git LFS model files. Install those first; see n8n/docs/BIOMAP_N8N_SETUP.md.
+#
+# Values already exported in the calling shell take precedence.
+
 set -euo pipefail
 
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
